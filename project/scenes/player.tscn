@@ -31,6 +31,6 @@ position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 limit_left = 0
 limit_top = -100
-limit_right = 2880
+limit_right = 5760
 limit_bottom = 360
 editor_draw_limits = true

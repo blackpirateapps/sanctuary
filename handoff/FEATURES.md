@@ -16,17 +16,27 @@
 
 ## 2. World & Environmental Visuals
 
+* **World Scale & Biome Journey:**
+  * Total reachable world width: **5,760 px** (9 screen-widths, 16:9 640×360 viewport base).
+  * **Sanctuary Forest (`x = 0..950`):** Ancient sacred ground, lush stone platforms, amber braziers, and the Sacred Altar.
+  * **Transition Mire (`x = 950..1650`):** Dynamic S-curve smoothstep crossfade between Forest and Swamp parallax layers and ambient lighting.
+  * **Zone 1: Murky Outskirts (`x = 1650..2700`):** Modular ridges, gnarled swamp trees, weeping willows, and the Corrupted Monolith (`[B] Urge Trial`).
+  * **Zone 2: Sunken Canopy & Stilt Walkways (`x = 2700..4200`):** Tall ridges (Ridges 4 & 6), multi-tier wooden plank platforms, ladders, waving tattered banners (`Flag.png`), collectible Spirit Coins, and the interactive Corrupted Cache chest (`[E]`).
+  * **Zone 3: Abyssal Heart & Void Sanctum (`x = 4200..5760`):** Deep mist dispersion (`SwampMistParticles`), ancient sunken megaliths, dense thorny thickets (bushes & grass), and the Abyssal Relic Altar (`[E] Commune with Void Relic`).
 * **Parallax Sky & Forest:**
-  * 4 distinct layers: `BG-1` (Sky gradient), `BG-2` (Distant mountains), `BG-3` (Midground forest canopy), and `BG-4` (Foreground mist).
-  * Seamless horizontal mirroring (`Vector2(640, 0)`).
-* **Lit Braziers:**
+  * 4 forest layers + 5 corrupted swamp layers with seamless horizontal mirroring (`Vector2(640, 0)`).
+* **Lit Braziers (13 Total):**
   * Animated 6-frame flame cycle (`hframes = 6`) with real-time normal maps.
-  * Multi-frequency light flicker interacting with stone platforms.
-* **Floating Spores (`CPUParticles2D`):**
-  * 45 continuous ambient particles drifting upward across the valley.
-* **The Sacred Altar:**
-  * Located at `(640, 295)`.
-  * Emits an emerald/celestial light that grows in intensity as clean days accumulate.
+  * 4 Warm Amber braziers in the sanctuary + 9 Violet/Spectral braziers (`Color(0.72, 0.35, 0.95, 1)`) lighting the pathway deeper into the mire.
+* **Landmarks & Interactive Objects:**
+  * **The Sacred Altar (`x = 640, y = 312`):** Purifies 5% blight for 30 Focus Mana (`[E]`).
+  * **The Corrupted Monolith (`x = 2500, y = 312`):** Triggers the panic button Urge Defense Trial (`[B]`).
+  * **The Corrupted Cache Chest (`x = 3580, y = 235`):** Interactive 4-frame animated chest awarding +35 Focus Mana with gold/violet particle explosion (`[E]`).
+  * **Spirit Coins (6 Perches):** 4-frame spinning coins granting +5 Focus Mana on touch.
+  * **The Abyssal Relic Altar (`x = 5250, y = 312`):** Ancient void altar for deep meditation (`[E]`), triggering parry stance, cleansing 5% blight, and granting +25 Focus Mana.
+* **Atmospheric Particles:**
+  * Forest Celestial Spores (`x = 640`, 45 continuous drifting particles).
+  * Swamp Blight Mist (`x = 3700`, 120 drifting violet mist particles spanning 4,300px).
 
 ---
 

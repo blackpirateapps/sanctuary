@@ -23,6 +23,18 @@ const TRANSITION_END_X: float = 1650.0
 @onready var monolith_prompt: Label = $Monolith/MonolithPrompt
 @onready var monolith_rune: Sprite2D = $Monolith/VoidRune
 
+# Abyssal Relic landmark in the deep swamp
+@onready var abyssal_relic: Node2D = $AbyssalRelic
+@onready var abyssal_light: PointLight2D = $AbyssalRelic/VoidLight
+@onready var abyssal_prompt: Label = $AbyssalRelic/RelicPrompt
+@onready var abyssal_rune: Sprite2D = $AbyssalRelic/VoidRune
+
+# Waving flags
+@onready var flags: Array[Sprite2D] = [
+	$SwampProps/Flag1,
+	$SwampProps/Flag2
+]
+
 # Parallax sprite groups for dynamic crossfade
 @onready var swamp_sprites: Array[Sprite2D] = [
 	$ParallaxBackground/Swamp2_Distant/Sprite2D,
@@ -59,6 +71,14 @@ func _process(delta: float) -> void:
 	# Cycle the monolith rune frame
 	monolith_rune.frame = int(t * 3.5) % 4
 	
+	# Deep void oscillation on the abyssal relic
+	abyssal_light.energy = 1.6 + sin(t * 2.2 + 0.8) * 0.4
+	abyssal_rune.frame = int(t * 4.0) % 4
+	
+	# Cycle waving flags
+	for f in flags:
+		f.frame = int(t * 6.0) % 4
+	
 	# Check distance between player and sacred shrine
 	var dist_shrine: float = player.global_position.distance_to(shrine.global_position)
 	shrine_prompt.visible = (dist_shrine < 80.0)
@@ -71,6 +91,13 @@ func _process(delta: float) -> void:
 	monolith_prompt.visible = (dist_monolith < 80.0)
 	if dist_monolith < 80.0 and Input.is_key_pressed(KEY_B) and not urge_trial.visible:
 		urge_trial.start_trial()
+
+	# Check distance between player and abyssal relic
+	var dist_relic: float = player.global_position.distance_to(abyssal_relic.global_position)
+	abyssal_prompt.visible = (dist_relic < 80.0)
+	if dist_relic < 80.0 and Input.is_key_pressed(KEY_E) and _channel_cooldown <= 0.0:
+		_commune_with_abyssal_relic()
+		_channel_cooldown = 1.5
 
 	# Dynamic scenery crossfade based on player position
 	_update_scenery_transition()
@@ -125,3 +152,24 @@ func _attempt_shrine_purification() -> void:
 		var tw = create_tween()
 		tw.tween_interval(0.4)
 		tw.tween_callback(func(): shrine_prompt.add_theme_color_override("font_color", orig_col))
+
+func _commune_with_abyssal_relic() -> void:
+	# Trigger player meditation stance
+	player.call("_trigger_defend")
+	
+	# Celestial / void flare on relic
+	var tw = create_tween()
+	tw.tween_property(abyssal_light, "energy", 3.5, 0.3).set_trans(Tween.TRANS_BACK)
+	tw.tween_property(abyssal_light, "energy", 1.6, 0.8).set_trans(Tween.TRANS_SINE)
+	
+	# Cleanse blight by 5% and award 25 Focus Mana as a deep meditation reward
+	SanctuaryState.corruption_percent = clampf(SanctuaryState.corruption_percent - 5.0, 0.0, 100.0)
+	SanctuaryState.corruption_changed.emit(SanctuaryState.corruption_percent)
+	HabitManager.add_mana(25.0)
+	
+	# Display floating message
+	var orig_text: String = abyssal_prompt.text
+	abyssal_prompt.text = "Clarity Restored! (+25 Focus, -5% Blight)"
+	var prompt_tw = create_tween()
+	prompt_tw.tween_interval(1.8)
+	prompt_tw.tween_callback(func(): abyssal_prompt.text = orig_text)

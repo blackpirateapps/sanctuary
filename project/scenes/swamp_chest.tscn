@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://bswampchest01"]
+
+[ext_resource type="Script" path="res://scripts/swamp_chest.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/4 Animated objects/Chest.png" id="2_chest"]
+[ext_resource type="Texture2D" path="res://assets/props/light_cookie.png" id="3_cookie"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_prox"]
+radius = 42.0
+
+[sub_resource type="Gradient" id="Gradient_sparkles"]
+colors = PackedColorArray(0.85, 0.45, 1, 1, 1, 0.88, 0.4, 0)
+
+[node name="SwampChest" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_chest")
+hframes = 4
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -14)
+color = Color(0.78, 0.45, 0.98, 1)
+energy = 1.0
+texture = ExtResource("3_cookie")
+texture_scale = 1.4
+
+[node name="ProximityArea" type="Area2D" parent="."]
+position = Vector2(0, -14)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ProximityArea"]
+shape = SubResource("CircleShape2D_prox")
+
+[node name="PromptLabel" type="Label" parent="."]
+visible = false
+offset_left = -90.0
+offset_top = -45.0
+offset_right = 90.0
+offset_bottom = -30.0
+theme_override_colors/font_color = Color(0.9, 0.75, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "[E] Open Corrupted Cache"
+horizontal_alignment = 1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -14)
+emitting = false
+amount = 25
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.85
+direction = Vector2(0, -1)
+spread = 60.0
+gravity = Vector2(0, 120)
+initial_velocity_min = 40.0
+initial_velocity_max = 90.0
+scale_amount_min = 2.0
+scale_amount_max = 3.5
+color_ramp = SubResource("Gradient_sparkles")

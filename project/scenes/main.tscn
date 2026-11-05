@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bmainscene01"]
+[gd_scene load_steps=76 format=3 uid="uid://bmainscene01"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/forest/Background/BG-1.png" id="2_bg1"]
@@ -22,25 +22,55 @@
 [ext_resource type="Texture2D" path="res://assets/environment/corrupted/2 Background/Layers/5.png" id="20_swamp_bg5"]
 [ext_resource type="Texture2D" path="res://assets/environment/corrupted/1 Tiles/swamp_ground_tile.png" id="21_swamp_floor"]
 [ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ridges/1.png" id="22_swamp_ridge1"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ridges/3.png" id="23_swamp_ridge3"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ridges/5.png" id="24_swamp_ridge5"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Trees/1.png" id="25_swamp_tree1"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Trees/2.png" id="26_swamp_tree2"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Trees/3.png" id="27_swamp_tree3"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Willows/1.png" id="28_swamp_willow1"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Willows/2.png" id="29_swamp_willow2"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Willows/3.png" id="30_swamp_willow3"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Stones/1.png" id="31_swamp_stone1"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Stones/2.png" id="32_swamp_stone2"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Stones/3.png" id="33_swamp_stone3"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Boxes/1.png" id="34_swamp_box1"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Boxes/2.png" id="35_swamp_box2"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Fence/1.png" id="36_swamp_fence1"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Pointers/1.png" id="37_swamp_pointer1"]
-[ext_resource type="Texture2D" path="res://assets/environment/corrupted/4 Animated objects/Rune.png" id="38_swamp_rune"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ridges/2.png" id="23_swamp_ridge2"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ridges/3.png" id="24_swamp_ridge3"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ridges/4.png" id="25_swamp_ridge4"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ridges/5.png" id="26_swamp_ridge5"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ridges/6.png" id="27_swamp_ridge6"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Trees/1.png" id="28_swamp_tree1"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Trees/2.png" id="29_swamp_tree2"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Trees/3.png" id="30_swamp_tree3"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Willows/1.png" id="31_swamp_willow1"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Willows/2.png" id="32_swamp_willow2"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Willows/3.png" id="33_swamp_willow3"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Stones/1.png" id="34_swamp_stone1"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Stones/2.png" id="35_swamp_stone2"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Stones/3.png" id="36_swamp_stone3"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Stones/4.png" id="37_swamp_stone4"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Boxes/1.png" id="38_swamp_box1"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Boxes/2.png" id="39_swamp_box2"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Boxes/3.png" id="40_swamp_box3"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Boxes/4.png" id="41_swamp_box4"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Boxes/5.png" id="42_swamp_box5"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Boxes/6.png" id="43_swamp_box6"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Fence/1.png" id="44_swamp_fence1"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Fence/2.png" id="45_swamp_fence2"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Fence/3.png" id="46_swamp_fence3"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Pointers/1.png" id="47_swamp_pointer1"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Pointers/2.png" id="48_swamp_pointer2"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Pointers/3.png" id="49_swamp_pointer3"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Pointers/5.png" id="50_swamp_pointer5"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ladders/1.png" id="51_swamp_ladder1"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ladders/2.png" id="52_swamp_ladder2"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Ladders/4.png" id="53_swamp_ladder4"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Grass/1.png" id="54_swamp_grass1"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Grass/2.png" id="55_swamp_grass2"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Grass/3.png" id="56_swamp_grass3"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Grass/5.png" id="57_swamp_grass5"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Grass/7.png" id="58_swamp_grass7"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Bushes/1.png" id="59_swamp_bush1"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Bushes/3.png" id="60_swamp_bush3"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Bushes/4.png" id="61_swamp_bush4"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Bushes/5.png" id="62_swamp_bush5"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Bushes/7.png" id="63_swamp_bush7"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/3 Objects/Bushes/8.png" id="64_swamp_bush8"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/4 Animated objects/Flag.png" id="65_swamp_flag"]
+[ext_resource type="Texture2D" path="res://assets/environment/corrupted/4 Animated objects/Rune.png" id="66_swamp_rune"]
+[ext_resource type="PackedScene" path="res://scenes/swamp_chest.tscn" id="67_chest"]
+[ext_resource type="PackedScene" path="res://scenes/spirit_coin.tscn" id="68_coin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
-size = Vector2(3000, 50)
+size = Vector2(6000, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plat1"]
 size = Vector2(120, 14)
@@ -59,6 +89,30 @@ size = Vector2(106, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plat6"]
 size = Vector2(80, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat7"]
+size = Vector2(62, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat8"]
+size = Vector2(45, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat9"]
+size = Vector2(110, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat10"]
+size = Vector2(106, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat11"]
+size = Vector2(120, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat12"]
+size = Vector2(62, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat13"]
+size = Vector2(78, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat14"]
+size = Vector2(60, 10)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_script")
@@ -157,7 +211,7 @@ blend_mode = 0
 collision_mask = 2
 
 [node name="FloorShape" type="CollisionShape2D" parent="Ground"]
-position = Vector2(1440, 337)
+position = Vector2(2900, 337)
 shape = SubResource("RectangleShape2D_ground")
 
 [node name="Plat1Shape" type="CollisionShape2D" parent="Ground"]
@@ -188,6 +242,46 @@ position = Vector2(2280, 288)
 shape = SubResource("RectangleShape2D_plat6")
 one_way_collision = true
 
+[node name="Plat7Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(2960, 256)
+shape = SubResource("RectangleShape2D_plat7")
+one_way_collision = true
+
+[node name="Plat8Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(3280, 262)
+shape = SubResource("RectangleShape2D_plat8")
+one_way_collision = true
+
+[node name="Plat9Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(3580, 240)
+shape = SubResource("RectangleShape2D_plat9")
+one_way_collision = true
+
+[node name="Plat10Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(3920, 276)
+shape = SubResource("RectangleShape2D_plat10")
+one_way_collision = true
+
+[node name="Plat11Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(4280, 215)
+shape = SubResource("RectangleShape2D_plat11")
+one_way_collision = true
+
+[node name="Plat12Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(4640, 256)
+shape = SubResource("RectangleShape2D_plat12")
+one_way_collision = true
+
+[node name="Plat13Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(4960, 288)
+shape = SubResource("RectangleShape2D_plat13")
+one_way_collision = true
+
+[node name="Plat14Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(5320, 258)
+shape = SubResource("RectangleShape2D_plat14")
+one_way_collision = true
+
 [node name="FloorVisual" type="Sprite2D" parent="Ground"]
 position = Vector2(600, 336)
 scale = Vector2(6.5, 1)
@@ -197,10 +291,10 @@ region_rect = Rect2(0, 16, 192, 48)
 
 [node name="SwampFloorVisual" type="Sprite2D" parent="Ground"]
 texture_repeat = 2
-position = Vector2(2030, 336)
+position = Vector2(3475, 336)
 texture = ExtResource("21_swamp_floor")
 region_enabled = true
-region_rect = Rect2(0, 0, 1760, 48)
+region_rect = Rect2(0, 0, 4650, 48)
 
 [node name="Plat1Visual" type="Sprite2D" parent="Ground"]
 position = Vector2(230, 240)
@@ -216,7 +310,7 @@ region_rect = Rect2(16, 48, 128, 16)
 
 [node name="Plat3Visual" type="Sprite2D" parent="Ground"]
 position = Vector2(1580, 291.5)
-texture = ExtResource("23_swamp_ridge3")
+texture = ExtResource("24_swamp_ridge3")
 
 [node name="Plat4Visual" type="Sprite2D" parent="Ground"]
 position = Vector2(1820, 299)
@@ -224,61 +318,305 @@ texture = ExtResource("22_swamp_ridge1")
 
 [node name="Plat5Visual" type="Sprite2D" parent="Ground"]
 position = Vector2(2020, 291.5)
-texture = ExtResource("23_swamp_ridge3")
+texture = ExtResource("24_swamp_ridge3")
 
 [node name="Plat6Visual" type="Sprite2D" parent="Ground"]
 position = Vector2(2280, 297.5)
-texture = ExtResource("24_swamp_ridge5")
+texture = ExtResource("26_swamp_ridge5")
+
+[node name="Plat7Visual" type="Sprite2D" parent="Ground"]
+position = Vector2(2960, 281.5)
+texture = ExtResource("25_swamp_ridge4")
+
+[node name="Plat8Visual" type="Sprite2D" parent="Ground"]
+position = Vector2(3280, 284.5)
+texture = ExtResource("27_swamp_ridge6")
+
+[node name="Plat9VisualBoxes" type="Node2D" parent="Ground"]
+position = Vector2(3580, 248)
+
+[node name="BoxA" type="Sprite2D" parent="Ground/Plat9VisualBoxes"]
+position = Vector2(-34, 0)
+texture = ExtResource("38_swamp_box1")
+
+[node name="BoxB" type="Sprite2D" parent="Ground/Plat9VisualBoxes"]
+position = Vector2(0, 0)
+texture = ExtResource("39_swamp_box2")
+
+[node name="BoxC" type="Sprite2D" parent="Ground/Plat9VisualBoxes"]
+position = Vector2(34, 0)
+texture = ExtResource("38_swamp_box1")
+
+[node name="Plat10Visual" type="Sprite2D" parent="Ground"]
+position = Vector2(3920, 291.5)
+texture = ExtResource("24_swamp_ridge3")
+
+[node name="Plat11VisualBoxes" type="Node2D" parent="Ground"]
+position = Vector2(4280, 223)
+
+[node name="BoxA" type="Sprite2D" parent="Ground/Plat11VisualBoxes"]
+position = Vector2(-36, 0)
+texture = ExtResource("42_swamp_box5")
+
+[node name="BoxB" type="Sprite2D" parent="Ground/Plat11VisualBoxes"]
+position = Vector2(0, 0)
+texture = ExtResource("40_swamp_box3")
+
+[node name="BoxC" type="Sprite2D" parent="Ground/Plat11VisualBoxes"]
+position = Vector2(36, 0)
+texture = ExtResource("43_swamp_box6")
+
+[node name="Plat12Visual" type="Sprite2D" parent="Ground"]
+position = Vector2(4640, 281.5)
+texture = ExtResource("25_swamp_ridge4")
+
+[node name="Plat13Visual" type="Sprite2D" parent="Ground"]
+position = Vector2(4960, 297.5)
+texture = ExtResource("26_swamp_ridge5")
+
+[node name="Plat14Visual" type="Sprite2D" parent="Ground"]
+position = Vector2(5320, 282.5)
+texture = ExtResource("34_swamp_stone1")
 
 [node name="SwampProps" type="Node2D" parent="."]
 
 [node name="Willow1" type="Sprite2D" parent="SwampProps"]
 position = Vector2(1350, 244)
-texture = ExtResource("28_swamp_willow1")
+texture = ExtResource("31_swamp_willow1")
 
 [node name="Willow2" type="Sprite2D" parent="SwampProps"]
 position = Vector2(1920, 228)
-texture = ExtResource("29_swamp_willow2")
+texture = ExtResource("32_swamp_willow2")
 
 [node name="Willow3" type="Sprite2D" parent="SwampProps"]
 position = Vector2(2560, 220)
-texture = ExtResource("30_swamp_willow3")
+texture = ExtResource("33_swamp_willow3")
+
+[node name="Willow4" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3080, 228)
+texture = ExtResource("32_swamp_willow2")
+
+[node name="Willow5" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3760, 220)
+texture = ExtResource("33_swamp_willow3")
+
+[node name="Willow6" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4450, 244)
+texture = ExtResource("31_swamp_willow1")
+
+[node name="Willow7" type="Sprite2D" parent="SwampProps"]
+position = Vector2(5100, 220)
+texture = ExtResource("33_swamp_willow3")
 
 [node name="Tree1" type="Sprite2D" parent="SwampProps"]
 position = Vector2(1220, 260)
-texture = ExtResource("25_swamp_tree1")
+texture = ExtResource("28_swamp_tree1")
 
 [node name="Tree2" type="Sprite2D" parent="SwampProps"]
 position = Vector2(1700, 246)
-texture = ExtResource("26_swamp_tree2")
+texture = ExtResource("29_swamp_tree2")
 
 [node name="Tree3" type="Sprite2D" parent="SwampProps"]
 position = Vector2(2380, 237)
-texture = ExtResource("27_swamp_tree3")
+texture = ExtResource("30_swamp_tree3")
+
+[node name="Tree4" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3420, 246)
+texture = ExtResource("29_swamp_tree2")
+
+[node name="Tree5" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4050, 260)
+texture = ExtResource("28_swamp_tree1")
+
+[node name="Tree6" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4780, 237)
+texture = ExtResource("30_swamp_tree3")
+
+[node name="Tree7" type="Sprite2D" parent="SwampProps"]
+position = Vector2(5500, 246)
+texture = ExtResource("29_swamp_tree2")
 
 [node name="Stone1" type="Sprite2D" parent="SwampProps"]
 position = Vector2(1480, 282)
-texture = ExtResource("31_swamp_stone1")
+texture = ExtResource("34_swamp_stone1")
 
 [node name="Stone2" type="Sprite2D" parent="SwampProps"]
 position = Vector2(2180, 283)
-texture = ExtResource("32_swamp_stone2")
+texture = ExtResource("35_swamp_stone2")
+
+[node name="Stone3" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3380, 283)
+texture = ExtResource("35_swamp_stone2")
+
+[node name="Stone4" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4000, 282)
+texture = ExtResource("34_swamp_stone1")
+
+[node name="Stone5" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4500, 297)
+texture = ExtResource("37_swamp_stone4")
+
+[node name="Stone6" type="Sprite2D" parent="SwampProps"]
+position = Vector2(5420, 282)
+texture = ExtResource("34_swamp_stone1")
 
 [node name="Box1" type="Sprite2D" parent="SwampProps"]
 position = Vector2(1510, 298)
-texture = ExtResource("34_swamp_box1")
+texture = ExtResource("38_swamp_box1")
 
 [node name="Box2" type="Sprite2D" parent="SwampProps"]
 position = Vector2(2055, 298.5)
-texture = ExtResource("35_swamp_box2")
+texture = ExtResource("39_swamp_box2")
+
+[node name="Box3" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3270, 299)
+texture = ExtResource("40_swamp_box3")
+
+[node name="Box4" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3650, 299)
+texture = ExtResource("41_swamp_box4")
+
+[node name="Box5" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4200, 298.5)
+texture = ExtResource("42_swamp_box5")
+
+[node name="Box6" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4820, 299)
+texture = ExtResource("43_swamp_box6")
 
 [node name="Fence1" type="Sprite2D" parent="SwampProps"]
 position = Vector2(1150, 303)
-texture = ExtResource("36_swamp_fence1")
+texture = ExtResource("44_swamp_fence1")
+
+[node name="Fence2" type="Sprite2D" parent="SwampProps"]
+position = Vector2(2800, 302)
+texture = ExtResource("45_swamp_fence2")
+
+[node name="Fence3" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3180, 303)
+texture = ExtResource("44_swamp_fence1")
+
+[node name="Fence4" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4400, 305.5)
+texture = ExtResource("46_swamp_fence3")
 
 [node name="Pointer1" type="Sprite2D" parent="SwampProps"]
 position = Vector2(1110, 301.5)
-texture = ExtResource("37_swamp_pointer1")
+texture = ExtResource("47_swamp_pointer1")
+
+[node name="Pointer2" type="Sprite2D" parent="SwampProps"]
+position = Vector2(2840, 301.5)
+texture = ExtResource("49_swamp_pointer3")
+
+[node name="Pointer3" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4360, 301.5)
+texture = ExtResource("50_swamp_pointer5")
+
+[node name="Pointer4" type="Sprite2D" parent="SwampProps"]
+position = Vector2(5060, 301.5)
+texture = ExtResource("48_swamp_pointer2")
+
+[node name="Ladder1" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3280, 296)
+texture = ExtResource("51_swamp_ladder1")
+
+[node name="Ladder2" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4280, 296)
+texture = ExtResource("52_swamp_ladder2")
+
+[node name="Ladder3" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4280, 264)
+texture = ExtResource("53_swamp_ladder4")
+
+[node name="Flag1" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3180, 288)
+texture = ExtResource("65_swamp_flag")
+hframes = 4
+
+[node name="Flag2" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4880, 288)
+texture = ExtResource("65_swamp_flag")
+hframes = 4
+
+[node name="Grass1" type="Sprite2D" parent="SwampProps"]
+position = Vector2(2740, 303)
+texture = ExtResource("54_swamp_grass1")
+
+[node name="Grass2" type="Sprite2D" parent="SwampProps"]
+position = Vector2(2890, 304)
+texture = ExtResource("55_swamp_grass2")
+
+[node name="Grass3" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3120, 304)
+texture = ExtResource("56_swamp_grass3")
+
+[node name="Grass4" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3340, 305.5)
+texture = ExtResource("57_swamp_grass5")
+
+[node name="Grass5" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3720, 304)
+texture = ExtResource("55_swamp_grass2")
+
+[node name="Grass6" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4160, 303)
+texture = ExtResource("54_swamp_grass1")
+
+[node name="Grass7" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4480, 304)
+texture = ExtResource("56_swamp_grass3")
+
+[node name="Grass8" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4740, 305)
+texture = ExtResource("58_swamp_grass7")
+
+[node name="Grass9" type="Sprite2D" parent="SwampProps"]
+position = Vector2(5020, 303)
+texture = ExtResource("54_swamp_grass1")
+
+[node name="Grass10" type="Sprite2D" parent="SwampProps"]
+position = Vector2(5360, 304)
+texture = ExtResource("55_swamp_grass2")
+
+[node name="Grass11" type="Sprite2D" parent="SwampProps"]
+position = Vector2(5580, 304)
+texture = ExtResource("56_swamp_grass3")
+
+[node name="Bush1" type="Sprite2D" parent="SwampProps"]
+position = Vector2(2780, 304.5)
+texture = ExtResource("59_swamp_bush1")
+
+[node name="Bush2" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3030, 298)
+texture = ExtResource("62_swamp_bush5")
+
+[node name="Bush3" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3480, 300)
+texture = ExtResource("63_swamp_bush7")
+
+[node name="Bush4" type="Sprite2D" parent="SwampProps"]
+position = Vector2(3840, 304.5)
+texture = ExtResource("60_swamp_bush3")
+
+[node name="Bush5" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4320, 298)
+texture = ExtResource("62_swamp_bush5")
+
+[node name="Bush6" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4680, 301.5)
+texture = ExtResource("61_swamp_bush4")
+
+[node name="Bush7" type="Sprite2D" parent="SwampProps"]
+position = Vector2(4920, 298.5)
+texture = ExtResource("64_swamp_bush8")
+
+[node name="Bush8" type="Sprite2D" parent="SwampProps"]
+position = Vector2(5200, 300)
+texture = ExtResource("63_swamp_bush7")
+
+[node name="Bush9" type="Sprite2D" parent="SwampProps"]
+position = Vector2(5460, 298)
+texture = ExtResource("62_swamp_bush5")
 
 [node name="Shrine" type="Node2D" parent="."]
 position = Vector2(640, 312)
@@ -309,11 +647,11 @@ position = Vector2(2500, 312)
 
 [node name="MonolithBase" type="Sprite2D" parent="Monolith"]
 position = Vector2(0, -31)
-texture = ExtResource("33_swamp_stone3")
+texture = ExtResource("36_swamp_stone3")
 
 [node name="VoidRune" type="Sprite2D" parent="Monolith"]
 position = Vector2(0, -78)
-texture = ExtResource("38_swamp_rune")
+texture = ExtResource("66_swamp_rune")
 hframes = 4
 
 [node name="VoidLight" type="PointLight2D" parent="Monolith"]
@@ -332,6 +670,58 @@ theme_override_colors/font_color = Color(0.85, 0.65, 1, 1)
 theme_override_font_sizes/font_size = 10
 text = "[B] Urge Defend Trial"
 horizontal_alignment = 1
+
+[node name="AbyssalRelic" type="Node2D" parent="."]
+position = Vector2(5250, 312)
+
+[node name="RelicBase" type="Sprite2D" parent="AbyssalRelic"]
+position = Vector2(0, -31)
+texture = ExtResource("36_swamp_stone3")
+
+[node name="VoidRune" type="Sprite2D" parent="AbyssalRelic"]
+position = Vector2(0, -78)
+texture = ExtResource("66_swamp_rune")
+hframes = 4
+
+[node name="VoidLight" type="PointLight2D" parent="AbyssalRelic"]
+position = Vector2(0, -78)
+color = Color(0.75, 0.35, 1, 1)
+energy = 1.6
+texture = ExtResource("9_cookie")
+texture_scale = 2.6
+
+[node name="RelicPrompt" type="Label" parent="AbyssalRelic"]
+offset_left = -140.0
+offset_top = -115.0
+offset_right = 140.0
+offset_bottom = -95.0
+theme_override_colors/font_color = Color(0.9, 0.7, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "[E] Commune with Void Relic"
+horizontal_alignment = 1
+
+[node name="SwampChest" parent="." instance=ExtResource("67_chest")]
+position = Vector2(3580, 235)
+
+[node name="SpiritCoins" type="Node2D" parent="."]
+
+[node name="Coin1" parent="SpiritCoins" instance=ExtResource("68_coin")]
+position = Vector2(2960, 215)
+
+[node name="Coin2" parent="SpiritCoins" instance=ExtResource("68_coin")]
+position = Vector2(3280, 220)
+
+[node name="Coin3" parent="SpiritCoins" instance=ExtResource("68_coin")]
+position = Vector2(3800, 260)
+
+[node name="Coin4" parent="SpiritCoins" instance=ExtResource("68_coin")]
+position = Vector2(4280, 180)
+
+[node name="Coin5" parent="SpiritCoins" instance=ExtResource("68_coin")]
+position = Vector2(4640, 215)
+
+[node name="Coin6" parent="SpiritCoins" instance=ExtResource("68_coin")]
+position = Vector2(5320, 215)
 
 [node name="Braziers" type="Node2D" parent="."]
 
@@ -359,6 +749,30 @@ flame_color = Color(0.72, 0.35, 0.95, 1)
 position = Vector2(2640, 312)
 flame_color = Color(0.72, 0.35, 0.95, 1)
 
+[node name="Brazier8" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(2960, 251)
+flame_color = Color(0.72, 0.35, 0.95, 1)
+
+[node name="Brazier9" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(3580, 235)
+flame_color = Color(0.72, 0.35, 0.95, 1)
+
+[node name="Brazier10" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(4100, 312)
+flame_color = Color(0.72, 0.35, 0.95, 1)
+
+[node name="Brazier11" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(4640, 251)
+flame_color = Color(0.72, 0.35, 0.95, 1)
+
+[node name="Brazier12" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(5170, 312)
+flame_color = Color(0.72, 0.35, 0.95, 1)
+
+[node name="Brazier13" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(5620, 312)
+flame_color = Color(0.72, 0.35, 0.95, 1)
+
 [node name="AtmosphericSpores" type="CPUParticles2D" parent="."]
 position = Vector2(640, 180)
 amount = 45
@@ -376,12 +790,12 @@ scale_amount_max = 3.5
 color = Color(0.482353, 0.941176, 0.835294, 0.6)
 
 [node name="SwampMistParticles" type="CPUParticles2D" parent="."]
-position = Vector2(2100, 200)
-amount = 50
+position = Vector2(3700, 200)
+amount = 120
 lifetime = 6.0
 preprocess = 3.0
 emission_shape = 3
-emission_rect_extents = Vector2(750, 140)
+emission_rect_extents = Vector2(2150, 140)
 direction = Vector2(0.2, -1)
 spread = 45.0
 gravity = Vector2(0, -2)
