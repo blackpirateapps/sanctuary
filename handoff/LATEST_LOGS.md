@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-05 21:12 UTC+05:30  
+> **Timestamp:** 2026-11-05 22:40 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -16,10 +16,15 @@ Exit Code: 0 (Zero errors, zero warnings)
 ```
 
 ```
-$ godot --headless --path project --quit-after 60
-Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
-
-Exit Code: 0 (Zero errors, 60 physics/render frames executed cleanly)
+$ godot --headless --path project -s scratch/test_economy.gd
+--- Running Coin Progression Unit Tests ---
+✔ Test 1: All Tier Multipliers Verified
+✔ Test 2: Single Tier Offline Calculation Verified (10.00 coins)
+✔ Test 3: Cross Tier Offline Calculation Verified (27.50 coins)
+✔ Test 4: 24-Hour Multi-tier Offline Calculation Verified (535.00 coins)
+✔ Test 5: Edge Cases & Boundary Clamping Verified
+--- All Unit Tests Passed Successfully ---
+Exit Code: 0
 ```
 
 ---
@@ -28,7 +33,8 @@ Exit Code: 0 (Zero errors, 60 physics/render frames executed cleanly)
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **fix(scene):** align swamp ridges 3.png and 5.png to ground floor surface | blackpirateapps |
+| `HEAD` | **feat(economy):** implement tiered milestone coin generation and live decimal HUD | blackpirateapps |
+| `1cf4ef7` | **fix(scene):** align swamp ridges 3.png and 5.png to ground floor surface | blackpirateapps |
 | `45e6b2a` | **feat(biome):** add corrupted swamp scenery with dynamic parallax crossfade, elevated platforming, and void monolith landmark | blackpirateapps |
 | `2cc8a38` | **fix(scene):** ground altar and braziers to floor surface by eliminating tileset transparent offset | blackpirateapps |
 | `9cbb07e` | **feat(shrine):** replace placeholder decore with ancient pedestal altar, add proximity trigger and cooldown | blackpirateapps |

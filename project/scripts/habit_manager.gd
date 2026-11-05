@@ -14,7 +14,22 @@ const LOCAL_FILE: String = "user://habit_save.json"
 
 const SECONDS_PER_DAY: float = 86400.0
 const SECONDS_PER_HOUR: float = 3600.0
-const MANA_PER_HOUR: float = 10.0 # Focus mana earned per clean hour
+const BASE_MANA_PER_HOUR: float = 10.0 # Base focus mana/coins earned per clean hour in Tier 1
+const MANA_PER_HOUR: float = BASE_MANA_PER_HOUR # Backward compatibility alias
+
+# Option B: Tiered Milestone Multipliers
+# Accelerates coin generation as clean streak increases
+const COIN_TIERS: Array[Dictionary] = [
+	{"hours": 0.0, "mult": 1.0, "name": "Ember Foundation"},
+	{"hours": 1.0, "mult": 1.5, "name": "First Sprout"},
+	{"hours": 6.0, "mult": 2.5, "name": "Crystal Stream"},
+	{"hours": 24.0, "mult": 4.0, "name": "Ancient Hearth"},
+	{"hours": 72.0, "mult": 5.0, "name": "Grove Sanctuary"},
+	{"hours": 168.0, "mult": 6.0, "name": "Eternal Citadel"}
+]
+
+const AUTOSAVE_INTERVAL: float = 15.0 # Periodic save to preserve continuous accumulation
+var _autosave_timer: float = 0.0
 
 # Habit state
 var start_epoch: int = 0
@@ -41,9 +56,6 @@ func _ready() -> void:
 		_process_offline_time(now)
 
 func _process(delta: float) -> void:
-	# Passive continuous mana accumulation
-	focus_mana += (MANA_PER_HOUR / 3600.0) * delta
-	
 	var now: int = int(Time.get_unix_time_from_system())
 	var total_sec: int = max(0, now - start_epoch)
 	var days: float = float(total_sec) / SECONDS_PER_DAY
@@ -56,11 +68,69 @@ func _process(delta: float) -> void:
 		
 	streak_updated.emit(days, hours, mins, secs)
 
+	# Continuous coin accumulation with tiered milestone multiplier
+	var rate_per_sec: float = get_current_coin_rate_per_sec()
+	focus_mana += rate_per_sec * delta
+	mana_changed.emit(focus_mana)
+
+	# Periodic autosave
+	_autosave_timer += delta
+	if _autosave_timer >= AUTOSAVE_INTERVAL:
+		_autosave_timer = 0.0
+		save_data()
+
+func get_coin_multiplier(clean_hours: float) -> float:
+	var mult: float = 1.0
+	for tier in COIN_TIERS:
+		if clean_hours >= tier["hours"]:
+			mult = tier["mult"]
+		else:
+			break
+	return mult
+
+func get_current_coin_tier_name() -> String:
+	var hours: float = get_clean_hours()
+	var tier_name: String = COIN_TIERS[0]["name"]
+	for tier in COIN_TIERS:
+		if hours >= tier["hours"]:
+			tier_name = tier["name"]
+		else:
+			break
+	return tier_name
+
+func get_current_coin_rate_per_sec() -> float:
+	var hours: float = get_clean_hours()
+	return (BASE_MANA_PER_HOUR * get_coin_multiplier(hours)) / SECONDS_PER_HOUR
+
+func calculate_offline_coins(start_streak_sec: float, end_streak_sec: float) -> float:
+	if end_streak_sec <= start_streak_sec:
+		return 0.0
+	
+	var total_earned: float = 0.0
+	var num_tiers: int = COIN_TIERS.size()
+	
+	for i in range(num_tiers):
+		var tier_start_sec: float = COIN_TIERS[i]["hours"] * SECONDS_PER_HOUR
+		var tier_end_sec: float = (COIN_TIERS[i + 1]["hours"] * SECONDS_PER_HOUR) if (i + 1 < num_tiers) else INF
+		
+		# Calculate overlap between [start_streak_sec, end_streak_sec] and [tier_start_sec, tier_end_sec]
+		var overlap_start: float = maxf(start_streak_sec, tier_start_sec)
+		var overlap_end: float = minf(end_streak_sec, tier_end_sec)
+		
+		if overlap_end > overlap_start:
+			var duration_in_tier: float = overlap_end - overlap_start
+			var tier_rate_per_sec: float = (BASE_MANA_PER_HOUR * float(COIN_TIERS[i]["mult"])) / SECONDS_PER_HOUR
+			total_earned += duration_in_tier * tier_rate_per_sec
+			
+	return total_earned
+
 func _process_offline_time(current_time: int) -> void:
-	var offline_seconds: int = max(0, current_time - last_checkin_epoch)
-	if offline_seconds > 0:
-		var earned_mana: float = (float(offline_seconds) / SECONDS_PER_HOUR) * MANA_PER_HOUR
-		focus_mana += earned_mana
+	if current_time > last_checkin_epoch:
+		var start_streak_sec: float = maxf(0.0, float(last_checkin_epoch - start_epoch))
+		var end_streak_sec: float = maxf(0.0, float(current_time - start_epoch))
+		var earned_mana: float = calculate_offline_coins(start_streak_sec, end_streak_sec)
+		if earned_mana > 0.0:
+			focus_mana += earned_mana
 		last_checkin_epoch = current_time
 		mana_changed.emit(focus_mana)
 		save_data()

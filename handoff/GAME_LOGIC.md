@@ -11,9 +11,26 @@ The game systems are specifically architected around behavioral psychology to el
 * **Elapsed Time:**
   $$\Delta t_{\text{clean}} = \max(0, \text{current\_unix\_time} - \text{start\_epoch})$$
   $$\text{Days} = \frac{\Delta t_{\text{clean}}}{86400}, \quad \text{Hours} = \lfloor \frac{\Delta t_{\text{clean}}}{3600} \rfloor \pmod{24}$$
-* **Passive Focus Mana Generation:**
-  $$\text{Mana Generated} = 10.0 \times \frac{\Delta t_{\text{offline}}}{3600}$$
-  Players earn 10 Focus Mana for every clean hour elapsed, credited immediately upon loading the game.
+* **Passive Focus Mana / Coin Generation (Tiered Milestone Acceleration):**
+  Generation rate starts at **10.0 coins/hr** ($\approx 0.0028 \text{ coins/sec}$) and accelerates across clean streak milestone tiers:
+
+  | Tier | Streak Duration | Multiplier | Generation Rate | Coins Generated in Bracket |
+  | :--- | :--- | :---: | :--- | :--- |
+  | **Tier 1: Ember Foundation** | $0 \le t < 1\text{ hr}$ | **$1.0\times$** | $10.0\text{ coins/hr}$ ($0.0028/\text{s}$) | $10.00$ coins |
+  | **Tier 2: First Sprout** | $1 \le t < 6\text{ hrs}$ | **$1.5\times$** | $15.0\text{ coins/hr}$ ($0.0042/\text{s}$) | $75.00$ coins |
+  | **Tier 3: Crystal Stream** | $6 \le t < 24\text{ hrs}$ | **$2.5\times$** | $25.0\text{ coins/hr}$ ($0.0069/\text{s}$) | $450.00$ coins |
+  | **Tier 4: Ancient Hearth** | $24 \le t < 72\text{ hrs}$ ($1\text{--}3\text{ d}$) | **$4.0\times$** | $40.0\text{ coins/hr}$ ($0.0111/\text{s}$) | $1,920.00$ coins |
+  | **Tier 5: Grove Sanctuary** | $72 \le t < 168\text{ hrs}$ ($3\text{--}7\text{ d}$) | **$5.0\times$** | $50.0\text{ coins/hr}$ ($0.0139/\text{s}$) | $4,800.00$ coins |
+  | **Tier 6: Eternal Citadel** | $t \ge 168\text{ hrs}$ ($7+\text{ d}$) | **$6.0\times$** *(Cap)*| $60.0\text{ coins/hr}$ ($0.0167/\text{s}$) | Compounding at maximum rate |
+
+* **Continuous Live Generation:**
+  $$\Delta \text{coins} = \left(\frac{10.0 \times \text{Multiplier}(t)}{3600}\right) \times \Delta t$$
+  Emits `mana_changed` on `_process` allowing HUD live updates with two decimal places.
+
+* **Piecewise Offline Catch-Up Integration:**
+  When loading the game after being offline across the interval $[t_{\text{last}}, t_{\text{now}}]$, coins are integrated accurately across each tier slice:
+  $$\text{Coins Earned} = \sum_{k} \Delta t_k \times \text{Rate}_k$$
+  where $\Delta t_k$ is the overlap duration within Tier $k$.
 
 ### Aegis Grace Shields (Setback Protection)
 * **The Problem:** Harsh permadeath resets (0 days on relapse) trigger feelings of helplessness, causing players to abandon tracking and binge.

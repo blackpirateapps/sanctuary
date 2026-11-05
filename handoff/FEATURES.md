@@ -36,7 +36,7 @@
   * **Streak Gauge:** Displays clean time formatted as `00d : 00h : 00m : 00s`.
   * **Valley Blight Progress Bar:** Smooth pink/purple progress bar indicating remaining blight percentage.
   * **Aegis Shields:** Dedicated heater shield icon ([`shield_icon.png`](file:///home/dog/git/sanctuary/project/assets/ui/shield_icon.png)) showing active shield count (`1/3`, `2/3`, `BROKEN`).
-  * **Focus Mana:** Golden crystal icon ([`focus_icon.png`](file:///home/dog/git/sanctuary/project/assets/ui/focus_icon.png)) with live balance.
+  * **Focus Mana / Coins:** Golden crystal icon ([`focus_icon.png`](file:///home/dog/git/sanctuary/project/assets/ui/focus_icon.png)) displaying real-time balance with 2 decimal points (`0.00`), actively ticking upward by the second as coins accumulate via tiered milestone multipliers.
   * **Log Slip Button:** Opens the non-punitive accountability dialog.
 * **Bottom Bar:**
   * **Chronicles Button:** Styled parchment button with scroll icon ([`scroll_icon.png`](file:///home/dog/git/sanctuary/project/assets/ui/scroll_icon.png)).

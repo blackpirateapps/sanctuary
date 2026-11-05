@@ -44,7 +44,7 @@ func _on_shield_changed(new_count: int) -> void:
 		shields_label.modulate = Color("ffffff")
 
 func _on_mana_changed(new_mana: float) -> void:
-	mana_label.text = "%d" % int(new_mana)
+	mana_label.text = "%.2f" % new_mana
 
 func _on_corruption_changed(pct: float) -> void:
 	corruption_bar.value = pct
