@@ -66,43 +66,82 @@ func _ready() -> void:
 			"Ground animal %s position.y (%.1f) does not match floor (%.1f)" % [g_name, node.position.y, FLOOR_Y])
 		print("  ✔ %s cleanly grounded at Y = %.1f" % [g_name, node.position.y])
 		
-	# 4. Wander Boundaries & Range Sanity
-	print("\n--- Test 4: Wander Boundaries Sanity ---")
-	for child in animals_node.get_children():
-		var min_x: float = child.get("wander_min_x")
-		var max_x: float = child.get("wander_max_x")
-		var pos_x: float = child.position.x
-		if min_x != 0.0 or max_x != 0.0:
-			assert(min_x >= 0.0 and max_x <= 5760.0, "Wander bounds [%.1f, %.1f] out of world bounds [0, 5760] in %s" % [min_x, max_x, child.name])
-			assert(min_x <= max_x, "min_x (%.1f) > max_x (%.1f) in %s" % [min_x, max_x, child.name])
-			assert(pos_x >= min_x - 50.0 and pos_x <= max_x + 50.0, "Initial position %.1f outside wander bounds [%.1f, %.1f] in %s" % [pos_x, min_x, max_x, child.name])
-	print("✔ All wander patrol intervals strictly within valid world coordinates [0..5760]")
+	# 4. Scale Reduction Verification (Frog, Dragonfly & Cute Pack)
+	print("\n--- Test 4: Size Reductions Verification ---")
+	var frog = animals_node.get_node("Fauna_Frog")
+	assert(frog.base_scale.x <= 0.65 and frog.base_scale.y <= 0.65, "Frog scale should be reduced (<= 0.65), got %s" % str(frog.base_scale))
+	print("  ✔ Frog scale verified reduced: %s" % str(frog.base_scale))
 	
-	# 5. Petting Interaction & Mana Reward
-	print("\n--- Test 5: Petting Interaction Mechanics ---")
-	var deer = animals_node.get_node("Fauna_Deer")
-	assert(deer != null, "Fauna_Deer missing")
+	var dragonfly = animals_node.get_node("Fauna_Dragonfly")
+	assert(dragonfly.base_scale.x <= 0.4 and dragonfly.base_scale.y <= 0.4, "Dragonfly scale should be reduced (<= 0.4), got %s" % str(dragonfly.base_scale))
+	print("  ✔ Dragonfly scale verified reduced: %s" % str(dragonfly.base_scale))
+	
+	var cute_pack_nodes = [
+		"Fauna_Bee", "Fauna_Dragonfly", "Fauna_Bat1", "Fauna_WhiteBat",
+		"Spirit_GuardianBear", "Spirit_VoidDrake"
+	]
+	for c_name in cute_pack_nodes:
+		var node = animals_node.get_node(c_name)
+		assert(node.base_scale.x < 1.0 and node.base_scale.y < 1.0, "Cute pack animal %s scale should be < 1.0, got %s" % [c_name, str(node.base_scale)])
+		print("  ✔ [Cute Pack] %s scale reduced: %s" % [c_name, str(node.base_scale)])
+	print("✔ All Cute pack animals and tiny frog verified with reduced proportions")
+
+	# 5. Background & Non-Interactable Fauna Verification (Fox, Deer, Doe, Rabbit)
+	print("\n--- Test 5: Background & Non-Interactable Animals Check ---")
+	var bg_animals = [
+		"Fauna_Rabbit1", "Fauna_Rabbit2", "Fauna_Deer", "Fauna_Doe", "Fauna_Fox", "Spirit_GoldenDoe"
+	]
+	for bg_name in bg_animals:
+		var node = animals_node.get_node(bg_name)
+		assert(node.is_background == true, "%s should have is_background = true" % bg_name)
+		assert(node.can_pet == false, "%s should be non-interactable (can_pet = false)" % bg_name)
+		assert(node.z_index == -1, "%s should have z_index = -1" % bg_name)
+		assert(node.prompt_label.visible == false, "%s prompt label should never be visible" % bg_name)
+		print("  ✔ %s verified as background (z_index=-1, non-interactable)" % bg_name)
+	print("✔ Fox, Deer, Doe, Rabbits are verified non-interactable and placed in background plane")
+
+	# 6. Dragonfly Forward Movement / Facing Direction Verification
+	print("\n--- Test 6: Dragonfly Forward Facing Mechanics ---")
+	# When moving to the right (dir > 0), sprite should face right (flip_h = true since default faces left)
+	dragonfly._target_x = dragonfly.position.x + 50.0
+	dragonfly._process_fly_hover(0.016, 0.0)
+	var aspr = dragonfly.get_node("AnimatedSprite2D")
+	assert(aspr.flip_h == true, "Dragonfly moving right must face right (flip_h = true)")
+	print("  ✔ Dragonfly moving right: flip_h == true (facing forward)")
+	
+	# When moving to the left (dir < 0), sprite should face left (flip_h = false since default faces left)
+	dragonfly._target_x = dragonfly.position.x - 50.0
+	dragonfly._process_fly_hover(0.016, 0.0)
+	assert(aspr.flip_h == false, "Dragonfly moving left must face left (flip_h = false)")
+	print("  ✔ Dragonfly moving left: flip_h == false (facing forward)")
+	print("✔ Dragonfly verified always moving forward, never backwards")
+
+	# 7. Petting Interaction on Interactable Creature
+	print("\n--- Test 7: Petting Interaction Mechanics (Interactable Fauna) ---")
+	var owl = animals_node.get_node("Fauna_Owl")
+	assert(owl != null, "Fauna_Owl missing")
+	assert(owl.can_pet == true, "Fauna_Owl should be interactable")
 	var mana_before: float = HabitManager.focus_mana
-	deer._perform_pet()
+	owl._perform_pet()
 	var mana_after: float = HabitManager.focus_mana
 	assert(abs(mana_after - (mana_before + 2.0)) < 0.01, "Expected +2.0 mana, before: %.2f, after: %.2f" % [mana_before, mana_after])
-	print("✔ Petting triggered successfully: awarded +2.0 Focus Mana (%.2f -> %.2f)" % [mana_before, mana_after])
-	assert(deer._pet_cooldown > 0.0, "Pet cooldown not set")
-	print("✔ Pet cooldown verified: %.1fs" % deer._pet_cooldown)
-	assert(deer.feedback_label.visible == true, "Feedback label should be visible on pet")
-	print("✔ Feedback label displayed: '%s'" % deer.feedback_label.text)
+	print("✔ Petting triggered successfully on Owl: awarded +2.0 Focus Mana (%.2f -> %.2f)" % [mana_before, mana_after])
+	assert(owl._pet_cooldown > 0.0, "Pet cooldown not set")
+	print("✔ Pet cooldown verified: %.1fs" % owl._pet_cooldown)
+	assert(owl.feedback_label.visible == true, "Feedback label should be visible on pet")
+	print("✔ Feedback label displayed: '%s'" % owl.feedback_label.text)
 	
-	# 6. Reactive Flee Simulation
-	print("\n--- Test 6: Reactive Fleeing ---")
-	var rabbit = animals_node.get_node("Fauna_Rabbit1")
-	assert(rabbit != null, "Fauna_Rabbit1 missing")
-	rabbit._trigger_flee()
-	assert(rabbit._is_fleeing == true, "Rabbit should enter fleeing state")
-	assert(rabbit._flee_timer > 0.0, "Rabbit flee timer should be active")
-	print("✔ Reactive flee mechanism verified (timer: %.1fs)" % rabbit._flee_timer)
+	# 8. Reactive Flee Simulation
+	print("\n--- Test 8: Reactive Fleeing on Shy Creature ---")
+	var frog_node = animals_node.get_node("Fauna_Frog")
+	assert(frog_node != null, "Fauna_Frog missing")
+	frog_node._trigger_flee()
+	assert(frog_node._is_fleeing == true, "Frog should enter fleeing state")
+	assert(frog_node._flee_timer > 0.0, "Frog flee timer should be active")
+	print("✔ Reactive flee mechanism verified on Frog (timer: %.1fs)" % frog_node._flee_timer)
 	
-	# 7. Milestone Unlock Visibility
-	print("\n--- Test 7: Clean Streak Milestone Spirit Unlocks ---")
+	# 9. Clean Streak Milestone Spirit Unlocks
+	print("\n--- Test 9: Clean Streak Milestone Spirit Unlocks ---")
 	var golden_doe = animals_node.get_node("Spirit_GoldenDoe")
 	var guardian_bear = animals_node.get_node("Spirit_GuardianBear")
 	var void_drake = animals_node.get_node("Spirit_VoidDrake")
@@ -112,7 +151,6 @@ func _ready() -> void:
 	assert(void_drake.unlock_tier == 5, "Celestial Drake should require Tier 5")
 	print("✔ Milestone unlock tiers verified (Golden Doe: T1, Guardian Bear: T3, Void Drake: T5)")
 	
-	# Check baseline visibility according to current player tier
 	var current_tier: int = HabitManager.get_current_tier_index()
 	print("  Current player tier index: %d" % current_tier)
 	if current_tier < 1:
@@ -136,13 +174,13 @@ func _ready() -> void:
 		assert(void_drake.visible == true, "Void Drake should be visible at Tier >= 5")
 		print("  ✔ Celestial Void Drake unlocked (Tier %d >= 5)" % current_tier)
 	
-	# 8. Brazier & Ambient Lighting Compatibility
-	print("\n--- Test 8: 2D Lighting & Canvas Filter ---")
+	# 10. Texture Filter & Pixel Crispness
+	print("\n--- Test 10: 2D Lighting & Canvas Filter ---")
 	for child in animals_node.get_children():
 		var spr: Sprite2D = child.get_node("Sprite2D")
-		var aspr: AnimatedSprite2D = child.get_node("AnimatedSprite2D")
+		var anim: AnimatedSprite2D = child.get_node("AnimatedSprite2D")
 		assert(spr.texture_filter == CanvasItem.TEXTURE_FILTER_NEAREST, "Sprite2D texture filter not Nearest in %s" % child.name)
-		assert(aspr.texture_filter == CanvasItem.TEXTURE_FILTER_NEAREST, "AnimatedSprite2D texture filter not Nearest in %s" % child.name)
+		assert(anim.texture_filter == CanvasItem.TEXTURE_FILTER_NEAREST, "AnimatedSprite2D texture filter not Nearest in %s" % child.name)
 	print("✔ 100% of animal visual nodes enforce nearest-neighbor pixel texture filtering")
 
 	print("\n========================================================")

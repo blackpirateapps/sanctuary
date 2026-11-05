@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-05 23:25 UTC+05:30  
+> **Timestamp:** 2026-11-05 23:30 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -60,64 +60,51 @@ Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
   ✔ Spirit_GoldenDoe cleanly grounded at Y = 312.0
   ✔ Spirit_GuardianBear cleanly grounded at Y = 312.0
 
---- Test 4: Wander Boundaries Sanity ---
-✔ All wander patrol intervals strictly within valid world coordinates [0..5760]
+--- Test 4: Size Reductions Verification ---
+  ✔ Frog scale verified reduced: (0.6, 0.6)
+  ✔ Dragonfly scale verified reduced: (0.35, 0.35)
+  ✔ [Cute Pack] Fauna_Bee scale reduced: (0.45, 0.45)
+  ✔ [Cute Pack] Fauna_Dragonfly scale reduced: (0.35, 0.35)
+  ✔ [Cute Pack] Fauna_Bat1 scale reduced: (0.55, 0.55)
+  ✔ [Cute Pack] Fauna_WhiteBat scale reduced: (0.55, 0.55)
+  ✔ [Cute Pack] Spirit_GuardianBear scale reduced: (0.7, 0.7)
+  ✔ [Cute Pack] Spirit_VoidDrake scale reduced: (0.6, 0.6)
+✔ All Cute pack animals and tiny frog verified with reduced proportions
 
---- Test 5: Petting Interaction Mechanics ---
-✔ Petting triggered successfully: awarded +2.0 Focus Mana (260.29 -> 262.29)
+--- Test 5: Background & Non-Interactable Animals Check ---
+  ✔ Fauna_Rabbit1 verified as background (z_index=-1, non-interactable)
+  ✔ Fauna_Rabbit2 verified as background (z_index=-1, non-interactable)
+  ✔ Fauna_Deer verified as background (z_index=-1, non-interactable)
+  ✔ Fauna_Doe verified as background (z_index=-1, non-interactable)
+  ✔ Fauna_Fox verified as background (z_index=-1, non-interactable)
+  ✔ Spirit_GoldenDoe verified as background (z_index=-1, non-interactable)
+✔ Fox, Deer, Doe, Rabbits are verified non-interactable and placed in background plane
+
+--- Test 6: Dragonfly Forward Facing Mechanics ---
+  ✔ Dragonfly moving right: flip_h == true (facing forward)
+  ✔ Dragonfly moving left: flip_h == false (facing forward)
+✔ Dragonfly verified always moving forward, never backwards
+
+--- Test 7: Petting Interaction Mechanics (Interactable Fauna) ---
+✔ Petting triggered successfully on Owl: awarded +2.0 Focus Mana (259.03 -> 261.03)
 ✔ Pet cooldown verified: 15.0s
-✔ Feedback label displayed: '*The stag bows gracefully (+2 Focus Mana)*'
+✔ Feedback label displayed: '*The owl blinks sagely in approval (+2 Focus Mana)*'
 
---- Test 6: Reactive Fleeing ---
-✔ Reactive flee mechanism verified (timer: 2.5s)
+--- Test 8: Reactive Fleeing on Shy Creature ---
+✔ Reactive flee mechanism verified on Frog (timer: 2.5s)
 
---- Test 7: Clean Streak Milestone Spirit Unlocks ---
+--- Test 9: Clean Streak Milestone Spirit Unlocks ---
 ✔ Milestone unlock tiers verified (Golden Doe: T1, Guardian Bear: T3, Void Drake: T5)
   Current player tier index: 1
   ✔ Golden Spirit Doe unlocked (Tier 1 >= 1)
   ✔ Guardian Spirit Bear locked (requires Tier 3, current is 1)
   ✔ Celestial Void Drake locked (requires Tier 5, current is 1)
 
---- Test 8: 2D Lighting & Canvas Filter ---
+--- Test 10: 2D Lighting & Canvas Filter ---
 ✔ 100% of animal visual nodes enforce nearest-neighbor pixel texture filtering
 
 ========================================================
 🎉 ALL WILDLIFE VERIFICATION TESTS PASSED SUCCESSFULLY! 🎉
-========================================================
-Exit Code: 0
-```
-
-```
-$ godot --headless --path project scratch/test_swamp_expansion.tscn
-Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
-
-========================================================
-🌿 RUNNING CORRUPTED SWAMP BIOME EXPANSION UNIT TESTS 🌿
-========================================================
-
---- Test 1: World Boundaries & Camera Limits ---
-✔ Camera limit_right verified: 5760 px
-✔ Ground Floor collision bounds verified: [-100.0, 5900.0] (width: 6000.0)
-✔ Swamp repeating floor visual verified: [1150.0, 5800.0] (width: 4650.0)
-
---- Test 2: Platform One-Way Collision & Heights ---
-✔ All 14 platform collision shapes verified with exact heights and one-way flags
-
---- Test 3: Ground Surface Alignment Check (Floor Y = 312.0) ---
-✔ 100% of ground-resting props (64 nodes) verified sitting cleanly at Y = 312.0
-
---- Test 4: Chest & Collectibles Verification ---
-✔ SwampChest opened and awarded +35 Focus Mana successfully
-✔ Spirit Coins collection mechanism verified (+5.0 Focus Mana)
-
---- Test 5: Abyssal Relic Landmark Verification ---
-✔ Abyssal Relic commune interaction verified (+25 Focus Mana, Blight Cleansed)
-
---- Test 6: Brazier Lighting Rig ---
-✔ All 13 lit braziers (4 amber sanctuary + 9 violet swamp) verified
-
-========================================================
-🎉 ALL EXPANSION VERIFICATION TESTS PASSED SUCCESSFULLY! 🎉
 ========================================================
 Exit Code: 0
 ```
@@ -128,33 +115,23 @@ Exit Code: 0
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **feat(wildlife):** integrate interactive wildlife ecosystem with hybrid animated & 32x32 fauna, reactive fleeing, petting, and streak milestone unlocks | blackpirateapps |
+| `HEAD` | **fix(wildlife):** reduce cute pack & frog scales, fix dragonfly forward facing, and set forest fauna to background | blackpirateapps |
+| `b4c8f98` | **feat(wildlife):** integrate interactive wildlife ecosystem with hybrid animated and 32x32 fauna | blackpirateapps |
 | `85799da` | **feat(biome):** expand corrupted swamp to 5760px with multi-tier platforms, chest, coins, and abyssal relic | blackpirateapps |
 | `a88457c` | **feat(economy):** implement tiered milestone coin generation and live decimal HUD | blackpirateapps |
-| `1cf4ef7` | **fix(scene):** align swamp ridges 3.png and 5.png to ground floor surface | blackpirateapps |
-| `45e6b2a` | **feat(biome):** add corrupted swamp scenery with dynamic parallax crossfade, elevated platforming, and void monolith landmark | blackpirateapps |
 
 ---
 
-## 3. Wildlife & Animal Ecosystem (Phase 9 Architecture)
+## 3. Wildlife Refinements (Phase 9 Polish)
 
-* **Hybrid Visual Rig:**
-  * Curated assets from both `Cute_Pixel_Animal_Character_Pack` and `FREE 64 Tiny Animals – 32x32 Pixel Art Pack`.
-  * Total asset footprint: ~264KB, maintaining instant WebAssembly load performance.
-  * 19 fauna instances distributed across 9 screens (5,760 px):
-    * **Sanctuary Forest ($x=0..1200$):** Rabbits (2), Forest Sparrow, Sanctuary Stag, Gentle Doe, Amber Honeybee, Watcher Owl, Amber Fox.
-    * **Transition Mire ($x=1200..1800$):** Thorny Hedgehog, Mire Frog, Emerald Dragonfly.
-    * **Corrupted Swamp ($x=1800..5760$):** Moss Snail, Monolith Void Raven, Shadow Bat, Spectral White Bat, Abyssal Relic Raven.
-    * **Milestone Spirit Guardians:** Golden Spirit Doe (Tier 1 / 1 hr+), Ancient Guardian Bear (Tier 3 / 24 hrs+), Mythic Celestial Drake (Tier 5 / 7 days+).
-* **Locomotion & Micro-Animations:**
-  * `GROUND_HOP`: Realistic parabolic hops (`y = base_y - abs(sin(t * freq)) * hop_h`) with subtle idle breathing squash/stretch and random head turns.
-  * `GROUND_WALK`: Full multi-frame walking cycles for larger fauna like the Guardian Bear.
-  * `PERCHED`: Clamped to rafters and platforms, random look-arounds, blinks, and wing flexes.
-  * `FLY_HOVER`: 2D sinusoidal hovering and glides for bees, dragonflies, bats, and the celestial drake.
-* **Interactive & Reactive Systems:**
-  * **Reactive Flee:** Rapid running past shy creatures triggers quick scurrying or taking flight into the canopy.
-  * **Petting Interaction (`[E]`):** Approaching calmly displays clean `[E] Pet [Creature]` prompt. Interacting emits heart/sparkle particles (`CPUParticles2D`), plays a joyful hop, prints narrative reflection, awards +2.0 Focus Mana, and enters a 15s cooldown.
-  * **Habit Progression Integration:** Milestone spirits automatically appear as the player's clean streak advances through milestone tiers in `HabitManager.gd`.
+* **Scale Adjustments:**
+  * **Frog:** Scaled down to $0.6\times$ (18×15 px), creating a petite pond amphibian hopping in the mud.
+  * **Dragonfly:** Scaled down to $0.35\times$ (26×17 px), transforming the large raw canvas into an insect-sized swamp flyer.
+  * **All Cute Pack Characters:** Proportions reduced across the board: Bee ($0.45\times$), Bats & White Bats ($0.55\times$), Guardian Bear ($0.7\times$), and Celestial Drake ($0.6\times$).
+* **Forward Movement / Facing Fix:**
+  * Resolved reversed `flip_h` logic across `FLY_HOVER`, `GROUND_HOP`, and `GROUND_WALK`. Because source sprites face left by default, moving right now sets `flip_h = true` and moving left sets `flip_h = false`. Dragonfly and all flyers now strictly travel forward head-first.
+* **Background & Non-Interactable Placement:**
+  * Set `z_index = -1`, `can_pet = false`, and `can_flee = false` for Fox, Deer, Doe, Rabbits, and Golden Spirit Doe. They wander peacefully as background dressing, allowing the player ninja and foreground objects to pass naturally in front of them without interaction prompts.
 
 ---
 
@@ -168,7 +145,7 @@ Exit Code: 0
 * [x] **Phase 6: Multi-Biome World Expansion:** Added Corrupted Swamp biome (2880px world), dynamic position-based parallax crossfade, elevated platforming, weeping willows, violet braziers, and Corrupted Monolith.
 * [x] **Phase 7: Swamp Floor & Ridge Alignment:** All swamp ridges (`3.png`, `5.png`, `1.png`) and props grounded cleanly to $y = 312.0$.
 * [x] **Phase 8: Massive Corrupted Swamp Expansion:** Extended world to 5760px (9 screens), added 8 new platforms, Corrupted Chest (+35 Mana), 6 Spirit Coins (+5 Mana each), Abyssal Relic landmark (+25 Mana, -5% Blight), 6 new violet braziers (13 total), and dense foliage dressing.
-* [x] **Phase 9: Wildlife & Interactive Animal Ecosystem:** Integrated 19 fauna across the world with hybrid animated & 32x32 sprites, reactive fleeing, petting mechanics (+2 Focus Mana), and habit milestone spirit unlocks.
+* [x] **Phase 9: Wildlife Ecosystem & Proportions Polish:** Integrated 19 fauna across the world with hybrid animated & 32x32 sprites, fixed dragonfly flight orientation, reduced Cute pack & frog sizes, and positioned forest fauna in background plane.
 * [ ] **Next Roadmap Items for Incoming Agents:**
   * Implement sound effects & atmospheric audio (forest breeze, flame crackle, swamp ambience, rune pop, shield impact, coin chimes, gentle animal chirps).
   * Add water physics or swamp puddles with interactive ripple effects.

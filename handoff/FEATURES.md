@@ -36,10 +36,10 @@
   * **The Abyssal Relic Altar (`x = 5250, y = 312`):** Ancient void altar for deep meditation (`[E]`), triggering parry stance, cleansing 5% blight, and granting +25 Focus Mana.
 * **Interactive Wildlife Ecosystem:**
   * 19 fauna instances inhabiting all 9 screen-widths of the 5,760px world.
-  * **Hybrid Visual Rig:** Multi-frame animated characters (Cute Pack: Bees, Dragonflies, Bats, White Bats, Guardian Bear, Celestial Drake) paired with crisp 32×32 fauna (Tiny Animals: Deer, Doe, Rabbits, Foxes, Hedgehogs, Frogs, Snails, Owls, Ravens).
-  * **Locomotion State Machine:** Parabolic ground hopping physics, smooth walking cycles, perched branch idling with head-turns/wing stretches, and sinusoidal flying/hovering.
-  * **Reactive Behaviors:** Running near shy creatures (rabbits, songbirds) prompts reactive fleeing or taking flight into the canopy.
-  * **Gentle Petting Mechanics:** Approaching peacefully activates `[E] Pet [Creature]`, triggering pixel heart/sparkle particles (`CPUParticles2D`), joyful bounce tweens, narrative reflection text, and a +2.0 Focus Mana reward.
+  * **Hybrid Visual Rig & Delicately Proportioned Scales:** Multi-frame animated characters (Cute Pack: Bees 0.45×, Dragonflies 0.35×, Bats 0.55×, Guardian Bear 0.7×, Celestial Drake 0.6×) paired with crisp 32×32 fauna (Tiny Animals: Deer, Doe, Rabbits, Foxes, Hedgehogs, petite Frogs 0.6×, Snails, Owls, Ravens).
+  * **Background Forest Ambiance:** Deer, Doe, Rabbits, and Foxes render peacefully in the background layer (`z_index = -1`) without collision or interaction prompts, allowing the player to pass freely in front of them.
+  * **Locomotion & Forward Flight:** Parabolic ground hopping physics, smooth walking cycles, perched branch idling, and forward-facing flight paths (dragonflies, bees, and bats strictly travel head-first).
+  * **Interactive Creatures:** Approaching interactive creatures (Owl, Hedgehog, Snail, Spirit Bear, Celestial Drake) activates `[E] Pet [Creature]`, triggering pixel heart/sparkle particles (`CPUParticles2D`), joyful bounce tweens, narrative reflection text, and a +2.0 Focus Mana reward.
   * **Habit Milestone Spirit Unlocks:**
     * *Tier 1 (1 hr+ / First Sprout):* Golden Spirit Doe awakens near the Sacred Altar with celestial light.
     * *Tier 3 (24 hrs+ / Ancient Hearth):* Ancient Guardian Bear emerges at the forest edge ($x=1050$).

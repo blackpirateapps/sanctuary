@@ -21,11 +21,13 @@ const ANIMAL_PRESETS: Dictionary = {
 		"speed": 22.0,
 		"hop_h": 3.5,
 		"hop_freq": 7.0,
-		"can_flee": true,
-		"flee_dist": 50.0,
-		"can_pet": true,
-		"pet_msg": "*The hare twitches its nose happily (+2 Focus Mana)*",
-		"offset": Vector2(0, -16)
+		"can_flee": false,
+		"flee_dist": 0.0,
+		"can_pet": false,
+		"is_background": true,
+		"pet_msg": "",
+		"offset": Vector2(0, -16),
+		"scale": Vector2.ONE
 	},
 	"deer": {
 		"display_name": "Sanctuary Stag",
@@ -36,10 +38,12 @@ const ANIMAL_PRESETS: Dictionary = {
 		"hop_h": 2.0,
 		"hop_freq": 4.5,
 		"can_flee": false,
-		"flee_dist": 40.0,
-		"can_pet": true,
-		"pet_msg": "*The stag bows gracefully (+2 Focus Mana)*",
-		"offset": Vector2(0, -16)
+		"flee_dist": 0.0,
+		"can_pet": false,
+		"is_background": true,
+		"pet_msg": "",
+		"offset": Vector2(0, -16),
+		"scale": Vector2.ONE
 	},
 	"doe": {
 		"display_name": "Gentle Doe",
@@ -50,10 +54,12 @@ const ANIMAL_PRESETS: Dictionary = {
 		"hop_h": 2.0,
 		"hop_freq": 4.5,
 		"can_flee": false,
-		"flee_dist": 40.0,
-		"can_pet": true,
-		"pet_msg": "*The doe nuzzles your palm warmly (+2 Focus Mana)*",
-		"offset": Vector2(0, -16)
+		"flee_dist": 0.0,
+		"can_pet": false,
+		"is_background": true,
+		"pet_msg": "",
+		"offset": Vector2(0, -16),
+		"scale": Vector2.ONE
 	},
 	"sparrow": {
 		"display_name": "Forest Songbird",
@@ -64,8 +70,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"can_flee": true,
 		"flee_dist": 45.0,
 		"can_pet": false,
+		"is_background": false,
 		"pet_msg": "",
-		"offset": Vector2(0, -16)
+		"offset": Vector2(0, -16),
+		"scale": Vector2.ONE
 	},
 	"owl": {
 		"display_name": "Watcher Owl",
@@ -76,8 +84,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"can_flee": false,
 		"flee_dist": 40.0,
 		"can_pet": true,
+		"is_background": false,
 		"pet_msg": "*The owl blinks sagely in approval (+2 Focus Mana)*",
-		"offset": Vector2(0, -16)
+		"offset": Vector2(0, -16),
+		"scale": Vector2.ONE
 	},
 	"fox": {
 		"display_name": "Amber Fox",
@@ -87,25 +97,29 @@ const ANIMAL_PRESETS: Dictionary = {
 		"speed": 28.0,
 		"hop_h": 3.0,
 		"hop_freq": 6.0,
-		"can_flee": true,
-		"flee_dist": 55.0,
-		"can_pet": true,
-		"pet_msg": "*The fox playfully brushes its tail against you (+2 Focus Mana)*",
-		"offset": Vector2(0, -16)
+		"can_flee": false,
+		"flee_dist": 0.0,
+		"can_pet": false,
+		"is_background": true,
+		"pet_msg": "",
+		"offset": Vector2(0, -16),
+		"scale": Vector2.ONE
 	},
 	"frog": {
 		"display_name": "Mire Frog",
 		"mode": MovementMode.GROUND_HOP,
 		"is_animated": false,
 		"texture": "res://assets/animals/tiny/frog.png",
-		"speed": 20.0,
-		"hop_h": 5.0,
+		"speed": 18.0,
+		"hop_h": 2.5,
 		"hop_freq": 5.0,
 		"can_flee": true,
 		"flee_dist": 40.0,
 		"can_pet": true,
-		"pet_msg": "*The frog lets out a cheerful croak (+2 Focus Mana)*",
-		"offset": Vector2(0, -16)
+		"is_background": false,
+		"pet_msg": "*The tiny frog lets out a cheerful croak (+2 Focus Mana)*",
+		"offset": Vector2(0, -16),
+		"scale": Vector2(0.6, 0.6)
 	},
 	"hedgehog": {
 		"display_name": "Thorny Hedgehog",
@@ -118,8 +132,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"can_flee": true,
 		"flee_dist": 40.0,
 		"can_pet": true,
+		"is_background": false,
 		"pet_msg": "*The hedgehog carefully uncurls to greet you (+2 Focus Mana)*",
-		"offset": Vector2(0, -16)
+		"offset": Vector2(0, -16),
+		"scale": Vector2.ONE
 	},
 	"snail": {
 		"display_name": "Moss Snail",
@@ -132,8 +148,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"can_flee": false,
 		"flee_dist": 30.0,
 		"can_pet": true,
+		"is_background": false,
 		"pet_msg": "*A patient snail rests calmly (+2 Focus Mana)*",
-		"offset": Vector2(0, -16)
+		"offset": Vector2(0, -16),
+		"scale": Vector2.ONE
 	},
 	"raven": {
 		"display_name": "Void Raven",
@@ -144,8 +162,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"can_flee": true,
 		"flee_dist": 40.0,
 		"can_pet": false,
+		"is_background": false,
 		"pet_msg": "",
-		"offset": Vector2(0, -16)
+		"offset": Vector2(0, -16),
+		"scale": Vector2.ONE
 	},
 	"bee": {
 		"display_name": "Amber Honeybee",
@@ -160,8 +180,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"speed": 22.0,
 		"can_flee": false,
 		"can_pet": false,
+		"is_background": false,
 		"pet_msg": "",
-		"offset": Vector2(0, -20)
+		"offset": Vector2(0, -20),
+		"scale": Vector2(0.45, 0.45)
 	},
 	"dragonfly": {
 		"display_name": "Emerald Dragonfly",
@@ -177,8 +199,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"speed": 28.0,
 		"can_flee": false,
 		"can_pet": false,
+		"is_background": false,
 		"pet_msg": "",
-		"offset": Vector2(0, -24)
+		"offset": Vector2(0, -24),
+		"scale": Vector2(0.35, 0.35)
 	},
 	"bat": {
 		"display_name": "Shadow Bat",
@@ -193,8 +217,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"speed": 25.0,
 		"can_flee": false,
 		"can_pet": false,
+		"is_background": false,
 		"pet_msg": "",
-		"offset": Vector2(0, -24)
+		"offset": Vector2(0, -24),
+		"scale": Vector2(0.55, 0.55)
 	},
 	"white_bat": {
 		"display_name": "Spectral Bat",
@@ -209,8 +235,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"speed": 26.0,
 		"can_flee": false,
 		"can_pet": false,
+		"is_background": false,
 		"pet_msg": "",
-		"offset": Vector2(0, -24)
+		"offset": Vector2(0, -24),
+		"scale": Vector2(0.55, 0.55)
 	},
 	"bear": {
 		"display_name": "Guardian Bear",
@@ -225,8 +253,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"speed": 20.0,
 		"can_flee": false,
 		"can_pet": true,
+		"is_background": false,
 		"pet_msg": "*The Ancient Guardian Bear rumbles with steadfast fortitude (+2 Focus Mana)*",
-		"offset": Vector2(0, -28)
+		"offset": Vector2(0, -28),
+		"scale": Vector2(0.7, 0.7)
 	},
 	"baby_dragon": {
 		"display_name": "Celestial Drake",
@@ -241,8 +271,10 @@ const ANIMAL_PRESETS: Dictionary = {
 		"speed": 22.0,
 		"can_flee": false,
 		"can_pet": true,
+		"is_background": false,
 		"pet_msg": "*The Celestial Drake coils gently around you, honoring your mastery (+2 Focus Mana)*",
-		"offset": Vector2(0, -30)
+		"offset": Vector2(0, -30),
+		"scale": Vector2(0.6, 0.6)
 	}
 }
 
@@ -250,6 +282,8 @@ const ANIMAL_PRESETS: Dictionary = {
 @export var display_name: String = ""
 @export var movement_mode: MovementMode = MovementMode.GROUND_HOP
 @export var is_animated_pack: bool = false
+@export var is_background: bool = false
+@export var base_scale: Vector2 = Vector2.ONE
 
 # Textures / Frame paths
 @export var static_texture: Texture2D
@@ -305,12 +339,21 @@ func _ready() -> void:
 	_perch_origin = position
 	_target_x = position.x
 	
+	if is_background:
+		z_index = -1
+		can_pet = false
+		can_flee = false
+	
 	if wander_min_x == 0.0 and wander_max_x == 0.0:
 		wander_min_x = position.x - 40.0
 		wander_max_x = position.x + 40.0
 		
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	anim_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	
+	# Apply configured base scale to visual nodes
+	sprite.scale = base_scale
+	anim_sprite.scale = base_scale
 	
 	# Setup visual representation
 	if is_animated_pack and animation_frames.size() > 0:
@@ -351,6 +394,15 @@ func _apply_preset() -> void:
 		movement_mode = p.get("mode", movement_mode)
 		is_animated_pack = p.get("is_animated", is_animated_pack)
 		
+		if p.has("scale"):
+			base_scale = p["scale"]
+		if p.has("is_background"):
+			is_background = p["is_background"]
+		if is_background:
+			z_index = -1
+			can_pet = false
+			can_flee = false
+			
 		if p.has("speed"):
 			move_speed = p["speed"]
 		if p.has("hop_h"):
@@ -465,9 +517,10 @@ func _process(delta: float) -> void:
 			_process_fly_hover(delta, t)
 
 func _process_idle(delta: float, t: float) -> void:
-	var breath = 1.0 + sin(t * 3.0) * 0.03
+	var breath_y = base_scale.y * (1.0 + sin(t * 3.0) * 0.03)
 	var active_node = anim_sprite if is_animated_pack else sprite
-	active_node.scale.y = breath
+	active_node.scale.y = breath_y
+	active_node.scale.x = base_scale.x
 	
 	_state_timer -= delta
 	if _state_timer <= 0.0:
@@ -484,7 +537,8 @@ func _process_ground_hop(delta: float, t: float) -> void:
 			flee_dir = 1.0
 		position.x += flee_dir * move_speed * flee_speed_mult * delta
 		position.x = clampf(position.x, wander_min_x - 30.0, wander_max_x + 30.0)
-		active_node.flip_h = (flee_dir < 0.0)
+		# Default facing is LEFT, so moving right (flee_dir > 0) requires flip_h = true
+		active_node.flip_h = (flee_dir > 0.0)
 		
 		# Rapid fleeing hops
 		_walk_cycle_t += delta * hop_frequency * 1.5
@@ -505,11 +559,12 @@ func _process_ground_hop(delta: float, t: float) -> void:
 			_is_idling = true
 			_state_timer = randf_range(2.0, 6.0)
 			position.y = _base_y
-			active_node.scale = Vector2.ONE
+			active_node.scale = base_scale
 		else:
 			_state_timer -= delta
 			position.x += dir * move_speed * delta
-			active_node.flip_h = (dir < 0.0)
+			# Default facing is LEFT, so moving right (dir > 0) requires flip_h = true
+			active_node.flip_h = (dir > 0.0)
 			
 			_walk_cycle_t += delta * hop_frequency
 			position.y = _base_y - abs(sin(_walk_cycle_t)) * hop_height
@@ -538,7 +593,8 @@ func _process_ground_walk(delta: float, t: float) -> void:
 		else:
 			_state_timer -= delta
 			position.x += dir * move_speed * delta
-			active_node.flip_h = (dir < 0.0)
+			# Default facing is LEFT, so moving right (dir > 0) requires flip_h = true
+			active_node.flip_h = (dir > 0.0)
 			if is_animated_pack and not anim_sprite.is_playing():
 				anim_sprite.play("default")
 
@@ -546,8 +602,9 @@ func _process_perched(delta: float, t: float) -> void:
 	var active_node = anim_sprite if is_animated_pack else sprite
 	
 	if not _is_fleeing:
-		var breath = 1.0 + sin(t * 2.5) * 0.03
-		active_node.scale.y = breath
+		var breath_y = base_scale.y * (1.0 + sin(t * 2.5) * 0.03)
+		active_node.scale.y = breath_y
+		active_node.scale.x = base_scale.x
 		
 		_state_timer -= delta
 		if _state_timer <= 0.0:
@@ -569,7 +626,8 @@ func _process_fly_hover(delta: float, t: float) -> void:
 		
 	var dir: float = sign(_target_x - position.x)
 	position.x += dir * move_speed * 0.65 * delta
-	active_node.flip_h = (dir < 0.0)
+	# Default facing is LEFT, so moving right (dir > 0) requires flip_h = true
+	active_node.flip_h = (dir > 0.0)
 	
 	position.y = _base_y + sin(t * 3.5 + position.x * 0.05) * 4.0
 
@@ -586,6 +644,9 @@ func _trigger_flee() -> void:
 		_is_idling = false
 
 func _perform_pet() -> void:
+	if not can_pet or is_background:
+		return
+		
 	_pet_cooldown = pet_cooldown_time
 	prompt_label.visible = false
 	
