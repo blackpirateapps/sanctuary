@@ -55,8 +55,8 @@ func _physics_process(delta: float) -> void:
 		if not is_defending and not is_attacking:
 			_trigger_defend()
 
-	# Handle jump (W or Up or Space)
-	if (Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP)) and is_on_floor():
+	# Handle jump (Space or W or Up)
+	if (Input.is_key_pressed(KEY_SPACE) or Input.is_key_pressed(KEY_W) or Input.is_key_pressed(KEY_UP)) and is_on_floor():
 		velocity.y = jump_velocity
 
 	# Horizontal movement (A/D or Left/Right)

@@ -36,21 +36,22 @@ func _on_streak_updated(days: float, hours: int, mins: int, secs: int) -> void:
 	streak_label.text = "%02dd : %02dh : %02dm : %02ds" % [total_days_int, hours, mins, secs]
 
 func _on_shield_changed(new_count: int) -> void:
-	var icons: String = ""
-	for i in range(new_count):
-		icons += "🛡️ "
 	if new_count == 0:
-		icons = "BROKEN"
-	shields_label.text = icons
+		shields_label.text = "SHIELDS: BROKEN"
+	else:
+		shields_label.text = "SHIELDS: %d/%d" % [new_count, HabitManager.max_shields]
 
 func _on_mana_changed(new_mana: float) -> void:
-	mana_label.text = "✦ %d" % int(new_mana)
+	mana_label.text = "FOCUS: %d" % int(new_mana)
 
 func _on_corruption_changed(pct: float) -> void:
 	corruption_bar.value = pct
 	corruption_label.text = "VALLEY BLIGHT: %0.1f%%" % pct
 
 func _input(event: InputEvent) -> void:
-	# Spacebar triggers urge beacon if not typing
-	if event.is_action_pressed("ui_select") and not urge_button.has_focus():
-		urge_beacon_pressed.emit()
+	# Key B triggers Urge Beacon; Key C opens Chronicles
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_B:
+			urge_beacon_pressed.emit()
+		elif event.keycode == KEY_C:
+			chronicle_button_pressed.emit()

@@ -63,7 +63,7 @@ theme_override_constants/separation = 12
 layout_mode = 2
 theme_override_colors/font_color = Color(0.941176, 0.690196, 0.470588, 1)
 theme_override_font_sizes/font_size = 13
-text = "🛡️ ACCOUNTABILITY CHECK-IN"
+text = "ACCOUNTABILITY CHECK-IN"
 horizontal_alignment = 1
 
 [node name="Description" type="Label" parent="Modal/Panel/Content"]
