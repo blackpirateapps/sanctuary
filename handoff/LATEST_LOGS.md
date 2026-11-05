@@ -21,7 +21,8 @@ Exit Code: 0 (Zero errors, zero warnings)
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **style(ui):** switch to high-DPI canvas_items stretch mode and NotoSans typography for crystal-clear readability | blackpirateapps |
+| `HEAD` | **fix(trial):** replace timer lambda with node-bound tweens to eliminate dangling capture errors | blackpirateapps |
+| `56ba38b` | **style(ui):** switch to high-DPI canvas_items stretch mode and NotoSans typography for crystal-clear readability | blackpirateapps |
 | `61ec8eb` | **docs:** create handoff folder, agent protocols, and technical documentation | blackpirateapps |
 | `0ab22d8` | **style:** apply custom retro pixel font (Golden Apple), integrate crisp pixel art HUD icons, and fix multi-frame brazier animation | blackpirateapps |
 | `75fbc82` | **fix(ui):** rebind jump to space, move urge beacon to B, replace missing glyph emojis with clean typography, and polish void runes | blackpirateapps |

@@ -88,30 +88,38 @@ func _spawn_shadow_node() -> void:
 	var y: float = randf_range(20.0, max(30.0, area_size.y - 50.0))
 	btn.position = Vector2(x, y)
 	
-	# Pulse animation
-	var pulse_tw = btn.create_tween().set_loops()
+	orbs_container.add_child(btn)
+	
+	# Pulse animation bound to button node
+	var pulse_tw: Tween = btn.create_tween().set_loops()
 	pulse_tw.tween_property(btn, "scale", Vector2(1.15, 1.15), 0.4).set_trans(Tween.TRANS_SINE)
 	pulse_tw.tween_property(btn, "scale", Vector2(0.95, 0.95), 0.4).set_trans(Tween.TRANS_SINE)
 	
-	btn.pressed.connect(func():
-		orbs_destroyed += 1
+	# Lifetime auto-vanish tween bound to button node
+	var lifetime_tw: Tween = btn.create_tween()
+	lifetime_tw.tween_interval(2.7)
+	lifetime_tw.tween_property(btn, "modulate:a", 0.0, 0.3)
+	lifetime_tw.tween_callback(btn.queue_free)
+	
+	btn.pressed.connect(_on_rune_clicked.bind(btn, pulse_tw, lifetime_tw))
+
+func _on_rune_clicked(btn: TextureButton, pulse_tw: Tween, lifetime_tw: Tween) -> void:
+	if not is_instance_valid(btn) or btn.is_queued_for_deletion():
+		return
+	btn.disabled = true
+	orbs_destroyed += 1
+	
+	if is_instance_valid(pulse_tw):
 		pulse_tw.kill()
-		# Change to impact starburst
-		btn.texture_normal = _impact_texture
-		btn.modulate = Color(2.0, 1.5, 2.5, 1.0) # Flash bright
-		var pop_tw = btn.create_tween()
-		pop_tw.tween_property(btn, "scale", Vector2(1.8, 1.8), 0.15)
-		pop_tw.parallel().tween_property(btn, "modulate:a", 0.0, 0.15)
-		pop_tw.tween_callback(btn.queue_free)
-	)
-	
-	orbs_container.add_child(btn)
-	
-	# Auto vanish if not clicked in 3 seconds
-	get_tree().create_timer(3.0).timeout.connect(func():
-		if is_instance_valid(btn):
-			btn.queue_free()
-	)
+	if is_instance_valid(lifetime_tw):
+		lifetime_tw.kill()
+		
+	btn.texture_normal = _impact_texture
+	btn.modulate = Color(2.0, 1.5, 2.5, 1.0) # Flash bright
+	var pop_tw: Tween = btn.create_tween()
+	pop_tw.tween_property(btn, "scale", Vector2(1.8, 1.8), 0.15)
+	pop_tw.parallel().tween_property(btn, "modulate:a", 0.0, 0.15)
+	pop_tw.tween_callback(btn.queue_free)
 
 func _transition_to_breathing() -> void:
 	current_phase = TrialPhase.SOMATIC_BREATHING
