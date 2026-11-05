@@ -1,12 +1,41 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-06 01:05 UTC+05:30  
+> **Timestamp:** 2026-11-06 01:10 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
 ---
 
 ## 1. Engine Verification Test
+
+```
+$ godot --headless --path project --quit
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+Exit Code: 0 (Zero errors, zero warnings)
+```
+
+---
+
+## 2. Pacing Tuning & Tiered Difficulty Tests
+
+```
+$ godot --headless --path project -s test_difficulty.gd
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+--- BEGIN DIFFICULTY & COMBAT SPEED TEST ---
+--- TEST 1: First Enemy (Easy Tier) ---
+  ✔ Easy Tikbalang: 75 HP (3 hits), speed: 38, no dash, 8 damage
+--- TEST 2: Second Enemy (Hard Tier) ---
+  ✔ Hard Tikbalang: 175 HP (7 hits), speed: 52, dash: 105, 13 damage
+--- TEST 3: Hit-Stun Behavior ---
+  ✔ Enemy properly flinches into hit-stun (0.4s pause) when hit
+--- ALL DIFFICULTY & PACING TESTS PASSED! ---
+```
+
+---
+
+## 3. Previous Engine Verification Test
 
 ```
 $ godot --headless --path project --quit

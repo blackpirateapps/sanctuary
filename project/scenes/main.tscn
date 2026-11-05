@@ -991,4 +991,5 @@ position = Vector2(1600, 312)
 
 [node name="Tikbalang_SwampEnd" parent="Enemies" instance=ExtResource("72_tikbalang")]
 position = Vector2(5200, 312)
+difficulty_tier = "hard"
 
