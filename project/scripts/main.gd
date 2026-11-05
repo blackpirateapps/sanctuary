@@ -45,7 +45,13 @@ const TRANSITION_END_X: float = 1650.0
 	$ParallaxBackground/Swamp5_Mist/Sprite2D
 ]
 
+const BIOME_WEATHER_COOLDOWN_TIME: float = 35.0
+const ALL_WEATHERS: Array[String] = ["clear", "rain", "snow", "fog", "leaves", "fireflies", "stars"]
+
 var _channel_cooldown: float = 0.0
+var _current_biome_id: int = -1
+var _biome_weather_cooldown: float = 0.0
+var _night_blend: float = 0.0
 
 func _ready() -> void:
 	# Connect UI signals
@@ -57,12 +63,36 @@ func _ready() -> void:
 	urge_trial.trial_finished.connect(_on_urge_trial_finished)
 	SanctuaryState.corruption_changed.connect(_on_corruption_changed)
 	
+	# Initialize starting biome and initial grace cooldown
+	_current_biome_id = _get_current_biome(player.global_position.x)
+	_biome_weather_cooldown = 15.0
+	
+	# Setting weather manually grants grace period so walking doesn't instantly overwrite user selection
+	HabitManager.weather_changed.connect(func(_w): _biome_weather_cooldown = max(_biome_weather_cooldown, 30.0))
+	
 	_update_ambient_lighting()
 	_update_scenery_transition()
 
 func _process(delta: float) -> void:
 	if _channel_cooldown > 0.0:
 		_channel_cooldown -= delta
+		
+	# Smoothly adjust night darkening factor when starry night is active
+	var target_night: float = 1.0 if HabitManager.selected_weather == "stars" else 0.0
+	_night_blend = move_toward(_night_blend, target_night, delta * 1.5)
+	
+	# Biome transition weather change with cooldown protection against back-and-forth oscillation
+	if _biome_weather_cooldown > 0.0:
+		_biome_weather_cooldown -= delta
+		
+	var biome_now: int = _get_current_biome(player.global_position.x)
+	if _current_biome_id == -1:
+		_current_biome_id = biome_now
+	elif biome_now != _current_biome_id:
+		_current_biome_id = biome_now
+		if _biome_weather_cooldown <= 0.0:
+			_trigger_biome_weather_change()
+			_biome_weather_cooldown = BIOME_WEATHER_COOLDOWN_TIME
 		
 	var t: float = Time.get_ticks_msec() / 1000.0
 	
@@ -105,6 +135,25 @@ func _process(delta: float) -> void:
 	# Dynamic scenery crossfade based on player position
 	_update_scenery_transition()
 
+func _get_current_biome(x: float) -> int:
+	if x < 1100.0:
+		return 0 # Sanctuary Forest
+	elif x < 2700.0:
+		return 1 # Murky Outskirts
+	elif x < 4200.0:
+		return 2 # Sunken Canopy
+	else:
+		return 3 # Abyssal Heart
+
+func _trigger_biome_weather_change() -> void:
+	var pool: Array[String] = []
+	for w in ALL_WEATHERS:
+		if w != HabitManager.selected_weather:
+			pool.append(w)
+	if pool.size() > 0:
+		var picked: String = pool[randi() % pool.size()]
+		HabitManager.set_weather(picked)
+
 func _update_scenery_transition() -> void:
 	var player_x: float = player.global_position.x
 	var raw_t: float = (player_x - TRANSITION_START_X) / (TRANSITION_END_X - TRANSITION_START_X)
@@ -112,20 +161,33 @@ func _update_scenery_transition() -> void:
 	# Smoothstep interpolation
 	var blend: float = t * t * (3.0 - 2.0 * t)
 	
+	# Starry night nocturnal darkening tints
+	var night_sky_tint: Color = Color(0.12, 0.12, 0.22, 1.0) # Deep midnight indigo sky
+	var sky_tint: Color = Color.WHITE.lerp(night_sky_tint, _night_blend)
+	
+	var night_tree_tint: Color = Color(0.28, 0.28, 0.40, 1.0) # Dark silhouettes for trees
+	var tree_tint: Color = Color.WHITE.lerp(night_tree_tint, _night_blend)
+	
 	# Crossfade parallax backgrounds
 	# Forest Sky sits directly over Swamp Sky: fading Forest Sky reveals the Swamp Sky underneath
-	$ParallaxBackground/Layer1_Sky/Sprite2D.modulate.a = 1.0 - blend
-	$ParallaxBackground/Layer2_Distant/Sprite2D.modulate.a = 1.0 - blend
-	$ParallaxBackground/Layer3_Mid/Sprite2D.modulate.a = 1.0 - blend
-	$ParallaxBackground/Layer4_Mist/Sprite2D.modulate.a = 1.0 - blend
+	$ParallaxBackground/Swamp1_Sky/Sprite2D.modulate = Color(sky_tint.r, sky_tint.g, sky_tint.b, 1.0)
+	$ParallaxBackground/Layer1_Sky/Sprite2D.modulate = Color(sky_tint.r, sky_tint.g, sky_tint.b, 1.0 - blend)
+	
+	$ParallaxBackground/Layer2_Distant/Sprite2D.modulate = Color(tree_tint.r, tree_tint.g, tree_tint.b, 1.0 - blend)
+	$ParallaxBackground/Layer3_Mid/Sprite2D.modulate = Color(tree_tint.r, tree_tint.g, tree_tint.b, 1.0 - blend)
+	$ParallaxBackground/Layer4_Mist/Sprite2D.modulate = Color(tree_tint.r, tree_tint.g, tree_tint.b, 1.0 - blend)
 	
 	for s in swamp_sprites:
-		s.modulate.a = blend
+		s.modulate = Color(tree_tint.r, tree_tint.g, tree_tint.b, blend)
 		
-	# Blend ambient directional light between sanctuary state color and murky swamp tint
+	# Blend ambient directional light between sanctuary state color, murky swamp tint, and starry midnight
 	var base_color: Color = SanctuaryState.get_ambient_color()
 	var swamp_undertone: Color = Color("121a22")
-	dir_light.color = base_color.lerp(swamp_undertone, blend * 0.7)
+	var day_color: Color = base_color.lerp(swamp_undertone, blend * 0.7)
+	var night_undertone: Color = Color("060610") # Deep starry night ambient
+	
+	dir_light.color = day_color.lerp(night_undertone, _night_blend * 0.8)
+	dir_light.energy = lerpf(0.75, 0.35, _night_blend)
 
 func _update_ambient_lighting() -> void:
 	_update_scenery_transition()

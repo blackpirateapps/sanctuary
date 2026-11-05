@@ -73,7 +73,8 @@
     4. **Thin Fog:** Soft low canopy drifting mist loop (120ms).
     5. **Autumn Leaves:** Tilted tumbling crimson and amber foliage loop (80ms).
     6. **Fireflies:** Ambient glowing motes drifting across the sanctuary (90ms).
-    7. **Starry Night:** Twinkling celestial night sky loop (120ms).
+    7. **Starry Night:** Twinkling celestial night sky loop (120ms) rendered in `ParallaxBackground` strictly behind distant and mid tree canopies (`Sky_Stars/StarsRect`), accompanied by nocturnal scenery darkening (sky transitions to midnight indigo, background trees fade to dark silhouettes, and directional ambient light dims to 0.35 at `#060610` to make braziers and lanterns glow vividly).
+  * **Dynamic Biome Weather Transitions:** Walking across biome boundaries (Forest, Murky Outskirts, Sunken Canopy, Abyssal Heart) rolls a random new weather phenomenon with a 35-second cooldown timer that prevents rapid or jarring weather flickering when moving back and forth across zone edges.
   * State persists across Web (`localStorage`) and Desktop (`habit_save.json`) via `HabitManager`.
 * **Sanctuary Settings Modal ([`settings_modal.tscn`](file:///home/dog/git/sanctuary/project/scenes/settings_modal.tscn)):**
   * Cozy-Space UI pixel aesthetic utilizing 9-slice `panel-dark.png` and teal/amber button textures.

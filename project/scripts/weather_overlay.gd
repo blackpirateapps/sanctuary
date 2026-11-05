@@ -8,6 +8,8 @@ extends CanvasLayer
 @onready var lightning_bolt: AnimatedSprite2D = $LightningBolt
 @onready var rain_splashes: CPUParticles2D = $RainSplashes
 
+var background_stars_rect: TextureRect = null
+
 var current_weather: String = "clear"
 
 # Frame cache and metadata
@@ -32,6 +34,10 @@ func _ready() -> void:
 	screen_flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lightning_bolt.visible = false
 	rain_splashes.emitting = false
+	
+	if get_parent() and get_parent().has_node("ParallaxBackground/Sky_Stars/StarsRect"):
+		background_stars_rect = get_parent().get_node("ParallaxBackground/Sky_Stars/StarsRect")
+		background_stars_rect.modulate.a = 0.0
 	
 	_load_all_presets()
 	_setup_lightning_animation()
@@ -129,37 +135,69 @@ func set_weather(weather_id: String, animate_transition: bool = true) -> void:
 		_current_frames.clear()
 		for tex in preset["frames"]:
 			_current_frames.append(tex)
-		if _current_frames.size() > 0:
-			weather_rect.texture = _current_frames[0]
-			weather_rect.modulate.a = _target_opacity
-		else:
+			
+		if current_weather == "stars":
 			weather_rect.texture = null
 			weather_rect.modulate.a = 0.0
+			if background_stars_rect:
+				background_stars_rect.visible = true
+				background_stars_rect.modulate.a = _target_opacity
+				if _current_frames.size() > 0:
+					background_stars_rect.texture = _current_frames[0]
+		else:
+			if background_stars_rect:
+				background_stars_rect.modulate.a = 0.0
+			if _current_frames.size() > 0:
+				weather_rect.texture = _current_frames[0]
+				weather_rect.modulate.a = _target_opacity
+			else:
+				weather_rect.texture = null
+				weather_rect.modulate.a = 0.0
 		return
 
 	# Smooth crossfade
 	if _crossfade_tween and _crossfade_tween.is_valid():
 		_crossfade_tween.kill()
 		
+	_current_frames.clear()
+	for tex in preset["frames"]:
+		_current_frames.append(tex)
+		
 	_crossfade_tween = create_tween()
-	_crossfade_tween.tween_property(weather_rect, "modulate:a", 0.0, 0.15).set_trans(Tween.TRANS_SINE)
-	_crossfade_tween.tween_callback(func():
-		_current_frames.clear()
-		for tex in preset["frames"]:
-			_current_frames.append(tex)
-		if _current_frames.size() > 0:
-			weather_rect.texture = _current_frames[0]
-		else:
-			weather_rect.texture = null
-	)
-	_crossfade_tween.tween_property(weather_rect, "modulate:a", _target_opacity, 0.2).set_trans(Tween.TRANS_SINE)
+	
+	if current_weather == "stars":
+		# Foreground weather clears immediately so stars never draw in front of trees
+		weather_rect.texture = null
+		_crossfade_tween.tween_property(weather_rect, "modulate:a", 0.0, 0.15).set_trans(Tween.TRANS_SINE)
+		if background_stars_rect:
+			background_stars_rect.visible = true
+			if _current_frames.size() > 0:
+				background_stars_rect.texture = _current_frames[0]
+			_crossfade_tween.parallel().tween_property(background_stars_rect, "modulate:a", _target_opacity, 0.35).set_trans(Tween.TRANS_SINE)
+	else:
+		if background_stars_rect and background_stars_rect.modulate.a > 0.0:
+			_crossfade_tween.parallel().tween_property(background_stars_rect, "modulate:a", 0.0, 0.2).set_trans(Tween.TRANS_SINE)
+			
+		_crossfade_tween.tween_property(weather_rect, "modulate:a", 0.0, 0.12).set_trans(Tween.TRANS_SINE)
+		_crossfade_tween.tween_callback(func():
+			if _current_frames.size() > 0:
+				weather_rect.texture = _current_frames[0]
+			else:
+				weather_rect.texture = null
+		)
+		_crossfade_tween.tween_property(weather_rect, "modulate:a", _target_opacity, 0.22).set_trans(Tween.TRANS_SINE)
 
 func _process(delta: float) -> void:
 	# Animate active overlay frames
 	if not _current_frames.is_empty():
 		_anim_timer += delta * 1000.0
 		var frame_index: int = int(_anim_timer / _current_frame_ms) % _current_frames.size()
-		weather_rect.texture = _current_frames[frame_index]
+		if current_weather == "stars":
+			weather_rect.texture = null
+			if background_stars_rect:
+				background_stars_rect.texture = _current_frames[frame_index]
+		else:
+			weather_rect.texture = _current_frames[frame_index]
 		
 	# Lightning loop during rain
 	if current_weather == "rain":

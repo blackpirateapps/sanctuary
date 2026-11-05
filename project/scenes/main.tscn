@@ -139,6 +139,19 @@ motion_mirroring = Vector2(640, 0)
 position = Vector2(320, 180)
 texture = ExtResource("2_bg1")
 
+[node name="Sky_Stars" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.03, 0)
+motion_mirroring = Vector2(640, 0)
+
+[node name="StarsRect" type="TextureRect" parent="ParallaxBackground/Sky_Stars"]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+texture_repeat = 2
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+stretch_mode = 1
+
 [node name="Layer2_Distant" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.15, 0)
 motion_mirroring = Vector2(640, 0)

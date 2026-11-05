@@ -59,88 +59,24 @@ Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
   ✔ Lightning strike triggered screen flash and bolt sprite
   ✔ Splashes deactivate when clearing weather
 
+--- Test 6: Starry Night Behind Trees Placement ---
+  ✔ Sky_Stars correctly positioned in ParallaxBackground behind distant & mid trees
+  ✔ Stars strictly render in the deep sky behind trees, never in foreground
+
+--- Test 7: Scenery Darkening during Starry Night ---
+  ✔ Ambient directional light dimmed: energy reduced from 0.75 to 0.35
+  ✔ Night sky and tree silhouettes darkened via _night_blend = 1.00
+  ✔ Scenery restored to daytime ambient on clear weather
+
+--- Test 8: Biome Transition & Cooldown Mechanics ---
+  ✔ All 4 biome boundaries detected correctly
+  ✔ Weather changed from 'clear' to 'fog' on entering Swamp Outskirts
+  ✔ Biome cooldown set to 35.0s
+  ✔ Back-and-forth oscillation protected: weather remained 'fog'
+  ✔ Rapid back-and-forth crossing prevents hard weather changes
+
 ========================================================
 🎉 ALL WEATHER PHENOMENON TESTS PASSED SUCCESSFULLY! 🎉
-========================================================
-Exit Code: 0
-```
-  ✔ [Static 32x32] Fauna_Rabbit1 (Forest Hare): valid texture 'rabbit.png'
-  ✔ [Static 32x32] Fauna_Rabbit2 (Meadow Bunny): valid texture 'rabbit.png'
-  ✔ [Static 32x32] Fauna_Sparrow (Forest Songbird): valid texture 'sparrow.png'
-  ✔ [Static 32x32] Fauna_Deer (Sanctuary Stag): valid texture 'deer.png'
-  ✔ [Static 32x32] Fauna_Doe (Gentle Doe): valid texture 'doe.png'
-  ✔ [Animated] Fauna_Bee (Amber Honeybee): 3 frames verified
-  ✔ [Static 32x32] Fauna_Owl (Watcher Owl): valid texture 'owl.png'
-  ✔ [Static 32x32] Fauna_Fox (Amber Fox): valid texture 'fox.png'
-  ✔ [Static 32x32] Fauna_Hedgehog (Thorny Hedgehog): valid texture 'hedgehog.png'
-  ✔ [Static 32x32] Fauna_Frog (Mire Frog): valid texture 'frog.png'
-  ✔ [Animated] Fauna_Dragonfly (Emerald Dragonfly): 4 frames verified
-  ✔ [Static 32x32] Fauna_Snail (Moss Snail): valid texture 'snail.png'
-  ✔ [Static 32x32] Fauna_RavenMonolith (Void Raven): valid texture 'raven.png'
-  ✔ [Animated] Fauna_Bat1 (Shadow Bat): 3 frames verified
-  ✔ [Animated] Fauna_WhiteBat (Spectral Bat): 3 frames verified
-  ✔ [Static 32x32] Fauna_RavenRelic (Void Raven): valid texture 'raven.png'
-  ✔ [Static 32x32] Spirit_GoldenDoe (Golden Spirit Doe): valid texture 'doe.png'
-  ✔ [Animated] Spirit_GuardianBear (Guardian Bear): 3 frames verified
-  ✔ [Animated] Spirit_VoidDrake (Celestial Drake): 3 frames verified
-
---- Test 3: Ground Surface Alignment Check ---
-  ✔ Fauna_Rabbit1 cleanly grounded at Y = 312.0
-  ✔ Fauna_Rabbit2 cleanly grounded at Y = 312.0
-  ✔ Fauna_Deer cleanly grounded at Y = 312.0
-  ✔ Fauna_Doe cleanly grounded at Y = 312.0
-  ✔ Fauna_Fox cleanly grounded at Y = 312.0
-  ✔ Fauna_Hedgehog cleanly grounded at Y = 312.0
-  ✔ Fauna_Frog cleanly grounded at Y = 312.0
-  ✔ Fauna_Snail cleanly grounded at Y = 312.0
-  ✔ Spirit_GoldenDoe cleanly grounded at Y = 312.0
-  ✔ Spirit_GuardianBear cleanly grounded at Y = 312.0
-
---- Test 4: Size Reductions Verification ---
-  ✔ Frog scale verified reduced: (0.6, 0.6)
-  ✔ Dragonfly scale verified reduced: (0.35, 0.35)
-  ✔ [Cute Pack] Fauna_Bee scale reduced: (0.45, 0.45)
-  ✔ [Cute Pack] Fauna_Dragonfly scale reduced: (0.35, 0.35)
-  ✔ [Cute Pack] Fauna_Bat1 scale reduced: (0.55, 0.55)
-  ✔ [Cute Pack] Fauna_WhiteBat scale reduced: (0.55, 0.55)
-  ✔ [Cute Pack] Spirit_GuardianBear scale reduced: (0.7, 0.7)
-  ✔ [Cute Pack] Spirit_VoidDrake scale reduced: (0.6, 0.6)
-✔ All Cute pack animals and tiny frog verified with reduced proportions
-
---- Test 5: Background & Non-Interactable Animals Check ---
-  ✔ Fauna_Rabbit1 verified as background (z_index=-1, non-interactable)
-  ✔ Fauna_Rabbit2 verified as background (z_index=-1, non-interactable)
-  ✔ Fauna_Deer verified as background (z_index=-1, non-interactable)
-  ✔ Fauna_Doe verified as background (z_index=-1, non-interactable)
-  ✔ Fauna_Fox verified as background (z_index=-1, non-interactable)
-  ✔ Spirit_GoldenDoe verified as background (z_index=-1, non-interactable)
-✔ Fox, Deer, Doe, Rabbits are verified non-interactable and placed in background plane
-
---- Test 6: Dragonfly Forward Facing Mechanics ---
-  ✔ Dragonfly moving right: flip_h == true (facing forward)
-  ✔ Dragonfly moving left: flip_h == false (facing forward)
-✔ Dragonfly verified always moving forward, never backwards
-
---- Test 7: Petting Interaction Mechanics (Interactable Fauna) ---
-✔ Petting triggered successfully on Owl: awarded +2.0 Focus Mana (259.03 -> 261.03)
-✔ Pet cooldown verified: 15.0s
-✔ Feedback label displayed: '*The owl blinks sagely in approval (+2 Focus Mana)*'
-
---- Test 8: Reactive Fleeing on Shy Creature ---
-✔ Reactive flee mechanism verified on Frog (timer: 2.5s)
-
---- Test 9: Clean Streak Milestone Spirit Unlocks ---
-✔ Milestone unlock tiers verified (Golden Doe: T1, Guardian Bear: T3, Void Drake: T5)
-  Current player tier index: 1
-  ✔ Golden Spirit Doe unlocked (Tier 1 >= 1)
-  ✔ Guardian Spirit Bear locked (requires Tier 3, current is 1)
-  ✔ Celestial Void Drake locked (requires Tier 5, current is 1)
-
---- Test 10: 2D Lighting & Canvas Filter ---
-✔ 100% of animal visual nodes enforce nearest-neighbor pixel texture filtering
-
-========================================================
-🎉 ALL WILDLIFE VERIFICATION TESTS PASSED SUCCESSFULLY! 🎉
 ========================================================
 Exit Code: 0
 ```
@@ -165,6 +101,12 @@ Exit Code: 0
   * Implemented [`weather_overlay.gd`](file:///home/dog/git/sanctuary/project/scripts/weather_overlay.gd) rendering on dedicated `CanvasLayer` (layer 2) above game world and under UI HUD (layer 10).
   * 7 selectable weather phenomena: Clear Sky, Light Rain (16 frames, 50ms), Gentle Snow (32 frames, 80ms), Thin Fog (32 frames, 120ms), Autumn Leaves (32 frames, 80ms), Ambient Fireflies (32 frames, 90ms), and Starry Night (32 frames, 120ms).
   * Seamless crossfade tween (0.35s) smoothly transitions opacity when switching between presets.
+* **Behind-the-Trees Starry Night & Nocturnal Scenery Darkening:**
+  * Stars now strictly render inside [`main.tscn`](file:///home/dog/git/sanctuary/project/scenes/main.tscn)'s `ParallaxBackground` (`Sky_Stars/StarsRect`) between `Layer1_Sky` and `Layer2_Distant`. All distant trees, mid trees, swamp trees, canopies, and foreground platforms render cleanly in front of the starry sky.
+  * During Starry Night, `_night_blend` smoothly reaches 1.0, shifting the sky into midnight indigo, tinting tree layers into dark silhouettes, and dimming directional ambient light from 0.75 down to 0.35 at deep midnight `#060610`, allowing normal-mapped braziers and lanterns to glow vibrantly against the dark world.
+* **Biome Transition Weather Changes with Oscillation Protection:**
+  * Traversal across biome boundaries (Forest `0..1100`, Swamp Outskirts `1100..2700`, Sunken Canopy `2700..4200`, Abyssal Heart `4200..5760`) dynamically rolls a random new weather phenomenon.
+  * Protected by a 35-second cooldown timer: walking back and forth across zone boundaries retains stable weather without jarring transitions.
 * **Rain Dynamics (Lightning & Splashes):**
   * Randomized lightning storm timer (8.0s to 16.0s) triggering full-screen quad flash (`ColorRect`) and 2x scaled `lightning_bolt_a` sprite animation at randomized X coordinates.
   * Ground rain puddle splash particles (`CPUParticles2D`) actively spawning droplets along platform surface plane.
