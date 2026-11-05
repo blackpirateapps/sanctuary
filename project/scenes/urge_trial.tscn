@@ -1,0 +1,159 @@
+[gd_scene load_steps=5 format=3 uid="uid://burgetrial01"]
+
+[ext_resource type="Script" path="res://scripts/urge_trial.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/characters/enemies/wizard/Sprites/Idle.png" id="2_wizard"]
+[ext_resource type="Texture2D" path="res://assets/props/light_cookie.png" id="3_cookie"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.0470588, 0.0352941, 0.0823529, 0.941176)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.486275, 0.231373, 0.603922, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="UrgeTrial" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Modal" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DimOverlay" type="ColorRect" parent="Modal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0156863, 0.0352941, 0.882353)
+
+[node name="Panel" type="Panel" parent="Modal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -140.0
+offset_right = 260.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="Content" type="VBoxContainer" parent="Modal"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_top = 50.0
+offset_right = 240.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Modal/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.443137, 0.443137, 1)
+theme_override_font_sizes/font_size = 14
+text = "⚔️ SANCTUARY UNDER SIEGE"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="Modal/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.807843, 0.776471, 0.898039, 1)
+theme_override_font_sizes/font_size = 10
+text = "Strike down the shadow incursions! Focus your intent."
+horizontal_alignment = 1
+
+[node name="TimerLabel" type="Label" parent="Modal/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984314, 0.835294, 0.407843, 1)
+theme_override_font_sizes/font_size = 9
+text = "Time Remaining: 30s | Shadow Nodes Purified: 0/15"
+horizontal_alignment = 1
+
+[node name="ActionButton" type="Button" parent="Modal/Content"]
+custom_minimum_size = Vector2(160, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 10
+text = "Yield Trial"
+
+[node name="WizardSprite" type="Sprite2D" parent="Modal"]
+position = Vector2(320, 215)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_wizard")
+hframes = 8
+
+[node name="OrbsContainer" type="Control" parent="Modal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -230.0
+offset_top = -20.0
+offset_right = 230.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BreathingCircle" type="Control" parent="Modal"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = 10.0
+offset_right = 60.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(60, 60)
+
+[node name="Glow" type="TextureRect" parent="Modal/BreathingCircle"]
+modulate = Color(0.360784, 0.823529, 0.952941, 0.705882)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_cookie")
+expand_mode = 1
+
+[node name="BreathLabel" type="Label" parent="Modal/BreathingCircle"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = 10.0
+offset_right = 100.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "Breathe in deeply..."
+horizontal_alignment = 1

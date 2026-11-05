@@ -1,0 +1,170 @@
+[gd_scene load_steps=18 format=3 uid="uid://bmainscene01"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/environment/forest/Background/BG-1.png" id="2_bg1"]
+[ext_resource type="Texture2D" path="res://assets/environment/forest/Background/BG-2.png" id="3_bg2"]
+[ext_resource type="Texture2D" path="res://assets/environment/forest/Background/BG-3.png" id="4_bg3"]
+[ext_resource type="Texture2D" path="res://assets/environment/forest/Background/BG-4.png" id="5_bg4"]
+[ext_resource type="Texture2D" path="res://assets/environment/forest/Tileset/Fantasy-TileSet.png" id="6_tileset"]
+[ext_resource type="Texture2D" path="res://assets/environment/forest/Decore/Fantasy Decore.png" id="7_decore"]
+[ext_resource type="PackedScene" path="res://scenes/brazier.tscn" id="8_brazier"]
+[ext_resource type="Texture2D" path="res://assets/props/light_cookie.png" id="9_cookie"]
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="10_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui_hud.tscn" id="11_hud"]
+[ext_resource type="PackedScene" path="res://scenes/urge_trial.tscn" id="12_trial"]
+[ext_resource type="PackedScene" path="res://scenes/slip_modal.tscn" id="13_slip"]
+[ext_resource type="PackedScene" path="res://scenes/chronicles_modal.tscn" id="14_chronicles"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(1400, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat1"]
+size = Vector2(120, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat2"]
+size = Vector2(140, 14)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Layer1_Sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.05, 0)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Layer1_Sky"]
+position = Vector2(320, 180)
+texture = ExtResource("2_bg1")
+
+[node name="Layer2_Distant" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.15, 0)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Layer2_Distant"]
+position = Vector2(320, 180)
+texture = ExtResource("3_bg2")
+
+[node name="Layer3_Mid" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.35, 0)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Layer3_Mid"]
+position = Vector2(320, 180)
+texture = ExtResource("4_bg3")
+
+[node name="Layer4_Mist" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.6, 0)
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Layer4_Mist"]
+position = Vector2(320, 180)
+texture = ExtResource("5_bg4")
+
+[node name="WorldEnvironment" type="Node2D" parent="."]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="WorldEnvironment"]
+color = Color(0.168627, 0.109804, 0.231373, 1)
+energy = 0.75
+blend_mode = 0
+
+[node name="Ground" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="FloorShape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(640, 335)
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="Plat1Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(230, 240)
+shape = SubResource("RectangleShape2D_plat1")
+
+[node name="Plat2Shape" type="CollisionShape2D" parent="Ground"]
+position = Vector2(850, 220)
+shape = SubResource("RectangleShape2D_plat2")
+
+[node name="FloorVisual" type="Sprite2D" parent="Ground"]
+position = Vector2(640, 325)
+scale = Vector2(6.7, 1.2)
+texture = ExtResource("6_tileset")
+region_enabled = true
+region_rect = Rect2(0, 0, 192, 32)
+
+[node name="Plat1Visual" type="Sprite2D" parent="Ground"]
+position = Vector2(230, 240)
+texture = ExtResource("6_tileset")
+region_enabled = true
+region_rect = Rect2(16, 48, 112, 16)
+
+[node name="Plat2Visual" type="Sprite2D" parent="Ground"]
+position = Vector2(850, 220)
+texture = ExtResource("6_tileset")
+region_enabled = true
+region_rect = Rect2(16, 48, 128, 16)
+
+[node name="Shrine" type="Node2D" parent="."]
+position = Vector2(640, 295)
+
+[node name="ShrineSprite" type="Sprite2D" parent="Shrine"]
+position = Vector2(0, -20)
+texture = ExtResource("7_decore")
+region_enabled = true
+region_rect = Rect2(16, 16, 64, 64)
+
+[node name="PointLight2D" type="PointLight2D" parent="Shrine"]
+position = Vector2(0, -25)
+color = Color(0.294118, 1, 0.709804, 1)
+energy = 1.4
+texture = ExtResource("9_cookie")
+texture_scale = 2.4
+
+[node name="ShrinePrompt" type="Label" parent="Shrine"]
+offset_left = -80.0
+offset_top = -68.0
+offset_right = 80.0
+offset_bottom = -50.0
+theme_override_colors/font_color = Color(0.701961, 1, 0.886275, 1)
+theme_override_font_sizes/font_size = 8
+text = "[E] Channel Focus Mana (30✦)"
+horizontal_alignment = 1
+
+[node name="Braziers" type="Node2D" parent="."]
+
+[node name="Brazier1" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(190, 233)
+
+[node name="Brazier2" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(560, 310)
+
+[node name="Brazier3" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(720, 310)
+
+[node name="Brazier4" parent="Braziers" instance=ExtResource("8_brazier")]
+position = Vector2(890, 213)
+
+[node name="AtmosphericSpores" type="CPUParticles2D" parent="."]
+position = Vector2(640, 180)
+amount = 45
+lifetime = 6.0
+preprocess = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(640, 180)
+direction = Vector2(0.5, -1)
+spread = 45.0
+gravity = Vector2(0, -2)
+initial_velocity_min = 5.0
+initial_velocity_max = 18.0
+scale_amount_min = 1.5
+scale_amount_max = 3.5
+color = Color(0.482353, 0.941176, 0.835294, 0.6)
+
+[node name="Player" parent="." instance=ExtResource("10_player")]
+position = Vector2(120, 290)
+
+[node name="UIHUD" parent="." instance=ExtResource("11_hud")]
+
+[node name="UrgeTrial" parent="." instance=ExtResource("12_trial")]
+
+[node name="SlipModal" parent="." instance=ExtResource("13_slip")]
+
+[node name="ChroniclesModal" parent="." instance=ExtResource("14_chronicles")]

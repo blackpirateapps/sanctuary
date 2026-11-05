@@ -1,0 +1,93 @@
+[gd_scene load_steps=3 format=3 uid="uid://bslipmodal01"]
+
+[ext_resource type="Script" path="res://scripts/slip_modal.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.0666667, 0.054902, 0.0980392, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.435294, 0.282353, 0.52549, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+
+[node name="SlipModal" type="CanvasLayer"]
+process_mode = 3
+layer = 11
+script = ExtResource("1_script")
+
+[node name="Modal" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DimOverlay" type="ColorRect" parent="Modal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0156863, 0.0352941, 0.85)
+
+[node name="Panel" type="PanelContainer" parent="Modal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -110.0
+offset_right = 190.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Content" type="VBoxContainer" parent="Modal/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Modal/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.941176, 0.690196, 0.470588, 1)
+theme_override_font_sizes/font_size = 13
+text = "🛡️ ACCOUNTABILITY CHECK-IN"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Modal/Panel/Content"]
+custom_minimum_size = Vector2(340, 90)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.854902, 0.835294, 0.901961, 1)
+theme_override_font_sizes/font_size = 9
+text = "Your Aegis Shield will absorb this setback. Your clean streak will NOT be wiped out to zero."
+autowrap_mode = 2
+
+[node name="ButtonBox" type="HBoxContainer" parent="Modal/Panel/Content"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 16
+
+[node name="CancelButton" type="Button" parent="Modal/Panel/Content/ButtonBox"]
+custom_minimum_size = Vector2(130, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Cancel (Still Clean)"
+
+[node name="ConfirmButton" type="Button" parent="Modal/Panel/Content/ButtonBox"]
+custom_minimum_size = Vector2(130, 24)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.541176, 0.541176, 1)
+theme_override_font_sizes/font_size = 9
+text = "Confirm Slip"

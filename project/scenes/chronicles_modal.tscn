@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=3 uid="uid://bchronicles01"]
+
+[ext_resource type="Script" path="res://scripts/chronicles_modal.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.0627451, 0.054902, 0.0901961, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.380392, 0.317647, 0.470588, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 14.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+
+[node name="ChroniclesModal" type="CanvasLayer"]
+process_mode = 3
+layer = 11
+script = ExtResource("1_script")
+
+[node name="Modal" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DimOverlay" type="ColorRect" parent="Modal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0196078, 0.0156863, 0.0352941, 0.85)
+
+[node name="Panel" type="PanelContainer" parent="Modal"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -130.0
+offset_right = 210.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Content" type="VBoxContainer" parent="Modal/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Modal/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984314, 0.835294, 0.407843, 1)
+theme_override_font_sizes/font_size = 12
+text = "📜 SANCTUARY CHRONICLES"
+horizontal_alignment = 1
+
+[node name="Stats" type="HBoxContainer" parent="Modal/Panel/Content"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 20
+
+[node name="RecordValue" type="Label" parent="Modal/Panel/Content/Stats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.482353, 0.901961, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "Record Streak: 0.0 days"
+
+[node name="TrialsValue" type="Label" parent="Modal/Panel/Content/Stats"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.984314, 0.835294, 0.407843, 1)
+theme_override_font_sizes/font_size = 9
+text = "Urges Repelled: 0"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Modal/Panel/Content"]
+custom_minimum_size = Vector2(380, 140)
+layout_mode = 2
+
+[node name="MilestoneList" type="VBoxContainer" parent="Modal/Panel/Content/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="CloseButton" type="Button" parent="Modal/Panel/Content"]
+custom_minimum_size = Vector2(100, 22)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 9
+text = "Close"
