@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-05 19:35 UTC+05:30  
+> **Timestamp:** 2026-11-05 19:42 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -21,11 +21,18 @@ Exit Code: 0 (Zero errors, zero warnings)
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
+| `HEAD` | **style(ui):** switch to high-DPI canvas_items stretch mode and NotoSans typography for crystal-clear readability | blackpirateapps |
+| `61ec8eb` | **docs:** create handoff folder, agent protocols, and technical documentation | blackpirateapps |
 | `0ab22d8` | **style:** apply custom retro pixel font (Golden Apple), integrate crisp pixel art HUD icons, and fix multi-frame brazier animation | blackpirateapps |
 | `75fbc82` | **fix(ui):** rebind jump to space, move urge beacon to B, replace missing glyph emojis with clean typography, and polish void runes | blackpirateapps |
 | `2bdd02f` | **fix(ci):** create export dir and import resources before export | blackpirateapps |
-| `44be0e3` | **feat:** complete initial game engine, parallax world, 2D normal-mapped lighting, habit engine, and urge interceptor | blackpirateapps |
-| `c895ece` | **Initial commit:** Project structure, vercel.json, and README | blackpirateapps |
+
+---
+
+## 3. High-Resolution Text Upgrade Note
+* **Root Cause of Low Quality Text:** `window/stretch/mode="viewport"` was forcing the entire UI layer into an offscreen 640×360 pixel buffer, causing nearest-neighbor stretching and pixel warping on higher resolution monitors and fractional browser windows.
+* **Resolution Fix:** Switched `window/stretch/mode="canvas_items"`. In this mode, the 2D pixel-art game world scales cleanly at 640×360 coordinates, while all text and CanvasLayers are rasterized at native display resolution (1080p, 1440p, retina).
+* **Typography:** Integrated `NotoSans-SemiBold.ttf` as the primary theme font with smooth antialiasing for maximum readability.
 
 ---
 

@@ -62,7 +62,7 @@ theme_override_constants/separation = 8
 [node name="Title" type="Label" parent="Modal/Panel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984314, 0.835294, 0.407843, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 13
 text = "SANCTUARY CHRONICLES"
 horizontal_alignment = 1
 
@@ -74,13 +74,13 @@ theme_override_constants/separation = 20
 [node name="RecordValue" type="Label" parent="Modal/Panel/Content/Stats"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.482353, 0.901961, 1, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 10
 text = "Record Streak: 0.0 days"
 
 [node name="TrialsValue" type="Label" parent="Modal/Panel/Content/Stats"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984314, 0.835294, 0.407843, 1)
-theme_override_font_sizes/font_size = 9
+theme_override_font_sizes/font_size = 10
 text = "Urges Repelled: 0"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Modal/Panel/Content"]

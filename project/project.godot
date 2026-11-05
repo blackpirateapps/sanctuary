@@ -25,15 +25,12 @@ window/size/viewport_width=640
 window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/stretch/aspect="keep"
 
 [gui]
 
 theme/custom="res://assets/ui/game_theme.tres"
-theme/default_font_antialiasing=0
-theme/default_font_hinting=0
-theme/default_font_subpixel_positioning=0
 
 [input]
 

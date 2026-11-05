@@ -25,16 +25,16 @@ func open() -> void:
 		var row: HBoxContainer = HBoxContainer.new()
 		var tag: Label = Label.new()
 		tag.text = "[ACTIVE]" if unlocked else "[LOCKED]"
-		tag.add_theme_font_size_override("font_size", 9)
+		tag.add_theme_font_size_override("font_size", 10)
 		tag.add_theme_color_override("font_color", Color("94ffd1") if unlocked else Color("79748f"))
 		
 		var desc: Label = Label.new()
 		desc.text = " %s (%s) - %s" % [m["title"], _format_milestone_time(m["days"]), m["desc"]]
-		desc.add_theme_font_size_override("font_size", 9)
+		desc.add_theme_font_size_override("font_size", 10)
 		if unlocked:
 			desc.add_theme_color_override("font_color", Color("ffffff"))
 		else:
-			desc.add_theme_color_override("font_color", Color("79748f"))
+			desc.add_theme_color_override("font_color", Color("9c99a8"))
 		row.add_child(tag)
 		row.add_child(desc)
 		milestone_list.add_child(row)
