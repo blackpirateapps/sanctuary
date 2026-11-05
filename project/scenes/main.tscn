@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" path="res://scenes/urge_trial.tscn" id="12_trial"]
 [ext_resource type="PackedScene" path="res://scenes/slip_modal.tscn" id="13_slip"]
 [ext_resource type="PackedScene" path="res://scenes/chronicles_modal.tscn" id="14_chronicles"]
+[ext_resource type="Texture2D" path="res://assets/props/ancient_altar.png" id="15_altar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
 size = Vector2(1400, 50)
@@ -103,29 +104,27 @@ region_enabled = true
 region_rect = Rect2(16, 48, 128, 16)
 
 [node name="Shrine" type="Node2D" parent="."]
-position = Vector2(640, 295)
+position = Vector2(640, 310)
 
 [node name="ShrineSprite" type="Sprite2D" parent="Shrine"]
-position = Vector2(0, -20)
-texture = ExtResource("7_decore")
-region_enabled = true
-region_rect = Rect2(16, 16, 64, 64)
+position = Vector2(0, -42)
+texture = ExtResource("15_altar")
 
 [node name="PointLight2D" type="PointLight2D" parent="Shrine"]
-position = Vector2(0, -25)
-color = Color(0.294118, 1, 0.709804, 1)
+position = Vector2(0, -55)
+color = Color(0.35, 0.88, 1, 1)
 energy = 1.4
 texture = ExtResource("9_cookie")
 texture_scale = 2.4
 
 [node name="ShrinePrompt" type="Label" parent="Shrine"]
-offset_left = -80.0
-offset_top = -68.0
-offset_right = 80.0
-offset_bottom = -50.0
-theme_override_colors/font_color = Color(0.701961, 1, 0.886275, 1)
-theme_override_font_sizes/font_size = 8
-text = "[E] Channel Focus (30 Focus)"
+offset_left = -110.0
+offset_top = -105.0
+offset_right = 110.0
+offset_bottom = -85.0
+theme_override_colors/font_color = Color(0.75, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "[E] Purify Sanctuary (30 Focus)"
 horizontal_alignment = 1
 
 [node name="Braziers" type="Node2D" parent="."]

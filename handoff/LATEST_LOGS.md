@@ -21,7 +21,8 @@ Exit Code: 0 (Zero errors, zero warnings)
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **fix(trial):** replace timer lambda with node-bound tweens to eliminate dangling capture errors | blackpirateapps |
+| `HEAD` | **feat(shrine):** replace placeholder decore with ancient pedestal altar, add proximity trigger and cooldown | blackpirateapps |
+| `f91f4c6` | **fix(trial):** eliminate lambda capture error by binding node tweens instead of scene timer | blackpirateapps |
 | `56ba38b` | **style(ui):** switch to high-DPI canvas_items stretch mode and NotoSans typography for crystal-clear readability | blackpirateapps |
 | `61ec8eb` | **docs:** create handoff folder, agent protocols, and technical documentation | blackpirateapps |
 | `0ab22d8` | **style:** apply custom retro pixel font (Golden Apple), integrate crisp pixel art HUD icons, and fix multi-frame brazier animation | blackpirateapps |
