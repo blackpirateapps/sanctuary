@@ -1,0 +1,17 @@
+# Godot 4.x .gitignore
+.godot/
+*.translation
+
+# Mono/C# cache
+.mono/
+[Bb]in/
+[Oo]bj/
+
+# OS specific
+.DS_Store
+*.tmp
+Thumbs.db
+
+# Credentials & local env
+.env
+.env.local
