@@ -24,6 +24,7 @@ var _crossfade_tween: Tween = null
 
 # Lightning mechanics during rain
 var _lightning_timer: float = 0.0
+var _ambient_sfx_timer: float = 15.0
 
 func _ready() -> void:
 	layer = 2 # Render above world background/platforms, below UI HUD (layer 10)
@@ -264,6 +265,21 @@ func _process(delta: float) -> void:
 			_trigger_lightning()
 			_lightning_timer = randf_range(8.0, 16.0)
 
+	# Periodic atmospheric one-shots (wind gusts or droplets)
+	_ambient_sfx_timer -= delta
+	if _ambient_sfx_timer <= 0.0:
+		if current_weather in ["snow", "leaves", "fog"]:
+			if AudioManager:
+				AudioManager.play_sfx("wind_gust", Vector2(0.9, 1.1), -5.0)
+			_ambient_sfx_timer = randf_range(18.0, 32.0)
+		elif current_weather == "rain":
+			if AudioManager:
+				var drop_sfx: String = "rain_splash" if randf() < 0.6 else "water_ripple"
+				AudioManager.play_sfx(drop_sfx, Vector2(0.95, 1.05), -6.0)
+			_ambient_sfx_timer = randf_range(6.0, 14.0)
+		else:
+			_ambient_sfx_timer = 20.0
+
 func _trigger_lightning() -> void:
 	# Screen flash
 	screen_flash.color = Color(1.0, 1.0, 1.0, 0.4)
@@ -277,3 +293,6 @@ func _trigger_lightning() -> void:
 	lightning_bolt.visible = true
 	lightning_bolt.frame = 0
 	lightning_bolt.play("bolt")
+
+	if AudioManager:
+		AudioManager.play_sfx("thunder_close", Vector2(0.85, 1.1), 1.5)

@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-06 00:25 UTC+05:30  
+> **Timestamp:** 2026-11-06 00:36 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -16,6 +16,70 @@ Exit Code: 0 (Zero errors, zero warnings)
 ```
 
 ```
+$ godot --headless --path project scratch/test_audio.tscn
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+========================================================
+🔊 RUNNING PIXEL WEATHER SFX & AUDIO UNIT TESTS 🔊
+========================================================
+
+--- Test 1: Audio Asset Integrity ---
+  ✔ Ambience loop 'rain_light' verified (rain_light_loop_01.ogg)
+  ✔ Ambience loop 'wind_light' verified (wind_light_loop_01.ogg)
+  ✔ Ambience loop 'fireflies' verified (fireflies_loop_01.ogg)
+  ✔ Ambience loop 'embers' verified (embers_loop_01.ogg)
+  ✔ One-shot SFX 'thunder_close' verified (thunder_close_01.ogg)
+  ✔ One-shot SFX 'rain_splash' verified (rain_splash_01.ogg)
+  ✔ One-shot SFX 'water_ripple' verified (water_ripple_01.ogg)
+  ✔ One-shot SFX 'wind_gust' verified (wind_gust_01.ogg)
+  ✔ One-shot SFX 'footsteps_grass' verified (footsteps_grass_01.ogg)
+  ✔ One-shot SFX 'footsteps_leaves' verified (footsteps_leaves_01.ogg)
+  ✔ One-shot SFX 'footsteps_snow' verified (footsteps_snow_01.ogg)
+  ✔ One-shot SFX 'footsteps_puddle' verified (footsteps_puddle_01.ogg)
+
+--- Test 2: AudioManager Initialization & Bus Layout ---
+  ✔ AudioManager autoload active with dual ambience crossfaders
+  ✔ Polyphonic SFX pool active (6 players)
+  ✔ Dedicated footstep player routed to Footsteps bus
+
+--- Test 3: Ambient Weather Mapping & Crossfading ---
+  ✔ Weather 'clear' correctly mapped to loop 'wind_light'
+  ✔ Weather 'rain' correctly mapped to loop 'rain_light'
+  ✔ Weather 'snow' correctly mapped to loop 'wind_light'
+  ✔ Weather 'fog' correctly mapped to loop 'wind_light'
+  ✔ Weather 'leaves' correctly mapped to loop 'wind_light'
+  ✔ Weather 'fireflies' correctly mapped to loop 'fireflies'
+  ✔ Weather 'stars' correctly mapped to loop 'fireflies'
+
+--- Test 4: Dynamic Footstep Contextual Surfaces ---
+  ✔ Snow footstep played cleanly on gentle snow
+  ✔ Leaves footstep played cleanly on autumn leaves
+  ✔ Puddle footstep played cleanly during rain
+  ✔ Puddle footstep played cleanly inside Murky Swamp biome
+  ✔ Grass footstep played cleanly in Sanctuary Forest
+
+--- Test 5: Lightning & Thunder Hookup ---
+  ✔ Lightning strike triggered screen flash, bolt animation, and thunder_close SFX
+
+--- Test 6: Brazier Positional 2D Audio ---
+  ✔ Brazier equipped with AudioStreamPlayer2D playing embers_loop_01
+  ✔ Brazier 2D spatial distance attenuation verified (max_distance=260.0)
+
+--- Test 7: Audio Settings Steps & HabitManager Persistence ---
+  ✔ Volume step cycling verified (100% -> 75% -> 50% -> 25% -> OFF)
+  ✔ Master mute toggle verified
+  ✔ HabitManager audio state persistence to_dict/from_dict verified
+
+--- Test 8: Settings Modal Audio Controls UI ---
+  ✔ Settings Modal step-buttons (Mute, Master, Weather, SFX) verified
+
+========================================================
+🎉 ALL PIXEL WEATHER AUDIO TESTS PASSED SUCCESSFULLY! 🎉
+========================================================
+Exit Code: 0
+```
+
+```
 $ godot --headless --path project scratch/test_weather.tscn
 Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
@@ -28,6 +92,70 @@ Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
   ✔ Weather icon 'rain' verified (light_rain.png)
   ✔ Weather icon 'snow' verified (light_snow.png)
   ✔ Weather icon 'fog' verified (fog.png)
+  ✔ Weather icon 'leaves' verified (autumn_leaves.png)
+  ✔ Weather icon 'fireflies' verified (firefly.png)
+  ✔ Weather icon 'stars' verified (clear_night.png)
+  ✔ Cozy-Space UI asset verified: icon-gear.png
+  ✔ Cozy-Space UI asset verified: icon-cross.png
+  ✔ Cozy-Space UI asset verified: icon-check.png
+  ✔ Cozy-Space UI asset verified: panel-dark.png
+  ✔ Cozy-Space UI asset verified: button-teal-normal.png
+  ✔ Cozy-Space UI asset verified: button-amber-normal.png
+
+--- Test 2: Weather Overlay Scene & Presets Verification ---
+  ✔ Preset 'rain': 16/16 seamless frames loaded cleanly
+  ✔ Preset 'snow': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'fog': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'leaves': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'fireflies': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'stars': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'rain' calibrated for gentle natural velocity (frame_ms=50.0ms, ~20.0fps)
+  ✔ Preset 'snow' calibrated for gentle natural velocity (frame_ms=55.0ms, ~18.2fps)
+  ✔ Preset 'fog' calibrated for gentle natural velocity (frame_ms=70.0ms, ~14.3fps)
+  ✔ Preset 'leaves' calibrated for gentle natural velocity (frame_ms=75.0ms, ~13.3fps)
+  ✔ Preset 'fireflies' calibrated for gentle natural velocity (frame_ms=85.0ms, ~11.8fps)
+  ✔ Preset 'stars' calibrated for gentle natural velocity (frame_ms=100.0ms, ~10.0fps)
+
+--- Test 2b: Above-Ground-Only Restriction & Splashes ---
+  ✔ Snow restricted strictly above ground level (y <= 312.0)
+  ✔ Rain restricted above ground with splashes aligned at ground surface (y=312.0)
+  ✔ Autumn leaves restricted strictly above ground level
+  ✔ Fireflies restricted strictly above ground level
+  ✔ Fog covers the entire viewport atmosphere (height = 360.0)
+
+--- Test 3: HabitManager Persistence & Signal Propagation ---
+  ✔ HabitManager.to_dict() correctly serialized selected_weather='rain'
+  ✔ HabitManager.from_dict() restored selected_weather='snow'
+
+--- Test 4: Settings Modal Grid & Buttons Verification ---
+  ✔ Clicking 'leaves' card updated active weather to 'leaves'
+  ✔ Modal open/close state validated
+
+--- Test 5: Rain Dynamics (Lightning & Splashes) ---
+  ✔ Rain splashes active during rain
+  ✔ Lightning strike triggered screen flash and bolt sprite
+  ✔ Splashes deactivate when clearing weather
+
+--- Test 6: Starry Night Behind Trees Placement ---
+  ✔ Sky_Stars correctly positioned in ParallaxBackground behind distant & mid trees
+  ✔ Stars strictly render in the deep sky behind trees, never in foreground
+
+--- Test 7: Scenery Darkening during Starry Night ---
+  ✔ Ambient directional light dimmed: energy reduced from 0.75 to 0.35
+  ✔ Night sky and tree silhouettes darkened via _night_blend = 1.00
+  ✔ Scenery restored to daytime ambient on clear weather
+
+--- Test 8: Biome Transition & Cooldown Mechanics ---
+  ✔ All 4 biome boundaries detected correctly
+  ✔ Weather changed from 'clear' to 'leaves' on entering Swamp Outskirts
+  ✔ Biome cooldown set to 35.0s
+  ✔ Back-and-forth oscillation protected: weather remained 'leaves'
+  ✔ Rapid back-and-forth crossing prevents hard weather changes
+
+========================================================
+🎉 ALL WEATHER PHENOMENON TESTS PASSED SUCCESSFULLY! 🎉
+========================================================
+Exit Code: 0
   ✔ Weather icon 'leaves' verified (autumn_leaves.png)
   ✔ Weather icon 'fireflies' verified (firefly.png)
   ✔ Weather icon 'stars' verified (clear_night.png)

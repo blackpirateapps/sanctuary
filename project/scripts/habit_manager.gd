@@ -42,6 +42,12 @@ var successful_trials: int = 0
 var total_clean_days_record: float = 0.0
 var selected_weather: String = "clear"
 
+# Audio state
+var audio_muted: bool = false
+var master_volume_step: int = 4
+var ambience_volume_step: int = 3
+var sfx_volume_step: int = 4
+
 var _is_web: bool = false
 
 func _ready() -> void:
@@ -209,7 +215,11 @@ func to_dict() -> Dictionary:
 		"focus_mana": focus_mana,
 		"successful_trials": successful_trials,
 		"total_clean_days_record": total_clean_days_record,
-		"selected_weather": selected_weather
+		"selected_weather": selected_weather,
+		"audio_muted": audio_muted,
+		"master_volume_step": master_volume_step,
+		"ambience_volume_step": ambience_volume_step,
+		"sfx_volume_step": sfx_volume_step
 	}
 
 func from_dict(data: Dictionary) -> void:
@@ -220,6 +230,10 @@ func from_dict(data: Dictionary) -> void:
 	successful_trials = data.get("successful_trials", 0)
 	total_clean_days_record = data.get("total_clean_days_record", 0.0)
 	selected_weather = data.get("selected_weather", "clear")
+	audio_muted = data.get("audio_muted", false)
+	master_volume_step = data.get("master_volume_step", 4)
+	ambience_volume_step = data.get("ambience_volume_step", 3)
+	sfx_volume_step = data.get("sfx_volume_step", 4)
 
 func set_weather(weather_id: String) -> void:
 	selected_weather = weather_id

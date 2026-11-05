@@ -67,3 +67,15 @@ Inspired by the visual techniques of *Dead Cells*, the game pairs real-time ligh
   3. Pre-import all raw assets via headless editor: `godot --headless --path project --editor --quit`.
   4. Export to Web using absolute workspace target: `godot --headless --path project --export-release "Web" "$EXPORT_DIR/index.html"`.
   5. Deploy artifacts to GitHub Pages and upload build artifacts for Vercel.
+
+---
+
+## 5. Audio Bus Layout & Sound Architecture
+
+* **Bus Configuration ([`default_bus_layout.tres`](file:///home/dog/git/sanctuary/project/default_bus_layout.tres)):**
+  * `Master`: Root audio output receiving all sub-buses with master mute and decibel attenuation.
+  * `Ambience`: Dedicated bus for continuous 30s weather loops (rain, wind, fireflies, embers).
+  * `SFX`: Dedicated bus for positional 2D braziers, lightning thunder, and atmospheric one-shots.
+  * `Footsteps`: Dedicated bus for player footsteps with soft dynamics.
+* **Format & Web Performance:**
+  * Uses 16-bit 44.1 kHz OGG Vorbis exclusively (2.6 MB bundle vs 22 MB WAV), maintaining lean WebAssembly downloads and immediate playback on mobile Safari and desktop browsers.

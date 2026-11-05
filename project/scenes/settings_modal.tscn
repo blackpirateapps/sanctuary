@@ -45,9 +45,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -215.0
-offset_top = -125.0
+offset_top = -135.0
 offset_right = 215.0
-offset_bottom = 125.0
+offset_bottom = 135.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_panel")
@@ -89,12 +89,10 @@ layout_mode = 2
 
 [node name="WeatherSection" type="VBoxContainer" parent="Modal/Panel/VBox"]
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="Scroll" type="ScrollContainer" parent="Modal/Panel/VBox/WeatherSection"]
-custom_minimum_size = Vector2(400, 140)
+custom_minimum_size = Vector2(400, 110)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="WeatherGrid" type="GridContainer" parent="Modal/Panel/VBox/WeatherSection/Scroll"]
 layout_mode = 2
@@ -103,6 +101,51 @@ size_flags_vertical = 3
 theme_override_constants/h_separation = 6
 theme_override_constants/v_separation = 6
 columns = 4
+
+[node name="AudioSeparator" type="HSeparator" parent="Modal/Panel/VBox"]
+layout_mode = 2
+
+[node name="AudioSection" type="VBoxContainer" parent="Modal/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="AudioTitle" type="Label" parent="Modal/Panel/VBox/AudioSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65098, 0.85098, 0.823529, 1)
+theme_override_font_sizes/font_size = 8
+text = "AUDIO & SOUND CONTROLS"
+
+[node name="AudioControls" type="HBoxContainer" parent="Modal/Panel/VBox/AudioSection"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="MuteButton" type="Button" parent="Modal/Panel/VBox/AudioSection/AudioControls"]
+custom_minimum_size = Vector2(90, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "MUTE: OFF"
+
+[node name="MasterButton" type="Button" parent="Modal/Panel/VBox/AudioSection/AudioControls"]
+custom_minimum_size = Vector2(90, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "MASTER: 100%"
+
+[node name="AmbienceButton" type="Button" parent="Modal/Panel/VBox/AudioSection/AudioControls"]
+custom_minimum_size = Vector2(90, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "WEATHER: 75%"
+
+[node name="SFXButton" type="Button" parent="Modal/Panel/VBox/AudioSection/AudioControls"]
+custom_minimum_size = Vector2(90, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 8
+text = "SFX: 100%"
 
 [node name="Footer" type="HBoxContainer" parent="Modal/Panel/VBox"]
 layout_mode = 2

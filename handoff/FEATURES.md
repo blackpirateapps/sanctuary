@@ -101,3 +101,36 @@
 * **Chronicles Modal ([`chronicles_modal.tscn`](file:///home/dog/git/sanctuary/project/scenes/chronicles_modal.tscn)):**
   * Historical record of best clean streak and total urges repelled.
   * Scrollable list of locked vs. active milestones.
+
+---
+
+## 4. Audio & Sound Effects Architecture
+
+* **Soundtrack & Synthesis Engine:**
+  * Curated from the **Pixel Weather SFX Lite** pack (procedural synthesis, 44.1 kHz, 16-bit OGG Vorbis).
+  * Bundles 4 seamless 30-second ambience loops and 8 one-shot sound effects.
+* **Autoload Singleton (`AudioManager`):**
+  * Registered as `AudioManager` in [`project.godot`](file:///home/dog/git/sanctuary/project/project.godot).
+  * **Dual-Player Ambience Crossfading:** Uses `_ambience_player_a` and `_ambience_player_b` with 1.2-second smooth sine crossfades when weather changes or biomes transition.
+  * **Polyphonic SFX Pool:** 6 pre-allocated `AudioStreamPlayer` nodes for non-blocking playback of thunder, wind gusts, splashes, and water ripples.
+  * **Dedicated Footstep Player:** Features randomized pitch (`0.93 - 1.07`) and volume offsets (`-3 dB - 0 dB`) to avoid repetition.
+* **Contextual Footstep Surface System:**
+  * Player running cadence automatically evaluates footstep sound based on surface and environment:
+    * **Gentle Snow:** `footsteps_snow_01.ogg` (crisp crunching powder).
+    * **Autumn Leaves:** `footsteps_leaves_01.ogg` (rustling dry foliage).
+    * **Light Rain OR Murky Swamp Biome (`x >= 1100`):** `footsteps_puddle_01.ogg` (wet squishing footsteps).
+    * **Sanctuary Forest (`x < 1100`):** `footsteps_grass_01.ogg` (soft earth and lawn steps).
+* **Positional 2D Audio (Braziers):**
+  * Each lit brazier in the world hosts an `AudioStreamPlayer2D` playing `embers_loop_01.ogg`.
+  * Spatial distance attenuation (`max_distance = 260.0`, `attenuation = 1.8`) creates a dynamic stereo fire crackle that naturally swells as the player approaches.
+* **Thunder & Atmospheric Synchronization:**
+  * Lightning strikes during rain trigger `thunder_close_01.ogg` synchronized with the screen flash and animated lightning bolt.
+  * Rainy weather schedules periodic subtle droplet splashes (`rain_splash_01.ogg`, `water_ripple_01.ogg`).
+  * Windy weathers (snow, leaves, fog) trigger occasional natural wind whooshes (`wind_gust_01.ogg`).
+* **Settings Modal Audio Controls:**
+  * Four Cozy-Space pixel step-buttons inside [`settings_modal.tscn`](file:///home/dog/git/sanctuary/project/scenes/settings_modal.tscn):
+    * `MUTE: [OFF] / [ON]`
+    * `MASTER: [100%] [75%] [50%] [25%] [OFF]`
+    * `WEATHER: [100%] [75%] [50%] [25%] [OFF]`
+    * `SFX: [100%] [75%] [50%] [25%] [OFF]`
+  * Settings persist across sessions via `HabitManager` (`localStorage` on Web, `habit_save.json` on Desktop).

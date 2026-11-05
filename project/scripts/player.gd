@@ -13,6 +13,9 @@ extends CharacterBody2D
 var is_attacking: bool = false
 var is_defending: bool = false
 
+var _footstep_timer: float = 0.0
+const FOOTSTEP_CADENCE: float = 0.32
+
 func _ready() -> void:
 	_setup_sprite_frames()
 	sprite.play("idle")
@@ -81,6 +84,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+	_handle_footsteps(delta)
+
 	# Subtle breathing pulse on lantern light
 	var time_now: float = Time.get_ticks_msec() / 1000.0
 	lantern_light.energy = 0.85 + sin(time_now * 3.0) * 0.15
@@ -98,3 +103,27 @@ func _trigger_defend() -> void:
 	await sprite.animation_finished
 	is_defending = false
 	sprite.play("idle")
+
+func _handle_footsteps(delta: float) -> void:
+	if is_on_floor() and abs(velocity.x) > 10.0 and not is_attacking and not is_defending:
+		_footstep_timer -= delta
+		if _footstep_timer <= 0.0:
+			_footstep_timer = FOOTSTEP_CADENCE
+			_play_footstep()
+	else:
+		_footstep_timer = 0.08 # Quick first step when starting to run
+
+func _determine_surface() -> String:
+	var weather: String = HabitManager.selected_weather if HabitManager else "clear"
+	if weather == "snow":
+		return "snow"
+	elif weather == "leaves":
+		return "leaves"
+	elif weather == "rain" or global_position.x >= 1100.0:
+		return "puddle"
+	return "grass"
+
+func _play_footstep() -> void:
+	var surface: String = _determine_surface()
+	if AudioManager:
+		AudioManager.play_footstep(surface)

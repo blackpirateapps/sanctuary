@@ -10,6 +10,11 @@ signal settings_closed
 @onready var bottom_close_button: Button = $Modal/Panel/VBox/Footer/CloseButton
 @onready var weather_grid: GridContainer = $Modal/Panel/VBox/WeatherSection/Scroll/WeatherGrid
 
+@onready var mute_button: Button = $Modal/Panel/VBox/AudioSection/AudioControls/MuteButton
+@onready var master_button: Button = $Modal/Panel/VBox/AudioSection/AudioControls/MasterButton
+@onready var ambience_button: Button = $Modal/Panel/VBox/AudioSection/AudioControls/AmbienceButton
+@onready var sfx_button: Button = $Modal/Panel/VBox/AudioSection/AudioControls/SFXButton
+
 const WEATHER_OPTIONS: Array[Dictionary] = [
 	{
 		"id": "clear",
@@ -62,14 +67,23 @@ func _ready() -> void:
 	close_button.pressed.connect(close)
 	bottom_close_button.pressed.connect(close)
 	
+	mute_button.pressed.connect(_on_mute_pressed)
+	master_button.pressed.connect(_on_master_pressed)
+	ambience_button.pressed.connect(_on_ambience_pressed)
+	sfx_button.pressed.connect(_on_sfx_pressed)
+	
 	_build_weather_grid()
 	
 	# Listen to external changes to keep active button synced
 	HabitManager.weather_changed.connect(_on_weather_changed)
+	if AudioManager:
+		AudioManager.audio_settings_changed.connect(_on_audio_settings_changed)
+	_update_audio_ui()
 
 func open() -> void:
 	visible = true
 	_update_active_states(HabitManager.selected_weather)
+	_update_audio_ui()
 
 func close() -> void:
 	visible = false
@@ -218,3 +232,51 @@ func _set_card_style(btn: Button, is_active: bool) -> void:
 	btn.add_theme_stylebox_override("hover", style_hover)
 	btn.add_theme_stylebox_override("pressed", style_pressed)
 	btn.add_theme_stylebox_override("focus", style_hover)
+
+func _on_mute_pressed() -> void:
+	if AudioManager:
+		AudioManager.toggle_mute()
+
+func _on_master_pressed() -> void:
+	if AudioManager:
+		AudioManager.cycle_master_step()
+
+func _on_ambience_pressed() -> void:
+	if AudioManager:
+		AudioManager.cycle_ambience_step()
+
+func _on_sfx_pressed() -> void:
+	if AudioManager:
+		AudioManager.cycle_sfx_step()
+
+func _on_audio_settings_changed(_m: bool, _ms: int, _as: int, _ss: int) -> void:
+	_update_audio_ui()
+
+func _update_audio_ui() -> void:
+	if not AudioManager:
+		return
+		
+	var muted: bool = AudioManager.is_muted
+	var m_step: int = AudioManager.master_step
+	var a_step: int = AudioManager.ambience_step
+	var s_step: int = AudioManager.sfx_step
+	
+	mute_button.text = "MUTE: ON" if muted else "MUTE: OFF"
+	_set_card_style(mute_button, muted)
+	
+	var step_to_str = func(step: int) -> String:
+		match step:
+			4: return "100%"
+			3: return "75%"
+			2: return "50%"
+			1: return "25%"
+			_: return "OFF"
+			
+	master_button.text = "MASTER: %s" % step_to_str.call(m_step)
+	_set_card_style(master_button, m_step > 0 and not muted)
+	
+	ambience_button.text = "WEATHER: %s" % step_to_str.call(a_step)
+	_set_card_style(ambience_button, a_step > 0 and not muted)
+	
+	sfx_button.text = "SFX: %s" % step_to_str.call(s_step)
+	_set_card_style(sfx_button, s_step > 0 and not muted)

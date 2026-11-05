@@ -16,6 +16,7 @@ config/icon="res://assets/ui/32x32.png"
 
 [autoload]
 
+AudioManager="*res://scripts/audio_manager.gd"
 HabitManager="*res://scripts/habit_manager.gd"
 SanctuaryState="*res://scripts/sanctuary_state.gd"
 
