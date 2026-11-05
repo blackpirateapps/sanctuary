@@ -25,11 +25,16 @@ func _setup_canvas_texture() -> void:
 		ct.diffuse_texture = diffuse
 		ct.normal_texture = normal
 		sprite.texture = ct
+		sprite.hframes = 6
 
 func _process(delta: float) -> void:
 	if not is_lit:
 		light.energy = 0.0
 		return
+		
+	# Cycle the 6-frame flame animation
+	var frame_idx: int = int((Time.get_ticks_msec() / 110.0) + _time_offset) % 6
+	sprite.frame = frame_idx
 		
 	var t: float = (Time.get_ticks_msec() / 1000.0) * flicker_speed + _time_offset
 	# Multi-frequency noise-like flicker

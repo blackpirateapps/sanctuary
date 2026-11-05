@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://buihud001"]
+[gd_scene load_steps=9 format=3 uid="uid://buihud001"]
 
 [ext_resource type="Script" path="res://scripts/ui_hud.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/shield_icon.png" id="2_shield"]
+[ext_resource type="Texture2D" path="res://assets/ui/focus_icon.png" id="3_focus"]
+[ext_resource type="Texture2D" path="res://assets/ui/scroll_icon.png" id="4_scroll"]
+[ext_resource type="Texture2D" path="res://assets/ui/sword_icon.png" id="5_sword"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.0705882, 0.0588235, 0.113725, 0.85098)
@@ -104,16 +108,34 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="ShieldsValue" type="Label" parent="TopBar/ResilienceContainer/HBox"]
+[node name="ShieldBox" type="HBoxContainer" parent="TopBar/ResilienceContainer/HBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "SHIELDS: 1/3"
+theme_override_constants/separation = 4
 
-[node name="ManaValue" type="Label" parent="TopBar/ResilienceContainer/HBox"]
+[node name="ShieldIcon" type="TextureRect" parent="TopBar/ResilienceContainer/HBox/ShieldBox"]
+layout_mode = 2
+texture = ExtResource("2_shield")
+stretch_mode = 3
+
+[node name="ShieldsValue" type="Label" parent="TopBar/ResilienceContainer/HBox/ShieldBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "1/3"
+
+[node name="FocusBox" type="HBoxContainer" parent="TopBar/ResilienceContainer/HBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="FocusIcon" type="TextureRect" parent="TopBar/ResilienceContainer/HBox/FocusBox"]
+layout_mode = 2
+texture = ExtResource("3_focus")
+stretch_mode = 3
+
+[node name="ManaValue" type="Label" parent="TopBar/ResilienceContainer/HBox/FocusBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.984314, 0.835294, 0.407843, 1)
-theme_override_font_sizes/font_size = 10
-text = "FOCUS: 0"
+theme_override_font_sizes/font_size = 11
+text = "0"
 
 [node name="SlipButton" type="Button" parent="TopBar"]
 layout_mode = 1
@@ -145,7 +167,7 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -210.0
+offset_left = -225.0
 offset_top = -40.0
 offset_right = -10.0
 offset_bottom = -10.0
@@ -153,7 +175,8 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 0.941176, 0.470588, 1)
 theme_override_font_sizes/font_size = 10
-text = "DEFEND SANCTUARY [B]"
+text = " DEFEND SANCTUARY [B]"
+icon = ExtResource("5_sword")
 
 [node name="ChronicleButton" type="Button" parent="BottomBar"]
 layout_mode = 1
@@ -162,8 +185,9 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = -40.0
-offset_right = 110.0
+offset_right = 135.0
 offset_bottom = -10.0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 10
-text = "Chronicles [C]"
+text = " Chronicles [C]"
+icon = ExtResource("4_scroll")

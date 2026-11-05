@@ -10,8 +10,8 @@ signal chronicle_button_pressed
 @onready var streak_label: Label = $TopBar/StreakContainer/StreakValue
 @onready var corruption_bar: ProgressBar = $TopBar/CorruptionContainer/VBox/BlightBar
 @onready var corruption_label: Label = $TopBar/CorruptionContainer/VBox/BlightLabel
-@onready var shields_label: Label = $TopBar/ResilienceContainer/HBox/ShieldsValue
-@onready var mana_label: Label = $TopBar/ResilienceContainer/HBox/ManaValue
+@onready var shields_label: Label = $TopBar/ResilienceContainer/HBox/ShieldBox/ShieldsValue
+@onready var mana_label: Label = $TopBar/ResilienceContainer/HBox/FocusBox/ManaValue
 @onready var urge_button: Button = $BottomBar/UrgeBeaconButton
 @onready var chronicle_button: Button = $BottomBar/ChronicleButton
 @onready var slip_button: Button = $TopBar/SlipButton
@@ -37,12 +37,14 @@ func _on_streak_updated(days: float, hours: int, mins: int, secs: int) -> void:
 
 func _on_shield_changed(new_count: int) -> void:
 	if new_count == 0:
-		shields_label.text = "SHIELDS: BROKEN"
+		shields_label.text = "0/%d" % HabitManager.max_shields
+		shields_label.modulate = Color("ff6b6b")
 	else:
-		shields_label.text = "SHIELDS: %d/%d" % [new_count, HabitManager.max_shields]
+		shields_label.text = "%d/%d" % [new_count, HabitManager.max_shields]
+		shields_label.modulate = Color("ffffff")
 
 func _on_mana_changed(new_mana: float) -> void:
-	mana_label.text = "FOCUS: %d" % int(new_mana)
+	mana_label.text = "%d" % int(new_mana)
 
 func _on_corruption_changed(pct: float) -> void:
 	corruption_bar.value = pct
