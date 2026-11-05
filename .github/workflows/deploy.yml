@@ -28,10 +28,15 @@ jobs:
             cp -r /root/.local/share/godot/export_templates/4.3.stable ~/.local/share/godot/export_templates/
           fi
 
+      - name: Import Resources
+        run: |
+          godot --headless --verbose --path project --editor --quit
+
       - name: Build Web Export
         run: |
-          mkdir -v -p export
-          godot --headless --verbose --export-release "Web" export/index.html project/project.godot
+          EXPORT_DIR="${GITHUB_WORKSPACE:-$PWD}/export"
+          mkdir -v -p "$EXPORT_DIR"
+          godot --headless --verbose --path project --export-release "Web" "$EXPORT_DIR/index.html"
 
       - name: Upload Web Build Artifact
         uses: actions/upload-artifact@v4
