@@ -8,12 +8,17 @@ extends Node2D
 @export var is_lit: bool = true
 @export var base_energy: float = 1.2
 @export var flicker_speed: float = 8.0
+@export var flame_color: Color = Color(1.0, 0.658824, 0.294118, 1.0)
 
 var _time_offset: float = 0.0
 
 func _ready() -> void:
 	_time_offset = randf() * 100.0
 	_setup_canvas_texture()
+	if light:
+		light.color = flame_color
+		if flame_color != Color(1.0, 0.658824, 0.294118, 1.0):
+			sprite.modulate = flame_color.lerp(Color.WHITE, 0.3)
 
 func _setup_canvas_texture() -> void:
 	# Load diffuse and normal map for 3D normal lighting
