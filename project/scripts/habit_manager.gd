@@ -169,6 +169,13 @@ func spend_mana(amount: float) -> bool:
 		return true
 	return false
 
+func deduct_coins_on_death(amount: float = 50.0) -> float:
+	var lost: float = minf(focus_mana, amount)
+	focus_mana = maxf(0.0, focus_mana - amount)
+	mana_changed.emit(focus_mana)
+	save_data()
+	return lost
+
 func add_mana(amount: float) -> void:
 	focus_mana += amount
 	mana_changed.emit(focus_mana)

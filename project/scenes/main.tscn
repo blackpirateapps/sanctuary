@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://bmainscene01"]
+[gd_scene load_steps=80 format=3 uid="uid://bmainscene01"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/forest/Background/BG-1.png" id="2_bg1"]
@@ -71,6 +71,7 @@
 [ext_resource type="PackedScene" path="res://scenes/animal.tscn" id="69_animal"]
 [ext_resource type="PackedScene" path="res://scenes/weather_overlay.tscn" id="70_weather"]
 [ext_resource type="PackedScene" path="res://scenes/settings_modal.tscn" id="71_settings"]
+[ext_resource type="PackedScene" uid="uid://btikbalang01" path="res://scenes/tikbalang.tscn" id="72_tikbalang"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
 size = Vector2(6000, 50)
@@ -982,3 +983,12 @@ position = Vector2(120, 290)
 [node name="WeatherOverlay" parent="." instance=ExtResource("70_weather")]
 
 [node name="SettingsModal" parent="." instance=ExtResource("71_settings")]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Tikbalang_SwampEntrance" parent="Enemies" instance=ExtResource("72_tikbalang")]
+position = Vector2(1600, 312)
+
+[node name="Tikbalang_SwampEnd" parent="Enemies" instance=ExtResource("72_tikbalang")]
+position = Vector2(5200, 312)
+

@@ -17,6 +17,32 @@ signal settings_button_pressed
 @onready var chronicle_button: Button = $BottomBar/ChronicleButton
 @onready var settings_button: Button = $BottomBar/SettingsButton
 @onready var slip_button: Button = $TopBar/SlipButton
+@onready var banner_container: PanelContainer = get_node_or_null("BannerContainer")
+@onready var banner_label: Label = get_node_or_null("BannerContainer/BannerLabel")
+
+var _banner_tween: Tween
+
+func show_banner(message: String, is_danger: bool = false) -> void:
+	if not banner_container or not banner_label:
+		return
+	banner_label.text = message
+	if is_danger:
+		banner_label.add_theme_color_override("font_color", Color(1.0, 0.4, 0.4, 1.0))
+	else:
+		banner_label.add_theme_color_override("font_color", Color(1.0, 0.92, 0.4, 1.0))
+		
+	banner_container.visible = true
+	banner_container.modulate.a = 0.0
+	
+	if _banner_tween and _banner_tween.is_valid():
+		_banner_tween.kill()
+		
+	_banner_tween = create_tween()
+	_banner_tween.tween_property(banner_container, "modulate:a", 1.0, 0.2)
+	_banner_tween.tween_interval(2.2)
+	_banner_tween.tween_property(banner_container, "modulate:a", 0.0, 0.4)
+	_banner_tween.tween_callback(func(): banner_container.visible = false)
+
 
 func _ready() -> void:
 	HabitManager.streak_updated.connect(_on_streak_updated)

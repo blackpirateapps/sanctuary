@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://btikbalang01"]
+
+[ext_resource type="Script" path="res://scripts/tikbalang.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bhealthbar01" path="res://scenes/health_bar.tscn" id="2_health_bar"]
+[ext_resource type="Texture2D" path="res://assets/props/light_cookie.png" id="3_cookie"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tik"]
+size = Vector2(24, 110)
+
+[node name="Tikbalang" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -68)
+scale = Vector2(0.45, 0.45)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -55)
+shape = SubResource("RectangleShape2D_tik")
+
+[node name="HealthBar" parent="." instance=ExtResource("2_health_bar")]
+position = Vector2(0, -135)
+scale = Vector2(0.55, 0.55)
+
+[node name="AuraLight" type="PointLight2D" parent="."]
+position = Vector2(0, -65)
+color = Color(0.72, 0.35, 0.95, 1)
+energy = 0.9
+texture = ExtResource("3_cookie")
+texture_scale = 1.4

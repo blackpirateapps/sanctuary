@@ -63,6 +63,15 @@ func _ready() -> void:
 	urge_trial.trial_finished.connect(_on_urge_trial_finished)
 	SanctuaryState.corruption_changed.connect(_on_corruption_changed)
 	
+	# Connect combat and death events
+	if player.has_signal("player_died"):
+		player.player_died.connect(_on_player_died)
+		
+	# Connect enemy defeat signals
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if enemy.has_signal("defeated"):
+			enemy.defeated.connect(_on_enemy_defeated)
+	
 	# Initialize starting biome and initial grace cooldown
 	_current_biome_id = _get_current_biome(player.global_position.x)
 	_biome_weather_cooldown = 15.0
@@ -238,3 +247,22 @@ func _commune_with_abyssal_relic() -> void:
 	var prompt_tw = create_tween()
 	prompt_tw.tween_interval(1.8)
 	prompt_tw.tween_callback(func(): abyssal_prompt.text = orig_text)
+
+func _on_player_died() -> void:
+	var lost: float = HabitManager.deduct_coins_on_death(50.0)
+	ui_hud.show_banner("Defeated! Lost %d Coins. Returned to Sanctuary." % int(lost), true)
+	if AudioManager:
+		AudioManager.play_sfx("thunder_close", Vector2(0.85, 0.95), -2.0)
+		
+	await get_tree().create_timer(0.6).timeout
+	player.respawn(Vector2(120, 290))
+	
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if is_instance_valid(enemy) and enemy.has_method("reset_to_spawn"):
+			enemy.reset_to_spawn()
+
+func _on_enemy_defeated(_pos: Vector2) -> void:
+	ui_hud.show_banner("Victory! Tikbalang Banished (+100 Coins)", false)
+	SanctuaryState.corruption_percent = clampf(SanctuaryState.corruption_percent - 3.0, 0.0, 100.0)
+	SanctuaryState.corruption_changed.emit(SanctuaryState.corruption_percent)
+

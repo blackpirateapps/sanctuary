@@ -1,12 +1,61 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-06 00:36 UTC+05:30  
+> **Timestamp:** 2026-11-06 01:05 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
 ---
 
 ## 1. Engine Verification Test
+
+```
+$ godot --headless --path project --quit
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+Exit Code: 0 (Zero errors, zero warnings)
+```
+
+---
+
+## 2. Tikbalang Enemy & Dynamic Combat Rig Tests
+
+```
+$ godot --headless --path project -s test_combat.gd
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+--- BEGIN COMBAT INTEGRATION TEST ---
+✔ Main scene, Player, and both Tikbalang instances loaded successfully
+  Tikbalang 1 position: (1600, 312) [Swamp Entrance]
+  Tikbalang 2 position: (5200, 312) [Swamp End / Abyssal Sanctum]
+
+--- TEST 1: Health Bar Sprites ---
+  100% HP: hp_100.png
+  75% HP: hp_75.png
+  60% HP: hp_65.png
+  50% HP: hp_50.png
+  30% HP: hp_35.png
+  10% HP: hp_10.png
+  0% HP: hp_0.png
+✔ HealthBar correctly maps all 7 percentage thresholds
+
+--- TEST 2: Defend Stance (75% Damage Reduction) ---
+  Defend test passed: blocked 75%, took 10 damage from 40 incoming strike
+✔ Parry mechanics verified
+
+--- TEST 3: Player Death, Coin Deduction (-50 Coins) & Respawn ---
+  Coins before: 120, Coins after: 70
+✔ Player death penalty (-50 coins) and Sanctuary respawn (x=120) verified
+
+--- TEST 4: Enemy Defeat & Coin Reward (+100 Coins) ---
+  Coins before victory: 50, Coins after victory: 150
+✔ Enemy defeat and reward (+100 coins, -3% valley blight) verified
+
+--- ALL INTEGRATION TESTS PASSED SUCCESSFULLY! ---
+```
+
+---
+
+## 3. Previous Engine Verification Test
 
 ```
 $ godot --headless --path project --quit

@@ -6,8 +6,8 @@
 | :--- | :--- | :--- | :--- |
 | **Move Left / Right** | `A` / `D` | `Left` / `Right` Arrow | Responsive horizontal movement with instant turnaround. |
 | **Jump** | `Space` | `W` / `Up` Arrow | Platformer jump with gravity scaling. |
-| **Attack Combo** | `J` | Left Mouse Click | 3-hit animated ninja strike combo. |
-| **Defend / Meditate** | `K` | Right Mouse Click | Defensive parry stance with energy shield flare. |
+| **Attack Combo** | `J` | Left Mouse Click | 3-hit animated ninja strike combo dealing 25 damage to enemies. |
+| **Defend / Meditate** | `K` | Right Mouse Click | Defensive parry stance mitigating 75% incoming damage with golden parry spark. |
 | **Channel Shrine** | `E` | — | Spend 30 Focus Mana at the central altar to purify blight. |
 | **Urge Defense Trial** | `B` | On-Screen Button | Immediately opens the emergency "Sanctuary Under Siege" trial. |
 | **Chronicles Modal** | `C` | On-Screen Button | Opens the milestone and record reflection log. |
@@ -134,3 +134,37 @@
     * `WEATHER: [100%] [75%] [50%] [25%] [OFF]`
     * `SFX: [100%] [75%] [50%] [25%] [OFF]`
   * Settings persist across sessions via `HabitManager` (`localStorage` on Web, `habit_save.json` on Desktop).
+
+---
+
+## 5. Tikbalang Enemy & Dynamic Combat Rig
+
+* **The Mythical Tikbalang Beast ([`tikbalang.tscn`](file:///home/dog/git/sanctuary/project/scenes/tikbalang.tscn)):**
+  * Towering demonic equine-humanoid guardian of Philippine folklore, scaled at $0.45\times$ (~130 px height, 3.2× player ninja).
+  * 214 high-detail animation frames modularly organized into 5 sequences:
+    * `idle` (42 frames, 14 FPS): Eerie undulating breathing cycle.
+    * `walk` (32 frames, 16 FPS): Menacing patrol cadence.
+    * `run` (28 frames, 18 FPS): Forward charge toward intruder.
+    * `dash` (12 frames, 18 FPS): High-speed lunging gap-closer with wind whoosh audio.
+    * `attack` (100 frames, 25 FPS): Multi-strike kick combo striking on key combat frames.
+  * Normal-mapped violet aura point light (`PointLight2D`) oscillating with atmospheric swamp lighting.
+* **Overhead Health Bar Rig ([`health_bar.tscn`](file:///home/dog/git/sanctuary/project/scenes/health_bar.tscn)):**
+  * Embedded above both the Player (`Vector2(0, -36)`) and Tikbalang (`Vector2(0, -135)`).
+  * 7 handcrafted pixel art stage textures dynamically selected based on HP percentage:
+    * $100\%$ $\rightarrow$ `hp_100.png`
+    * $[70\%, 99\%]$ $\rightarrow$ `hp_75.png`
+    * $[57\%, 69\%]$ $\rightarrow$ `hp_65.png`
+    * $[42\%, 56\%]$ $\rightarrow$ `hp_50.png`
+    * $[22\%, 41\%]$ $\rightarrow$ `hp_35.png`
+    * $(0\%, 21\%]$ $\rightarrow$ `hp_10.png`
+    * $\le 0\%$ $\rightarrow$ `hp_0.png`
+  * Features damage feedback flash and impact tweening.
+* **Combat Encounters in the Swamp:**
+  * **Encounter 1 — Swamp Entrance (`x = 1600.0, y = 312.0`):** Stationed at the boundary between the forest transition and murky outskirts.
+  * **Encounter 2 — Swamp End (`x = 5200.0, y = 312.0`):** Stationed in the abyssal void sanctum guarding the ancient relic.
+* **Combat Mechanics & Rewards:**
+  * **Player Attack (`[J]` / Left Mouse):** Deals 25.0 damage to enemies within front melee strike distance.
+  * **Parry / Defend Stance (`[K]` / Right Mouse):** Reduces incoming damage by 75% with a golden parry flash and water ripple sound effect.
+  * **Player Defeat:** If player health reaches 0, player loses 50 coins (`HabitManager.deduct_coins_on_death(50.0)`), respawns at the Sanctuary starting ground (`Vector2(120, 290)`), and living enemies reset to their spawn positions.
+  * **Enemy Defeat:** Defeating Tikbalang awards **+100 Coins** to the player's balance, cleanses 3.0% of valley blight, triggers a victory banner on HUD, and fades Tikbalang into violet mist motes.
+
