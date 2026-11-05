@@ -66,9 +66,16 @@
   * **Defend Sanctuary Button:** Crusader sword icon ([`sword_icon.png`](file:///home/dog/git/sanctuary/project/assets/ui/sword_icon.png)) with golden action styling.
 * **Atmospheric Weather Phenomena System ([`weather_overlay.tscn`](file:///home/dog/git/sanctuary/project/scenes/weather_overlay.tscn)):**
   * Dynamic `CanvasLayer` (layer 2) rendering seamless 128×128 pixel art tiling loops across the 640×360 screen.
-  * **Silky 60 FPS Animation:** Overlay frame animations step at a smooth 60 FPS (`frame_ms = 16.67ms`), eliminating any stutter or frame lag.
+  * **Calibrated Gentle & Natural Animation Speeds:**
+    * The game engine, physics, and camera run at full **60 FPS**, while the hand-drawn pixel art overlay frames are tuned to natural, tranquil speeds so weather never feels rushed or like a windstorm:
+      * **Light Rain:** 50.0ms (20.0 FPS, ~0.8s loop) — steady, calm rainfall.
+      * **Gentle Snow:** 55.0ms (~18.2 FPS, ~1.76s loop) — soft, serene snowflakes without stutter.
+      * **Thin Fog:** 70.0ms (~14.3 FPS, ~2.24s loop) — slow, fluidly drifting canopy mist without hitching.
+      * **Autumn Leaves:** 75.0ms (~13.3 FPS, ~2.40s loop) — graceful tumbling foliage on the autumn breeze.
+      * **Fireflies:** 85.0ms (~11.8 FPS, ~2.72s loop) — tranquil, peaceful hovering and glowing motes.
+      * **Starry Night:** 100.0ms (10.0 FPS, ~3.20s loop) — gentle celestial twinkling behind tree canopies.
   * **Above-Ground-Only Restriction:** Particles for **Gentle Snow**, **Light Rain**, **Autumn Leaves**, and **Fireflies** dynamically render strictly above ground level ($y \le 312.0$ px, dynamically tracked with camera movement), preventing weather from drawing across subterranean rock and dirt. Rain splashes emit right at the ground collision plane ($y = 312.0$ px).
-  * **Thin Fog:** Volumetric mist enveloping the full screen height (360 px) at 60 FPS.
+  * **Thin Fog:** Volumetric mist enveloping the full screen height (360 px).
   * Supports 7 selectable weather presets with instant crossfade transitions (0.35s):
     1. **Clear Sky:** Clean baseline environment with ambient particles.
     2. **Light Rain:** Seamless 16-frame rain loop at 60 FPS, occasional ambient lightning strikes (`lightning_bolt_a`) with screen flash, and floor puddle splashes (`CPUParticles2D`) on the ground line ($y = 312$).

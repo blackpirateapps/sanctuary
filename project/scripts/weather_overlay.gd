@@ -17,7 +17,7 @@ var current_weather: String = "clear"
 # Frame cache and metadata
 var _presets: Dictionary = {}
 var _current_frames: Array[Texture2D] = []
-var _current_frame_ms: float = 1000.0 / 60.0
+var _current_frame_ms: float = 60.0
 var _target_opacity: float = 1.0
 var _anim_timer: float = 0.0
 var _crossfade_tween: Tween = null
@@ -61,37 +61,37 @@ func _load_all_presets() -> void:
 	}
 	_presets["rain"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/rain", "rain_light_128px_rain_", 16),
-		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"frame_ms": 50.0, # 20.0 FPS gentle steady rain (~0.8s cycle)
 		"opacity": 0.85,
 		"above_ground_only": true
 	}
 	_presets["snow"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/snow", "snow_medium_128px_snow_", 32),
-		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"frame_ms": 55.0, # ~18.2 FPS calm snowfall (~1.76s cycle, smooth without stutter)
 		"opacity": 0.90,
 		"above_ground_only": true
 	}
 	_presets["fog"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/fog", "fog_thin_128px_fog_", 32),
-		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"frame_ms": 70.0, # ~14.3 FPS slow rolling mist (~2.24s cycle, fluid drift)
 		"opacity": 0.55,
 		"above_ground_only": false
 	}
 	_presets["leaves"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/leaves", "leaves_autumn_128px_autumn_", 32),
-		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"frame_ms": 75.0, # ~13.3 FPS graceful tumbling leaves (~2.4s cycle)
 		"opacity": 0.95,
 		"above_ground_only": true
 	}
 	_presets["fireflies"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/fireflies", "fireflies_128px_firefly_", 32),
-		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"frame_ms": 85.0, # ~11.8 FPS tranquil hovering fireflies (~2.72s cycle)
 		"opacity": 0.85,
 		"above_ground_only": true
 	}
 	_presets["stars"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/stars", "stars_twinkle_128px_stars_", 32),
-		"frame_ms": 1000.0 / 30.0, # 30 FPS gentle twinkle
+		"frame_ms": 100.0, # 10.0 FPS gentle celestial twinkle (~3.2s cycle)
 		"opacity": 0.75,
 		"above_ground_only": false
 	}

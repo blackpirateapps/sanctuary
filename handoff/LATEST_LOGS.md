@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-06 00:15 UTC+05:30  
+> **Timestamp:** 2026-11-06 00:25 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -45,11 +45,12 @@ Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
   ✔ Preset 'leaves': 32/32 seamless frames loaded cleanly
   ✔ Preset 'fireflies': 32/32 seamless frames loaded cleanly
   ✔ Preset 'stars': 32/32 seamless frames loaded cleanly
-  ✔ Preset 'rain' configured for silky 60 FPS playback (frame_ms=16.67ms)
-  ✔ Preset 'snow' configured for silky 60 FPS playback (frame_ms=16.67ms)
-  ✔ Preset 'fog' configured for silky 60 FPS playback (frame_ms=16.67ms)
-  ✔ Preset 'leaves' configured for silky 60 FPS playback (frame_ms=16.67ms)
-  ✔ Preset 'fireflies' configured for silky 60 FPS playback (frame_ms=16.67ms)
+  ✔ Preset 'rain' calibrated for gentle natural velocity (frame_ms=50.0ms, ~20.0fps)
+  ✔ Preset 'snow' calibrated for gentle natural velocity (frame_ms=55.0ms, ~18.2fps)
+  ✔ Preset 'fog' calibrated for gentle natural velocity (frame_ms=70.0ms, ~14.3fps)
+  ✔ Preset 'leaves' calibrated for gentle natural velocity (frame_ms=75.0ms, ~13.3fps)
+  ✔ Preset 'fireflies' calibrated for gentle natural velocity (frame_ms=85.0ms, ~11.8fps)
+  ✔ Preset 'stars' calibrated for gentle natural velocity (frame_ms=100.0ms, ~10.0fps)
 
 --- Test 2b: Above-Ground-Only Restriction & Splashes ---
   ✔ Snow restricted strictly above ground level (y <= 312.0)
@@ -82,9 +83,9 @@ Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
 --- Test 8: Biome Transition & Cooldown Mechanics ---
   ✔ All 4 biome boundaries detected correctly
-  ✔ Weather changed from 'clear' to 'leaves' on entering Swamp Outskirts
+  ✔ Weather changed from 'clear' to 'stars' on entering Swamp Outskirts
   ✔ Biome cooldown set to 35.0s
-  ✔ Back-and-forth oscillation protected: weather remained 'leaves'
+  ✔ Back-and-forth oscillation protected: weather remained 'stars'
   ✔ Rapid back-and-forth crossing prevents hard weather changes
 
 ========================================================
@@ -99,7 +100,8 @@ Exit Code: 0
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **fix(weather):** enforce 60 FPS animation rate and restrict weather above ground | blackpirateapps |
+| `HEAD` | **fix(weather):** calibrate gentle natural speeds across all weather phenomena | blackpirateapps |
+| `3ecbbcb` | **fix(weather):** enforce 60 FPS animation rate and restrict weather above ground | blackpirateapps |
 | `4893178` | **feat(weather):** behind-the-trees starry night, scenery darkening, and biome transition cooldown | blackpirateapps |
 | `dc9db72` | **feat(weather):** implement dynamic weather phenomena and cozy-space settings modal | blackpirateapps |
 | `0eefbf8` | **fix(wildlife):** reduce cute pack & frog scales, fix dragonfly forward facing, and set forest fauna to background | blackpirateapps |

@@ -89,12 +89,20 @@ func _test_weather_overlay_presets() -> void:
 		assert(count == expected, "Preset '%s' expected %d frames, got %d" % [w_id, expected, count])
 		print("  ✔ Preset '%s': %d/%d seamless frames loaded cleanly" % [w_id, count, expected])
 		
-	# Verify 60 FPS frame rates on animated weathers
-	var sixty_fps_weathers: Array[String] = ["rain", "snow", "fog", "leaves", "fireflies"]
-	for w_id in sixty_fps_weathers:
+	# Verify natural, gentle animation frame rates
+	var expected_ms: Dictionary = {
+		"rain": 50.0,
+		"snow": 55.0,
+		"fog": 70.0,
+		"leaves": 75.0,
+		"fireflies": 85.0,
+		"stars": 100.0
+	}
+	for w_id in expected_ms:
 		var frame_ms: float = overlay._presets[w_id]["frame_ms"]
-		assert(frame_ms <= 17.0, "Preset '%s' must run at 60 FPS (expected <= 17ms, got %.2fms)" % [w_id, frame_ms])
-		print("  ✔ Preset '%s' configured for silky 60 FPS playback (frame_ms=%.2fms)" % [w_id, frame_ms])
+		var target: float = expected_ms[w_id]
+		assert(abs(frame_ms - target) < 1.0, "Preset '%s' frame_ms must be near %.1fms (got %.1fms)" % [w_id, target, frame_ms])
+		print("  ✔ Preset '%s' calibrated for gentle natural velocity (frame_ms=%.1fms, ~%.1ffps)" % [w_id, frame_ms, 1000.0 / frame_ms])
 		
 	overlay.queue_free()
 
