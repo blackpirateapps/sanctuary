@@ -40,4 +40,4 @@ func _process(delta: float) -> void:
 	# Multi-frequency noise-like flicker
 	var flicker: float = sin(t) * 0.12 + sin(t * 2.3) * 0.08 + sin(t * 5.7) * 0.04
 	light.energy = clampf(base_energy + flicker, 0.6, 1.8)
-	light.position.y = -18.0 + (sin(t * 1.5) * 0.5)
+	light.position.y = -20.0 + (sin(t * 1.5) * 0.5)

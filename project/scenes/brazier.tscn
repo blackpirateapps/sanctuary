@@ -8,12 +8,12 @@
 script = ExtResource("1_script")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -16)
+position = Vector2(0, -14)
 texture = ExtResource("2_diffuse")
 hframes = 6
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, -18)
+position = Vector2(0, -20)
 color = Color(1, 0.658824, 0.294118, 1)
 energy = 1.3
 texture = ExtResource("3_cookie")

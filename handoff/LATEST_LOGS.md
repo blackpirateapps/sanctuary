@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-05 19:42 UTC+05:30  
+> **Timestamp:** 2026-11-05 20:15 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -21,13 +21,24 @@ Exit Code: 0 (Zero errors, zero warnings)
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **feat(shrine):** replace placeholder decore with ancient pedestal altar, add proximity trigger and cooldown | blackpirateapps |
+| `HEAD` | **fix(scene):** ground altar and braziers to floor surface by eliminating tileset transparent offset | blackpirateapps |
+| `9cbb07e` | **feat(shrine):** replace placeholder decore with ancient pedestal altar, add proximity trigger and cooldown | blackpirateapps |
 | `f91f4c6` | **fix(trial):** eliminate lambda capture error by binding node tweens instead of scene timer | blackpirateapps |
 | `56ba38b` | **style(ui):** switch to high-DPI canvas_items stretch mode and NotoSans typography for crystal-clear readability | blackpirateapps |
 | `61ec8eb` | **docs:** create handoff folder, agent protocols, and technical documentation | blackpirateapps |
 | `0ab22d8` | **style:** apply custom retro pixel font (Golden Apple), integrate crisp pixel art HUD icons, and fix multi-frame brazier animation | blackpirateapps |
 | `75fbc82` | **fix(ui):** rebind jump to space, move urge beacon to B, replace missing glyph emojis with clean typography, and polish void runes | blackpirateapps |
 | `2bdd02f` | **fix(ci):** create export dir and import resources before export | blackpirateapps |
+
+---
+
+## 3. Floor Alignment & Ground Contact Fix
+* **Root Cause of Floating Props:** In [`Fantasy-TileSet.png`](file:///home/dog/git/sanctuary/project/assets/environment/forest/Tileset/Fantasy-TileSet.png), rows `y=0..15` are completely transparent. `FloorVisual` had `region_rect = Rect2(0, 0, 192, 32)` and was positioned at `y=325` with `scale.y = 1.2`, which pushed the visible grass surface down to `y=325`. Meanwhile, `FloorShape` collision, `Shrine`, and `Braziers` were positioned at `y=310`, causing the player, altar, and fire braziers to visibly hover 15 pixels above the ground surface.
+* **Resolution Fix:**
+  1. Updated `FloorVisual`: `region_rect = Rect2(0, 16, 192, 48)` (bypassing the transparent padding), `position = Vector2(640, 336)`, `scale = Vector2(6.7, 1)` (maintaining integer vertical scale and extending cleanly to the viewport bottom at `y=360`).
+  2. Adjusted `FloorShape` collision to `position = Vector2(640, 337)` so the collision top matches the visual grass line at `y=312.0`.
+  3. Grounded `Shrine`: positioned at `y=312` with sprite at `-43` (altar base touches `y=312`), crystal `PointLight2D` at `-72`, and interaction prompt at `offset_top = -115.0`.
+  4. Grounded `Brazier`: updated [`brazier.tscn`](file:///home/dog/git/sanctuary/project/scenes/brazier.tscn) with `Sprite2D` `position = Vector2(0, -14)` so the tripod feet sit on the node origin (`y=0`), and aligned floor braziers to `y=312`.
 
 ---
 

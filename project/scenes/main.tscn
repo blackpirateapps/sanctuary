@@ -73,7 +73,7 @@ blend_mode = 0
 collision_mask = 2
 
 [node name="FloorShape" type="CollisionShape2D" parent="Ground"]
-position = Vector2(640, 335)
+position = Vector2(640, 337)
 shape = SubResource("RectangleShape2D_ground")
 
 [node name="Plat1Shape" type="CollisionShape2D" parent="Ground"]
@@ -85,11 +85,11 @@ position = Vector2(850, 220)
 shape = SubResource("RectangleShape2D_plat2")
 
 [node name="FloorVisual" type="Sprite2D" parent="Ground"]
-position = Vector2(640, 325)
-scale = Vector2(6.7, 1.2)
+position = Vector2(640, 336)
+scale = Vector2(6.7, 1)
 texture = ExtResource("6_tileset")
 region_enabled = true
-region_rect = Rect2(0, 0, 192, 32)
+region_rect = Rect2(0, 16, 192, 48)
 
 [node name="Plat1Visual" type="Sprite2D" parent="Ground"]
 position = Vector2(230, 240)
@@ -104,14 +104,14 @@ region_enabled = true
 region_rect = Rect2(16, 48, 128, 16)
 
 [node name="Shrine" type="Node2D" parent="."]
-position = Vector2(640, 310)
+position = Vector2(640, 312)
 
 [node name="ShrineSprite" type="Sprite2D" parent="Shrine"]
-position = Vector2(0, -42)
+position = Vector2(0, -43)
 texture = ExtResource("15_altar")
 
 [node name="PointLight2D" type="PointLight2D" parent="Shrine"]
-position = Vector2(0, -55)
+position = Vector2(0, -72)
 color = Color(0.35, 0.88, 1, 1)
 energy = 1.4
 texture = ExtResource("9_cookie")
@@ -119,9 +119,9 @@ texture_scale = 2.4
 
 [node name="ShrinePrompt" type="Label" parent="Shrine"]
 offset_left = -110.0
-offset_top = -105.0
+offset_top = -115.0
 offset_right = 110.0
-offset_bottom = -85.0
+offset_bottom = -95.0
 theme_override_colors/font_color = Color(0.75, 0.95, 1, 1)
 theme_override_font_sizes/font_size = 10
 text = "[E] Purify Sanctuary (30 Focus)"
@@ -133,10 +133,10 @@ horizontal_alignment = 1
 position = Vector2(190, 233)
 
 [node name="Brazier2" parent="Braziers" instance=ExtResource("8_brazier")]
-position = Vector2(560, 310)
+position = Vector2(560, 312)
 
 [node name="Brazier3" parent="Braziers" instance=ExtResource("8_brazier")]
-position = Vector2(720, 310)
+position = Vector2(720, 312)
 
 [node name="Brazier4" parent="Braziers" instance=ExtResource("8_brazier")]
 position = Vector2(890, 213)
