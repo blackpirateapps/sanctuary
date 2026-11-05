@@ -1,7 +1,8 @@
 # scratch/test_weather.gd
 # Headless unit test verifying the weather phenomenon overlay system,
 # Cozy-Space settings modal, icons, behind-the-trees stars, scenery darkening,
-# and biome transition random weather change with cooldown protection.
+# above-ground-only restriction (snow, rain, leaves, fireflies), full-screen fog,
+# 60 FPS animation frame rates, and biome transition random weather change with cooldown protection.
 extends Node
 
 func _ready() -> void:
@@ -11,6 +12,7 @@ func _ready() -> void:
 	
 	_test_asset_integrity()
 	_test_weather_overlay_presets()
+	_test_above_ground_weather_bounds_and_splashes()
 	_test_weather_state_and_persistence()
 	_test_settings_modal_integration()
 	_test_rain_lightning_and_splashes()
@@ -87,6 +89,52 @@ func _test_weather_overlay_presets() -> void:
 		assert(count == expected, "Preset '%s' expected %d frames, got %d" % [w_id, expected, count])
 		print("  ✔ Preset '%s': %d/%d seamless frames loaded cleanly" % [w_id, count, expected])
 		
+	# Verify 60 FPS frame rates on animated weathers
+	var sixty_fps_weathers: Array[String] = ["rain", "snow", "fog", "leaves", "fireflies"]
+	for w_id in sixty_fps_weathers:
+		var frame_ms: float = overlay._presets[w_id]["frame_ms"]
+		assert(frame_ms <= 17.0, "Preset '%s' must run at 60 FPS (expected <= 17ms, got %.2fms)" % [w_id, frame_ms])
+		print("  ✔ Preset '%s' configured for silky 60 FPS playback (frame_ms=%.2fms)" % [w_id, frame_ms])
+		
+	overlay.queue_free()
+
+func _test_above_ground_weather_bounds_and_splashes() -> void:
+	print("\n--- Test 2b: Above-Ground-Only Restriction & Splashes ---")
+	var overlay_scene: PackedScene = load("res://scenes/weather_overlay.tscn")
+	var overlay: CanvasLayer = overlay_scene.instantiate()
+	add_child(overlay)
+	
+	# Snow must be above ground only
+	overlay.set_weather("snow", false)
+	assert(overlay._presets["snow"]["above_ground_only"] == true, "Snow preset must be above_ground_only")
+	assert(overlay.weather_rect.size.y <= 312.0, "Snow WeatherRect height must not exceed ground level (got %.1f)" % overlay.weather_rect.size.y)
+	print("  ✔ Snow restricted strictly above ground level (y <= 312.0)")
+	
+	# Rain must be above ground only with splashes at ground line
+	overlay.set_weather("rain", false)
+	assert(overlay._presets["rain"]["above_ground_only"] == true, "Rain preset must be above_ground_only")
+	assert(overlay.weather_rect.size.y <= 312.0, "Rain WeatherRect height must not exceed ground level (got %.1f)" % overlay.weather_rect.size.y)
+	assert(overlay.rain_splashes.position.y == 312.0, "Rain splashes must be positioned at ground plane y=312.0 (got %.1f)" % overlay.rain_splashes.position.y)
+	print("  ✔ Rain restricted above ground with splashes aligned at ground surface (y=312.0)")
+	
+	# Autumn leaves must be above ground only
+	overlay.set_weather("leaves", false)
+	assert(overlay._presets["leaves"]["above_ground_only"] == true, "Leaves preset must be above_ground_only")
+	assert(overlay.weather_rect.size.y <= 312.0, "Leaves WeatherRect height must not exceed ground level (got %.1f)" % overlay.weather_rect.size.y)
+	print("  ✔ Autumn leaves restricted strictly above ground level")
+	
+	# Fireflies must be above ground only
+	overlay.set_weather("fireflies", false)
+	assert(overlay._presets["fireflies"]["above_ground_only"] == true, "Fireflies preset must be above_ground_only")
+	assert(overlay.weather_rect.size.y <= 312.0, "Fireflies WeatherRect height must not exceed ground level (got %.1f)" % overlay.weather_rect.size.y)
+	print("  ✔ Fireflies restricted strictly above ground level")
+	
+	# Fog should cover the whole screen (not restricted to above ground)
+	overlay.set_weather("fog", false)
+	assert(overlay._presets["fog"]["above_ground_only"] == false, "Fog preset must cover full screen")
+	assert(overlay.weather_rect.size.y == 360.0, "Fog WeatherRect height must cover full viewport height (got %.1f)" % overlay.weather_rect.size.y)
+	print("  ✔ Fog covers the entire viewport atmosphere (height = 360.0)")
+	
 	overlay.queue_free()
 
 func _test_weather_state_and_persistence() -> void:

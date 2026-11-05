@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-05 23:50 UTC+05:30  
+> **Timestamp:** 2026-11-06 00:15 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -45,6 +45,18 @@ Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
   ✔ Preset 'leaves': 32/32 seamless frames loaded cleanly
   ✔ Preset 'fireflies': 32/32 seamless frames loaded cleanly
   ✔ Preset 'stars': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'rain' configured for silky 60 FPS playback (frame_ms=16.67ms)
+  ✔ Preset 'snow' configured for silky 60 FPS playback (frame_ms=16.67ms)
+  ✔ Preset 'fog' configured for silky 60 FPS playback (frame_ms=16.67ms)
+  ✔ Preset 'leaves' configured for silky 60 FPS playback (frame_ms=16.67ms)
+  ✔ Preset 'fireflies' configured for silky 60 FPS playback (frame_ms=16.67ms)
+
+--- Test 2b: Above-Ground-Only Restriction & Splashes ---
+  ✔ Snow restricted strictly above ground level (y <= 312.0)
+  ✔ Rain restricted above ground with splashes aligned at ground surface (y=312.0)
+  ✔ Autumn leaves restricted strictly above ground level
+  ✔ Fireflies restricted strictly above ground level
+  ✔ Fog covers the entire viewport atmosphere (height = 360.0)
 
 --- Test 3: HabitManager Persistence & Signal Propagation ---
   ✔ HabitManager.to_dict() correctly serialized selected_weather='rain'
@@ -70,9 +82,9 @@ Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
 --- Test 8: Biome Transition & Cooldown Mechanics ---
   ✔ All 4 biome boundaries detected correctly
-  ✔ Weather changed from 'clear' to 'fog' on entering Swamp Outskirts
+  ✔ Weather changed from 'clear' to 'leaves' on entering Swamp Outskirts
   ✔ Biome cooldown set to 35.0s
-  ✔ Back-and-forth oscillation protected: weather remained 'fog'
+  ✔ Back-and-forth oscillation protected: weather remained 'leaves'
   ✔ Rapid back-and-forth crossing prevents hard weather changes
 
 ========================================================
@@ -87,7 +99,9 @@ Exit Code: 0
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **feat(weather):** implement dynamic weather phenomena and cozy-space settings modal | blackpirateapps |
+| `HEAD` | **fix(weather):** enforce 60 FPS animation rate and restrict weather above ground | blackpirateapps |
+| `4893178` | **feat(weather):** behind-the-trees starry night, scenery darkening, and biome transition cooldown | blackpirateapps |
+| `dc9db72` | **feat(weather):** implement dynamic weather phenomena and cozy-space settings modal | blackpirateapps |
 | `0eefbf8` | **fix(wildlife):** reduce cute pack & frog scales, fix dragonfly forward facing, and set forest fauna to background | blackpirateapps |
 | `b4c8f98` | **feat(wildlife):** integrate interactive wildlife ecosystem with hybrid animated and 32x32 fauna | blackpirateapps |
 | `85799da` | **feat(biome):** expand corrupted swamp to 5760px with multi-tier platforms, chest, coins, and abyssal relic | blackpirateapps |

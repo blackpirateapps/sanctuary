@@ -66,14 +66,17 @@
   * **Defend Sanctuary Button:** Crusader sword icon ([`sword_icon.png`](file:///home/dog/git/sanctuary/project/assets/ui/sword_icon.png)) with golden action styling.
 * **Atmospheric Weather Phenomena System ([`weather_overlay.tscn`](file:///home/dog/git/sanctuary/project/scenes/weather_overlay.tscn)):**
   * Dynamic `CanvasLayer` (layer 2) rendering seamless 128×128 pixel art tiling loops across the 640×360 screen.
+  * **Silky 60 FPS Animation:** Overlay frame animations step at a smooth 60 FPS (`frame_ms = 16.67ms`), eliminating any stutter or frame lag.
+  * **Above-Ground-Only Restriction:** Particles for **Gentle Snow**, **Light Rain**, **Autumn Leaves**, and **Fireflies** dynamically render strictly above ground level ($y \le 312.0$ px, dynamically tracked with camera movement), preventing weather from drawing across subterranean rock and dirt. Rain splashes emit right at the ground collision plane ($y = 312.0$ px).
+  * **Thin Fog:** Volumetric mist enveloping the full screen height (360 px) at 60 FPS.
   * Supports 7 selectable weather presets with instant crossfade transitions (0.35s):
     1. **Clear Sky:** Clean baseline environment with ambient particles.
-    2. **Light Rain:** Seamless 16-frame rain loop (50ms), occasional ambient lightning strikes (`lightning_bolt_a`) with screen flash, and floor puddle splashes (`CPUParticles2D`).
-    3. **Gentle Snow:** Seamless 32-frame snowfall loop (80ms).
-    4. **Thin Fog:** Soft low canopy drifting mist loop (120ms).
-    5. **Autumn Leaves:** Tilted tumbling crimson and amber foliage loop (80ms).
-    6. **Fireflies:** Ambient glowing motes drifting across the sanctuary (90ms).
-    7. **Starry Night:** Twinkling celestial night sky loop (120ms) rendered in `ParallaxBackground` strictly behind distant and mid tree canopies (`Sky_Stars/StarsRect`), accompanied by nocturnal scenery darkening (sky transitions to midnight indigo, background trees fade to dark silhouettes, and directional ambient light dims to 0.35 at `#060610` to make braziers and lanterns glow vividly).
+    2. **Light Rain:** Seamless 16-frame rain loop at 60 FPS, occasional ambient lightning strikes (`lightning_bolt_a`) with screen flash, and floor puddle splashes (`CPUParticles2D`) on the ground line ($y = 312$).
+    3. **Gentle Snow:** Seamless 32-frame snowfall loop at 60 FPS restricted above ground level.
+    4. **Thin Fog:** Soft low canopy drifting mist loop at 60 FPS spanning the full screen.
+    5. **Autumn Leaves:** Tilted tumbling crimson and amber foliage loop at 60 FPS restricted above ground level.
+    6. **Fireflies:** Ambient glowing motes drifting across the sanctuary at 60 FPS restricted above ground level.
+    7. **Starry Night:** Twinkling celestial night sky loop (30 FPS) rendered in `ParallaxBackground` strictly behind distant and mid tree canopies (`Sky_Stars/StarsRect`), accompanied by nocturnal scenery darkening (sky transitions to midnight indigo, background trees fade to dark silhouettes, and directional ambient light dims to 0.35 at `#060610` to make braziers and lanterns glow vividly).
   * **Dynamic Biome Weather Transitions:** Walking across biome boundaries (Forest, Murky Outskirts, Sunken Canopy, Abyssal Heart) rolls a random new weather phenomenon with a 35-second cooldown timer that prevents rapid or jarring weather flickering when moving back and forth across zone edges.
   * State persists across Web (`localStorage`) and Desktop (`habit_save.json`) via `HabitManager`.
 * **Sanctuary Settings Modal ([`settings_modal.tscn`](file:///home/dog/git/sanctuary/project/scenes/settings_modal.tscn)):**

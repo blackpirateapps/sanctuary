@@ -1,6 +1,8 @@
 # scripts/weather_overlay.gd
 # Dynamic full-screen 2D weather phenomenon overlay system with seamless
 # tiling loops, smooth crossfading, lightning strikes, and puddle splashes.
+# Restricts snow, rain, leaves, and fireflies strictly above ground level (y <= 312).
+# Runs overlay frame animations at a smooth 60 FPS.
 extends CanvasLayer
 
 @onready var weather_rect: TextureRect = $WeatherRect
@@ -15,7 +17,7 @@ var current_weather: String = "clear"
 # Frame cache and metadata
 var _presets: Dictionary = {}
 var _current_frames: Array[Texture2D] = []
-var _current_frame_ms: float = 60.0
+var _current_frame_ms: float = 1000.0 / 60.0
 var _target_opacity: float = 1.0
 var _anim_timer: float = 0.0
 var _crossfade_tween: Tween = null
@@ -47,43 +49,51 @@ func _ready() -> void:
 	
 	# Initial weather from persistent state
 	set_weather(HabitManager.selected_weather, false)
+	_update_geometry()
 
 func _load_all_presets() -> void:
 	var clear_frames: Array[Texture2D] = []
 	_presets["clear"] = {
 		"frames": clear_frames,
 		"frame_ms": 1000.0,
-		"opacity": 0.0
+		"opacity": 0.0,
+		"above_ground_only": false
 	}
 	_presets["rain"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/rain", "rain_light_128px_rain_", 16),
-		"frame_ms": 50.0,
-		"opacity": 0.85
+		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"opacity": 0.85,
+		"above_ground_only": true
 	}
 	_presets["snow"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/snow", "snow_medium_128px_snow_", 32),
-		"frame_ms": 80.0,
-		"opacity": 0.90
+		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"opacity": 0.90,
+		"above_ground_only": true
 	}
 	_presets["fog"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/fog", "fog_thin_128px_fog_", 32),
-		"frame_ms": 120.0,
-		"opacity": 0.55
+		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"opacity": 0.55,
+		"above_ground_only": false
 	}
 	_presets["leaves"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/leaves", "leaves_autumn_128px_autumn_", 32),
-		"frame_ms": 80.0,
-		"opacity": 0.95
+		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"opacity": 0.95,
+		"above_ground_only": true
 	}
 	_presets["fireflies"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/fireflies", "fireflies_128px_firefly_", 32),
-		"frame_ms": 90.0,
-		"opacity": 0.85
+		"frame_ms": 1000.0 / 60.0, # 60 FPS
+		"opacity": 0.85,
+		"above_ground_only": true
 	}
 	_presets["stars"] = {
 		"frames": _load_frames_from_dir("res://assets/weather/overlays/stars", "stars_twinkle_128px_stars_", 32),
-		"frame_ms": 120.0,
-		"opacity": 0.75
+		"frame_ms": 1000.0 / 30.0, # 30 FPS gentle twinkle
+		"opacity": 0.75,
+		"above_ground_only": false
 	}
 
 func _load_frames_from_dir(dir_path: String, prefix: String, count: int) -> Array[Texture2D]:
@@ -101,7 +111,7 @@ func _setup_lightning_animation() -> void:
 	var frames_res: SpriteFrames = SpriteFrames.new()
 	frames_res.add_animation("bolt")
 	frames_res.set_animation_loop("bolt", false)
-	frames_res.set_animation_speed("bolt", 16.0) # ~60ms per frame
+	frames_res.set_animation_speed("bolt", 24.0)
 	
 	for i in range(1, 8):
 		var p: String = "res://assets/weather/overlays/lightning/lightning_bolt_a_bolt_%02d.png" % i
@@ -113,6 +123,45 @@ func _setup_lightning_animation() -> void:
 	lightning_bolt.sprite_frames = frames_res
 	lightning_bolt.animation_finished.connect(func(): lightning_bolt.visible = false)
 
+func _get_ground_screen_y() -> float:
+	var default_ground_y: float = 312.0
+	var vp: Viewport = get_viewport()
+	if vp:
+		var screen_ground: Vector2 = vp.get_canvas_transform() * Vector2(0.0, 312.0)
+		var vp_h: float = vp.get_visible_rect().size.y
+		if vp_h <= 0.0:
+			vp_h = 360.0
+		if screen_ground.y > 0.0:
+			return clampf(screen_ground.y, 0.0, vp_h)
+	return default_ground_y
+
+func _update_geometry() -> void:
+	var vp_size: Vector2 = get_viewport().get_visible_rect().size if get_viewport() else Vector2(640.0, 360.0)
+	var screen_w: float = vp_size.x if vp_size.x > 0.0 else 640.0
+	var screen_h: float = vp_size.y if vp_size.y > 0.0 else 360.0
+	
+	var is_above_ground_only: bool = _presets.get(current_weather, {}).get("above_ground_only", false)
+	
+	if is_above_ground_only:
+		var ground_screen_y: float = _get_ground_screen_y()
+		weather_rect.position = Vector2(0.0, 0.0)
+		weather_rect.size = Vector2(screen_w, ground_screen_y)
+		
+		# Rain splashes sit right on top of the ground line
+		rain_splashes.position = Vector2(screen_w * 0.5, ground_screen_y)
+		rain_splashes.emission_rect_extents = Vector2(screen_w * 0.5, 2.0)
+		if ground_screen_y >= screen_h:
+			rain_splashes.emitting = false
+		elif current_weather == "rain":
+			rain_splashes.emitting = true
+	else:
+		weather_rect.position = Vector2(0.0, 0.0)
+		weather_rect.size = Vector2(screen_w, screen_h)
+		if current_weather == "rain":
+			rain_splashes.position = Vector2(screen_w * 0.5, 312.0)
+			rain_splashes.emission_rect_extents = Vector2(screen_w * 0.5, 2.0)
+			rain_splashes.emitting = true
+
 func set_weather(weather_id: String, animate_transition: bool = true) -> void:
 	if not _presets.has(weather_id):
 		weather_id = "clear"
@@ -121,6 +170,8 @@ func set_weather(weather_id: String, animate_transition: bool = true) -> void:
 	var preset: Dictionary = _presets[weather_id]
 	_current_frame_ms = preset["frame_ms"]
 	_target_opacity = preset["opacity"]
+	
+	_update_geometry()
 	
 	# Rain specific features
 	if current_weather == "rain":
@@ -188,16 +239,23 @@ func set_weather(weather_id: String, animate_transition: bool = true) -> void:
 		_crossfade_tween.tween_property(weather_rect, "modulate:a", _target_opacity, 0.22).set_trans(Tween.TRANS_SINE)
 
 func _process(delta: float) -> void:
-	# Animate active overlay frames
+	_update_geometry()
+	
+	# Animate active overlay frames at 60 FPS
 	if not _current_frames.is_empty():
 		_anim_timer += delta * 1000.0
+		var total_cycle_ms: float = _current_frame_ms * _current_frames.size()
+		if total_cycle_ms > 0.0 and _anim_timer >= total_cycle_ms:
+			_anim_timer = fmod(_anim_timer, total_cycle_ms)
+			
 		var frame_index: int = int(_anim_timer / _current_frame_ms) % _current_frames.size()
 		if current_weather == "stars":
 			weather_rect.texture = null
-			if background_stars_rect:
+			if background_stars_rect and background_stars_rect.texture != _current_frames[frame_index]:
 				background_stars_rect.texture = _current_frames[frame_index]
 		else:
-			weather_rect.texture = _current_frames[frame_index]
+			if weather_rect.texture != _current_frames[frame_index]:
+				weather_rect.texture = _current_frames[frame_index]
 		
 	# Lightning loop during rain
 	if current_weather == "rain":
