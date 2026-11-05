@@ -6,6 +6,7 @@ extends CanvasLayer
 signal urge_beacon_pressed
 signal slip_button_pressed
 signal chronicle_button_pressed
+signal settings_button_pressed
 
 @onready var streak_label: Label = $TopBar/StreakContainer/StreakValue
 @onready var corruption_bar: ProgressBar = $TopBar/CorruptionContainer/VBox/BlightBar
@@ -14,6 +15,7 @@ signal chronicle_button_pressed
 @onready var mana_label: Label = $TopBar/ResilienceContainer/HBox/FocusBox/ManaValue
 @onready var urge_button: Button = $BottomBar/UrgeBeaconButton
 @onready var chronicle_button: Button = $BottomBar/ChronicleButton
+@onready var settings_button: Button = $BottomBar/SettingsButton
 @onready var slip_button: Button = $TopBar/SlipButton
 
 func _ready() -> void:
@@ -25,6 +27,7 @@ func _ready() -> void:
 	urge_button.pressed.connect(func(): urge_beacon_pressed.emit())
 	slip_button.pressed.connect(func(): slip_button_pressed.emit())
 	chronicle_button.pressed.connect(func(): chronicle_button_pressed.emit())
+	settings_button.pressed.connect(func(): settings_button_pressed.emit())
 	
 	# Initial populate
 	_on_shield_changed(HabitManager.shields)
@@ -51,9 +54,11 @@ func _on_corruption_changed(pct: float) -> void:
 	corruption_label.text = "VALLEY BLIGHT: %0.1f%%" % pct
 
 func _input(event: InputEvent) -> void:
-	# Key B triggers Urge Beacon; Key C opens Chronicles
+	# Key B triggers Urge Beacon; Key C opens Chronicles; Key O opens Settings
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_B:
 			urge_beacon_pressed.emit()
 		elif event.keycode == KEY_C:
 			chronicle_button_pressed.emit()
+		elif event.keycode == KEY_O:
+			settings_button_pressed.emit()

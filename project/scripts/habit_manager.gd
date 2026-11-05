@@ -8,6 +8,7 @@ signal shield_changed(current_shields: int)
 signal mana_changed(current_mana: float)
 signal relapse_handled(was_shielded: bool)
 signal trial_rewarded(focus_crystals: int)
+signal weather_changed(weather_id: String)
 
 const SAVE_KEY: String = "sanctuary_habit_save_v1"
 const LOCAL_FILE: String = "user://habit_save.json"
@@ -39,6 +40,7 @@ var max_shields: int = 3
 var focus_mana: float = 0.0
 var successful_trials: int = 0
 var total_clean_days_record: float = 0.0
+var selected_weather: String = "clear"
 
 var _is_web: bool = false
 
@@ -206,7 +208,8 @@ func to_dict() -> Dictionary:
 		"shields": shields,
 		"focus_mana": focus_mana,
 		"successful_trials": successful_trials,
-		"total_clean_days_record": total_clean_days_record
+		"total_clean_days_record": total_clean_days_record,
+		"selected_weather": selected_weather
 	}
 
 func from_dict(data: Dictionary) -> void:
@@ -216,6 +219,12 @@ func from_dict(data: Dictionary) -> void:
 	focus_mana = data.get("focus_mana", 0.0)
 	successful_trials = data.get("successful_trials", 0)
 	total_clean_days_record = data.get("total_clean_days_record", 0.0)
+	selected_weather = data.get("selected_weather", "clear")
+
+func set_weather(weather_id: String) -> void:
+	selected_weather = weather_id
+	weather_changed.emit(selected_weather)
+	save_data()
 
 func save_data() -> void:
 	var json_str: String = JSON.stringify(to_dict())

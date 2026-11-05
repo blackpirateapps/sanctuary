@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://bmainscene01"]
+[gd_scene load_steps=79 format=3 uid="uid://bmainscene01"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/forest/Background/BG-1.png" id="2_bg1"]
@@ -69,6 +69,8 @@
 [ext_resource type="PackedScene" path="res://scenes/swamp_chest.tscn" id="67_chest"]
 [ext_resource type="PackedScene" path="res://scenes/spirit_coin.tscn" id="68_coin"]
 [ext_resource type="PackedScene" path="res://scenes/animal.tscn" id="69_animal"]
+[ext_resource type="PackedScene" path="res://scenes/weather_overlay.tscn" id="70_weather"]
+[ext_resource type="PackedScene" path="res://scenes/settings_modal.tscn" id="71_settings"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
 size = Vector2(6000, 50)
@@ -963,3 +965,7 @@ position = Vector2(120, 290)
 [node name="SlipModal" parent="." instance=ExtResource("13_slip")]
 
 [node name="ChroniclesModal" parent="." instance=ExtResource("14_chronicles")]
+
+[node name="WeatherOverlay" parent="." instance=ExtResource("70_weather")]
+
+[node name="SettingsModal" parent="." instance=ExtResource("71_settings")]

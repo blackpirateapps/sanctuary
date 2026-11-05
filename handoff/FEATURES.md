@@ -11,6 +11,7 @@
 | **Channel Shrine** | `E` | — | Spend 30 Focus Mana at the central altar to purify blight. |
 | **Urge Defense Trial** | `B` | On-Screen Button | Immediately opens the emergency "Sanctuary Under Siege" trial. |
 | **Chronicles Modal** | `C` | On-Screen Button | Opens the milestone and record reflection log. |
+| **Settings / Weather Modal** | `O` / `Esc` | On-Screen Button | Opens the Sanctuary Atmosphere & Weather Settings. |
 
 ---
 
@@ -61,7 +62,24 @@
   * **Log Slip Button:** Opens the non-punitive accountability dialog.
 * **Bottom Bar:**
   * **Chronicles Button:** Styled parchment button with scroll icon ([`scroll_icon.png`](file:///home/dog/git/sanctuary/project/assets/ui/scroll_icon.png)).
+  * **Settings Button:** Cozy-space styled button with gear icon ([`icon-gear.png`](file:///home/dog/git/sanctuary/project/assets/ui/settings/icon-gear.png)) triggering the Atmosphere & Weather Settings modal (`[O]`).
   * **Defend Sanctuary Button:** Crusader sword icon ([`sword_icon.png`](file:///home/dog/git/sanctuary/project/assets/ui/sword_icon.png)) with golden action styling.
+* **Atmospheric Weather Phenomena System ([`weather_overlay.tscn`](file:///home/dog/git/sanctuary/project/scenes/weather_overlay.tscn)):**
+  * Dynamic `CanvasLayer` (layer 2) rendering seamless 128×128 pixel art tiling loops across the 640×360 screen.
+  * Supports 7 selectable weather presets with instant crossfade transitions (0.35s):
+    1. **Clear Sky:** Clean baseline environment with ambient particles.
+    2. **Light Rain:** Seamless 16-frame rain loop (50ms), occasional ambient lightning strikes (`lightning_bolt_a`) with screen flash, and floor puddle splashes (`CPUParticles2D`).
+    3. **Gentle Snow:** Seamless 32-frame snowfall loop (80ms).
+    4. **Thin Fog:** Soft low canopy drifting mist loop (120ms).
+    5. **Autumn Leaves:** Tilted tumbling crimson and amber foliage loop (80ms).
+    6. **Fireflies:** Ambient glowing motes drifting across the sanctuary (90ms).
+    7. **Starry Night:** Twinkling celestial night sky loop (120ms).
+  * State persists across Web (`localStorage`) and Desktop (`habit_save.json`) via `HabitManager`.
+* **Sanctuary Settings Modal ([`settings_modal.tscn`](file:///home/dog/git/sanctuary/project/scenes/settings_modal.tscn)):**
+  * Cozy-Space UI pixel aesthetic utilizing 9-slice `panel-dark.png` and teal/amber button textures.
+  * 7 interactive weather cards displaying dedicated 32×32 pixel icons (`clear_day.png`, `light_rain.png`, `light_snow.png`, `fog.png`, `autumn_leaves.png`, `firefly.png`, `clear_night.png`).
+  * Real-time preview: selecting an option immediately changes active world weather, updates the amber active card border and `[ACTIVE]` indicator, and saves preferences.
+  * Toggleable via Bottom Bar button or keyboard shortcut `[O]` / `[Esc]`.
 * **Urge Trial Modal ([`urge_trial.tscn`](file:///home/dog/git/sanctuary/project/scenes/urge_trial.tscn)):**
   * Dimmed vignette overlay.
   * Animated Evil Wizard sprite channeling void runes.

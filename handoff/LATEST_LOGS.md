@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-05 23:30 UTC+05:30  
+> **Timestamp:** 2026-11-05 23:50 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -16,18 +16,54 @@ Exit Code: 0 (Zero errors, zero warnings)
 ```
 
 ```
-$ godot --headless --path project scratch/test_wildlife.tscn
+$ godot --headless --path project scratch/test_weather.tscn
 Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
 ========================================================
-🐾 RUNNING SANCTUARY & SWAMP WILDLIFE UNIT TESTS 🐾
+🌦️ RUNNING WEATHER PHENOMENON & SETTINGS UNIT TESTS 🌦️
 ========================================================
-✔ Animals container node verified in main scene
 
---- Test 1: Wildlife Population & Node Registration ---
-✔ Total fauna instances registered: 19
+--- Test 1: Weather Asset & Icon Integrity ---
+  ✔ Weather icon 'clear' verified (clear_day.png)
+  ✔ Weather icon 'rain' verified (light_rain.png)
+  ✔ Weather icon 'snow' verified (light_snow.png)
+  ✔ Weather icon 'fog' verified (fog.png)
+  ✔ Weather icon 'leaves' verified (autumn_leaves.png)
+  ✔ Weather icon 'fireflies' verified (firefly.png)
+  ✔ Weather icon 'stars' verified (clear_night.png)
+  ✔ Cozy-Space UI asset verified: icon-gear.png
+  ✔ Cozy-Space UI asset verified: icon-cross.png
+  ✔ Cozy-Space UI asset verified: icon-check.png
+  ✔ Cozy-Space UI asset verified: panel-dark.png
+  ✔ Cozy-Space UI asset verified: button-teal-normal.png
+  ✔ Cozy-Space UI asset verified: button-amber-normal.png
 
---- Test 2: Asset Integrity & Visual Rig Verification ---
+--- Test 2: Weather Overlay Scene & Presets Verification ---
+  ✔ Preset 'rain': 16/16 seamless frames loaded cleanly
+  ✔ Preset 'snow': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'fog': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'leaves': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'fireflies': 32/32 seamless frames loaded cleanly
+  ✔ Preset 'stars': 32/32 seamless frames loaded cleanly
+
+--- Test 3: HabitManager Persistence & Signal Propagation ---
+  ✔ HabitManager.to_dict() correctly serialized selected_weather='rain'
+  ✔ HabitManager.from_dict() restored selected_weather='snow'
+
+--- Test 4: Settings Modal Grid & Buttons Verification ---
+  ✔ Clicking 'leaves' card updated active weather to 'leaves'
+  ✔ Modal open/close state validated
+
+--- Test 5: Rain Dynamics (Lightning & Splashes) ---
+  ✔ Rain splashes active during rain
+  ✔ Lightning strike triggered screen flash and bolt sprite
+  ✔ Splashes deactivate when clearing weather
+
+========================================================
+🎉 ALL WEATHER PHENOMENON TESTS PASSED SUCCESSFULLY! 🎉
+========================================================
+Exit Code: 0
+```
   ✔ [Static 32x32] Fauna_Rabbit1 (Forest Hare): valid texture 'rabbit.png'
   ✔ [Static 32x32] Fauna_Rabbit2 (Meadow Bunny): valid texture 'rabbit.png'
   ✔ [Static 32x32] Fauna_Sparrow (Forest Songbird): valid texture 'sparrow.png'
@@ -115,23 +151,30 @@ Exit Code: 0
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **fix(wildlife):** reduce cute pack & frog scales, fix dragonfly forward facing, and set forest fauna to background | blackpirateapps |
+| `HEAD` | **feat(weather):** implement dynamic weather phenomena and cozy-space settings modal | blackpirateapps |
+| `0eefbf8` | **fix(wildlife):** reduce cute pack & frog scales, fix dragonfly forward facing, and set forest fauna to background | blackpirateapps |
 | `b4c8f98` | **feat(wildlife):** integrate interactive wildlife ecosystem with hybrid animated and 32x32 fauna | blackpirateapps |
 | `85799da` | **feat(biome):** expand corrupted swamp to 5760px with multi-tier platforms, chest, coins, and abyssal relic | blackpirateapps |
 | `a88457c` | **feat(economy):** implement tiered milestone coin generation and live decimal HUD | blackpirateapps |
 
 ---
 
-## 3. Wildlife Refinements (Phase 9 Polish)
+## 3. Dynamic Weather Phenomena & Cozy-Space Settings (Phase 10)
 
-* **Scale Adjustments:**
-  * **Frog:** Scaled down to $0.6\times$ (18×15 px), creating a petite pond amphibian hopping in the mud.
-  * **Dragonfly:** Scaled down to $0.35\times$ (26×17 px), transforming the large raw canvas into an insect-sized swamp flyer.
-  * **All Cute Pack Characters:** Proportions reduced across the board: Bee ($0.45\times$), Bats & White Bats ($0.55\times$), Guardian Bear ($0.7\times$), and Celestial Drake ($0.6\times$).
-* **Forward Movement / Facing Fix:**
-  * Resolved reversed `flip_h` logic across `FLY_HOVER`, `GROUND_HOP`, and `GROUND_WALK`. Because source sprites face left by default, moving right now sets `flip_h = true` and moving left sets `flip_h = false`. Dragonfly and all flyers now strictly travel forward head-first.
-* **Background & Non-Interactable Placement:**
-  * Set `z_index = -1`, `can_pet = false`, and `can_flee = false` for Fox, Deer, Doe, Rabbits, and Golden Spirit Doe. They wander peacefully as background dressing, allowing the player ninja and foreground objects to pass naturally in front of them without interaction prompts.
+* **Seamless 128px Tiling Overlay Engine:**
+  * Implemented [`weather_overlay.gd`](file:///home/dog/git/sanctuary/project/scripts/weather_overlay.gd) rendering on dedicated `CanvasLayer` (layer 2) above game world and under UI HUD (layer 10).
+  * 7 selectable weather phenomena: Clear Sky, Light Rain (16 frames, 50ms), Gentle Snow (32 frames, 80ms), Thin Fog (32 frames, 120ms), Autumn Leaves (32 frames, 80ms), Ambient Fireflies (32 frames, 90ms), and Starry Night (32 frames, 120ms).
+  * Seamless crossfade tween (0.35s) smoothly transitions opacity when switching between presets.
+* **Rain Dynamics (Lightning & Splashes):**
+  * Randomized lightning storm timer (8.0s to 16.0s) triggering full-screen quad flash (`ColorRect`) and 2x scaled `lightning_bolt_a` sprite animation at randomized X coordinates.
+  * Ground rain puddle splash particles (`CPUParticles2D`) actively spawning droplets along platform surface plane.
+* **Cozy-Space Settings UI:**
+  * Added `Settings [O]` button in HUD Bottom Bar directly adjacent to `Chronicles [C]` with `icon-gear.png`.
+  * Built [`settings_modal.tscn`](file:///home/dog/git/sanctuary/project/scenes/settings_modal.tscn) using Cozy-Space 9-slice `panel-dark.png` and teal/amber button themes.
+  * 7 weather cards displaying dedicated 32×32 pixel icons with real-time selection, amber active state highlighting, and checkmark.
+  * Toggleable via mouse click, `[O]`, or `[Esc]`.
+* **State Persistence:**
+  * `HabitManager.selected_weather` serialized to `window.localStorage` on Web and `user://habit_save.json` on desktop. Default initialized to `"clear"`.
 
 ---
 
@@ -146,6 +189,7 @@ Exit Code: 0
 * [x] **Phase 7: Swamp Floor & Ridge Alignment:** All swamp ridges (`3.png`, `5.png`, `1.png`) and props grounded cleanly to $y = 312.0$.
 * [x] **Phase 8: Massive Corrupted Swamp Expansion:** Extended world to 5760px (9 screens), added 8 new platforms, Corrupted Chest (+35 Mana), 6 Spirit Coins (+5 Mana each), Abyssal Relic landmark (+25 Mana, -5% Blight), 6 new violet braziers (13 total), and dense foliage dressing.
 * [x] **Phase 9: Wildlife Ecosystem & Proportions Polish:** Integrated 19 fauna across the world with hybrid animated & 32x32 sprites, fixed dragonfly flight orientation, reduced Cute pack & frog sizes, and positioned forest fauna in background plane.
+* [x] **Phase 10: Dynamic Weather Phenomena & Settings:** Integrated 7 pixel art weather overlays, lightning strikes, puddle splashes, cozy-space UI settings modal with 32x32 weather icons, and cross-session persistence.
 * [ ] **Next Roadmap Items for Incoming Agents:**
-  * Implement sound effects & atmospheric audio (forest breeze, flame crackle, swamp ambience, rune pop, shield impact, coin chimes, gentle animal chirps).
+  * Implement sound effects & atmospheric audio (forest breeze, flame crackle, swamp ambience, rune pop, shield impact, coin chimes, gentle animal chirps, rain pitter-patter, thunder roll).
   * Add water physics or swamp puddles with interactive ripple effects.

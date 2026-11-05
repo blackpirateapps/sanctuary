@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://buihud001"]
+[gd_scene load_steps=10 format=3 uid="uid://buihud001"]
 
 [ext_resource type="Script" path="res://scripts/ui_hud.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/shield_icon.png" id="2_shield"]
 [ext_resource type="Texture2D" path="res://assets/ui/focus_icon.png" id="3_focus"]
 [ext_resource type="Texture2D" path="res://assets/ui/scroll_icon.png" id="4_scroll"]
 [ext_resource type="Texture2D" path="res://assets/ui/sword_icon.png" id="5_sword"]
+[ext_resource type="Texture2D" path="res://assets/ui/settings/icon-gear.png" id="6_gear"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.0705882, 0.0588235, 0.113725, 0.85098)
@@ -191,3 +192,17 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 10
 text = " Chronicles [C]"
 icon = ExtResource("4_scroll")
+
+[node name="SettingsButton" type="Button" parent="BottomBar"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 145.0
+offset_top = -40.0
+offset_right = 250.0
+offset_bottom = -10.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+text = " Settings [O]"
+icon = ExtResource("6_gear")

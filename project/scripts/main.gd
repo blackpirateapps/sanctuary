@@ -14,6 +14,8 @@ const TRANSITION_END_X: float = 1650.0
 @onready var urge_trial: CanvasLayer = $UrgeTrial
 @onready var slip_modal: CanvasLayer = $SlipModal
 @onready var chronicles_modal: CanvasLayer = $ChroniclesModal
+@onready var settings_modal: CanvasLayer = $SettingsModal
+@onready var weather_overlay: CanvasLayer = $WeatherOverlay
 @onready var player: CharacterBody2D = $Player
 @onready var shrine: Node2D = $Shrine
 
@@ -50,6 +52,7 @@ func _ready() -> void:
 	ui_hud.urge_beacon_pressed.connect(_on_urge_beacon_pressed)
 	ui_hud.slip_button_pressed.connect(func(): slip_modal.open())
 	ui_hud.chronicle_button_pressed.connect(func(): chronicles_modal.open())
+	ui_hud.settings_button_pressed.connect(func(): settings_modal.open())
 	
 	urge_trial.trial_finished.connect(_on_urge_trial_finished)
 	SanctuaryState.corruption_changed.connect(_on_corruption_changed)
