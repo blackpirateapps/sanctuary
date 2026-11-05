@@ -49,16 +49,16 @@ size = Vector2(120, 14)
 size = Vector2(140, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plat3"]
-size = Vector2(106, 12)
+size = Vector2(106, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plat4"]
-size = Vector2(86, 12)
+size = Vector2(86, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plat5"]
-size = Vector2(106, 12)
+size = Vector2(106, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_plat6"]
-size = Vector2(80, 12)
+size = Vector2(80, 10)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_script")
@@ -169,20 +169,24 @@ position = Vector2(850, 220)
 shape = SubResource("RectangleShape2D_plat2")
 
 [node name="Plat3Shape" type="CollisionShape2D" parent="Ground"]
-position = Vector2(1580, 230)
+position = Vector2(1580, 276)
 shape = SubResource("RectangleShape2D_plat3")
+one_way_collision = true
 
 [node name="Plat4Shape" type="CollisionShape2D" parent="Ground"]
-position = Vector2(1820, 240)
+position = Vector2(1820, 291)
 shape = SubResource("RectangleShape2D_plat4")
+one_way_collision = true
 
 [node name="Plat5Shape" type="CollisionShape2D" parent="Ground"]
-position = Vector2(2020, 175)
+position = Vector2(2020, 276)
 shape = SubResource("RectangleShape2D_plat5")
+one_way_collision = true
 
 [node name="Plat6Shape" type="CollisionShape2D" parent="Ground"]
-position = Vector2(2280, 225)
+position = Vector2(2280, 288)
 shape = SubResource("RectangleShape2D_plat6")
+one_way_collision = true
 
 [node name="FloorVisual" type="Sprite2D" parent="Ground"]
 position = Vector2(600, 336)
@@ -211,19 +215,19 @@ region_enabled = true
 region_rect = Rect2(16, 48, 128, 16)
 
 [node name="Plat3Visual" type="Sprite2D" parent="Ground"]
-position = Vector2(1580, 244)
+position = Vector2(1580, 291.5)
 texture = ExtResource("23_swamp_ridge3")
 
 [node name="Plat4Visual" type="Sprite2D" parent="Ground"]
-position = Vector2(1820, 247)
+position = Vector2(1820, 299)
 texture = ExtResource("22_swamp_ridge1")
 
 [node name="Plat5Visual" type="Sprite2D" parent="Ground"]
-position = Vector2(2020, 189)
+position = Vector2(2020, 291.5)
 texture = ExtResource("23_swamp_ridge3")
 
 [node name="Plat6Visual" type="Sprite2D" parent="Ground"]
-position = Vector2(2280, 233)
+position = Vector2(2280, 297.5)
 texture = ExtResource("24_swamp_ridge5")
 
 [node name="SwampProps" type="Node2D" parent="."]
@@ -265,7 +269,7 @@ position = Vector2(1510, 298)
 texture = ExtResource("34_swamp_box1")
 
 [node name="Box2" type="Sprite2D" parent="SwampProps"]
-position = Vector2(2035, 155)
+position = Vector2(2055, 298.5)
 texture = ExtResource("35_swamp_box2")
 
 [node name="Fence1" type="Sprite2D" parent="SwampProps"]
@@ -273,7 +277,7 @@ position = Vector2(1150, 303)
 texture = ExtResource("36_swamp_fence1")
 
 [node name="Pointer1" type="Sprite2D" parent="SwampProps"]
-position = Vector2(1110, 298)
+position = Vector2(1110, 301.5)
 texture = ExtResource("37_swamp_pointer1")
 
 [node name="Shrine" type="Node2D" parent="."]
@@ -348,7 +352,7 @@ position = Vector2(1450, 312)
 flame_color = Color(0.72, 0.35, 0.95, 1)
 
 [node name="Brazier6" parent="Braziers" instance=ExtResource("8_brazier")]
-position = Vector2(2020, 169)
+position = Vector2(2020, 271)
 flame_color = Color(0.72, 0.35, 0.95, 1)
 
 [node name="Brazier7" parent="Braziers" instance=ExtResource("8_brazier")]

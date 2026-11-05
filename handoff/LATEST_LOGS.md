@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-05 20:50 UTC+05:30  
+> **Timestamp:** 2026-11-05 21:12 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -28,7 +28,8 @@ Exit Code: 0 (Zero errors, 60 physics/render frames executed cleanly)
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **feat(biome):** add corrupted swamp scenery with dynamic parallax crossfade, elevated platforming, and void monolith landmark | blackpirateapps |
+| `HEAD` | **fix(scene):** align swamp ridges 3.png and 5.png to ground floor surface | blackpirateapps |
+| `45e6b2a` | **feat(biome):** add corrupted swamp scenery with dynamic parallax crossfade, elevated platforming, and void monolith landmark | blackpirateapps |
 | `2cc8a38` | **fix(scene):** ground altar and braziers to floor surface by eliminating tileset transparent offset | blackpirateapps |
 | `9cbb07e` | **feat(shrine):** replace placeholder decore with ancient pedestal altar, add proximity trigger and cooldown | blackpirateapps |
 | `f91f4c6` | **fix(trial):** eliminate lambda capture error by binding node tweens instead of scene timer | blackpirateapps |
@@ -40,24 +41,14 @@ Exit Code: 0 (Zero errors, 60 physics/render frames executed cleanly)
 
 ---
 
-## 3. Corrupted Swamp Biome & Dynamic Scenery Architecture
+## 3. Ground Contact Alignment Fix for Swamp Ridges (3.png & 5.png)
 
-* **World Boundary Expansion:** Expanded camera right limit from `1280px` to `2880px` in [`player.tscn`](file:///home/dog/git/sanctuary/project/scenes/player.tscn), extending the reachable world from a single screen into an expansive multi-biome journey.
-* **Dual Parallax Crossfade Rig:**
-  * Forest parallax (4 layers, 640×360) and Swamp parallax (5 layers, 576×324 scaled by 1.1111 to 640×360) run in [`main.tscn`](file:///home/dog/git/sanctuary/project/scenes/main.tscn).
-  * Swamp Sky (`Swamp1_Sky`) acts as the base opaque background; Forest Sky (`Layer1_Sky`) fades via smoothstep S-curve easing from `x=950` to `x=1650`, eliminating any black/empty gap during transition.
-  * Foreground silhouette layers crossfade smoothly in lockstep.
-* **Ground & Platform Traversal:**
-  * Ground collision `FloorShape` extended to `3000px` (`Vector2(3000, 50)`) at surface line `y=312.0`.
-  * `SwampFloorVisual` uses repeating mossy swamp ground tile (`swamp_ground_tile.png`) with `texture_repeat = 2`.
-  * Added 4 swamp platforms using modular ridge textures (`Ridges/1.png`, `Ridges/3.png`, `Ridges/5.png`) with crate stepping stones (`Boxes/1.png`, `Boxes/2.png`) enabling vertical platforming.
-* **Atmospheric Set Dressing & Lighting:**
-  * Integrated weeping willows (`Willows/1..3.png`), gnarled swamp trees (`Trees/1..3.png`), mossy swamp boulders (`Stones/1..2.png`), and wooden boundary fences.
-  * Extended [`brazier.gd`](file:///home/dog/git/sanctuary/project/scripts/brazier.gd) with an exported `flame_color` property, placing eerie violet braziers (`#b859f2`) across the swamp.
-  * Added `SwampMistParticles` (`CPUParticles2D`) emitting drifting blight mist across `x = 1400..2800`.
-* **Corrupted Monolith Landmark:**
-  * Erected at `x = 2500, y = 312` with a 4-frame animated arcane void rune (`Rune.png`) and pulsing purple `PointLight2D`.
-  * Features interactive proximity prompt for the Urge Trial (`[B] Urge Defend Trial`).
+* **Root Cause:** In the initial biome expansion, `3 Objects/Ridges/3.png` and `5.png` were placed at elevated mid-air positions ($y = 244$, $y = 189$, $y = 233$) acting as floating platform visuals. Because Ridges are flat-bottomed mounds of earth designed to sit on top of the ground, they appeared disconnected and hovering 48–102 pixels above the floor.
+* **Resolution Fix:**
+  1. **Grounded Ridges Visuals:** Adjusted `Plat3Visual` (Ridge 3) to $y = 291.5$, `Plat4Visual` (Ridge 1) to $y = 299.0$, `Plat5Visual` (Ridge 3) to $y = 291.5$, and `Plat6Visual` (Ridge 5) to $y = 297.5$. The flat bottom of every ridge sits cleanly on the floor at $y = 312.0$.
+  2. **One-Way Collision Top Surface:** Updated `Plat3Shape`, `Plat4Shape`, `Plat5Shape`, and `Plat6Shape` with `one_way_collision = true` aligned precisely to the top crest of each mound ($y = 271$, $y = 286$, $y = 283$). Players can run unimpeded across the ground floor while also jumping onto the ridges as natural terrain elevations.
+  3. **Grounded Props & Brazier:** Adjusted `Brazier6` to sit atop Ridge 3 at $y = 271.0$, `Box2` to sit on the floor at $y = 298.5$ (bottom at $312.0$), and grounded `Pointer1` to $y = 301.5$ (bottom at $312.0$).
+  4. **Automated Verification:** Verified via script that 100% of props and ridge assets in [`main.tscn`](file:///home/dog/git/sanctuary/project/scenes/main.tscn) have their bottom surface at $y = 312.0 \pm 0.5\text{px}$.
 
 ---
 
@@ -69,6 +60,7 @@ Exit Code: 0 (Zero errors, 60 physics/render frames executed cleanly)
 * [x] **Phase 4: Urge Interceptor:** Two-stage panic button with 20s arcane void runes deflect challenge and 16s somatic 4-4-4 breathing circle.
 * [x] **Phase 5: Visual & Typography Polish:** `golden-apple.ttf` pixel font integrated, dedicated 16x16 pixel art icons (`shield_icon.png`, `focus_icon.png`, `scroll_icon.png`, `sword_icon.png`).
 * [x] **Phase 6: Multi-Biome World Expansion:** Added Corrupted Swamp biome (2880px world), dynamic position-based parallax crossfade, elevated platforming, weeping willows, violet braziers, and Corrupted Monolith.
+* [x] **Phase 7: Swamp Floor & Ridge Alignment:** All swamp ridges (`3.png`, `5.png`, `1.png`) and props grounded cleanly to $y = 312.0$.
 * [ ] **Next Roadmap Items for Incoming Agents:**
   * Implement sound effects & atmospheric audio (forest breeze, flame crackle, swamp ambience, rune pop, shield impact).
   * Add returning animal spirits (deer, owl) that wander the sanctuary as clean streaks grow.
