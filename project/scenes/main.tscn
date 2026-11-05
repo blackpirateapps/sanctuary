@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://bmainscene01"]
+[gd_scene load_steps=77 format=3 uid="uid://bmainscene01"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/environment/forest/Background/BG-1.png" id="2_bg1"]
@@ -68,6 +68,7 @@
 [ext_resource type="Texture2D" path="res://assets/environment/corrupted/4 Animated objects/Rune.png" id="66_swamp_rune"]
 [ext_resource type="PackedScene" path="res://scenes/swamp_chest.tscn" id="67_chest"]
 [ext_resource type="PackedScene" path="res://scenes/spirit_coin.tscn" id="68_coin"]
+[ext_resource type="PackedScene" path="res://scenes/animal.tscn" id="69_animal"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
 size = Vector2(6000, 50)
@@ -772,6 +773,130 @@ flame_color = Color(0.72, 0.35, 0.95, 1)
 [node name="Brazier13" parent="Braziers" instance=ExtResource("8_brazier")]
 position = Vector2(5620, 312)
 flame_color = Color(0.72, 0.35, 0.95, 1)
+
+[node name="Animals" type="Node2D" parent="."]
+
+[node name="Fauna_Rabbit1" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(240, 312)
+animal_id = "rabbit"
+wander_min_x = 160.0
+wander_max_x = 340.0
+
+[node name="Fauna_Rabbit2" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(380, 312)
+animal_id = "rabbit"
+display_name = "Meadow Bunny"
+wander_min_x = 300.0
+wander_max_x = 470.0
+
+[node name="Fauna_Sparrow" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(250, 240)
+animal_id = "sparrow"
+
+[node name="Fauna_Deer" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(530, 312)
+animal_id = "deer"
+wander_min_x = 480.0
+wander_max_x = 610.0
+
+[node name="Fauna_Doe" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(740, 312)
+animal_id = "doe"
+wander_min_x = 660.0
+wander_max_x = 810.0
+
+[node name="Fauna_Bee" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(640, 260)
+animal_id = "bee"
+wander_min_x = 580.0
+wander_max_x = 700.0
+
+[node name="Fauna_Owl" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(850, 220)
+animal_id = "owl"
+
+[node name="Fauna_Fox" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(980, 312)
+animal_id = "fox"
+wander_min_x = 910.0
+wander_max_x = 1110.0
+
+[node name="Fauna_Hedgehog" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(1220, 312)
+animal_id = "hedgehog"
+wander_min_x = 1160.0
+wander_max_x = 1290.0
+
+[node name="Fauna_Frog" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(1380, 312)
+animal_id = "frog"
+wander_min_x = 1320.0
+wander_max_x = 1460.0
+
+[node name="Fauna_Dragonfly" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(1540, 230)
+animal_id = "dragonfly"
+wander_min_x = 1430.0
+wander_max_x = 1680.0
+
+[node name="Fauna_Snail" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(2080, 312)
+animal_id = "snail"
+wander_min_x = 2000.0
+wander_max_x = 2160.0
+
+[node name="Fauna_RavenMonolith" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(2530, 248)
+animal_id = "raven"
+
+[node name="Fauna_Bat1" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(3280, 160)
+animal_id = "bat"
+wander_min_x = 3120.0
+wander_max_x = 3450.0
+
+[node name="Fauna_WhiteBat" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(3980, 180)
+animal_id = "white_bat"
+wander_min_x = 3840.0
+wander_max_x = 4120.0
+
+[node name="Fauna_RavenRelic" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(5280, 250)
+animal_id = "raven"
+
+[node name="Spirit_GoldenDoe" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(600, 312)
+animal_id = "doe"
+display_name = "Golden Spirit Doe"
+wander_min_x = 520.0
+wander_max_x = 680.0
+unlock_tier = 1
+is_spirit = true
+spirit_color = Color(1, 0.85, 0.35, 1)
+pet_message = "*The Golden Spirit Doe bathes your spirit in celestial warmth (+2 Focus Mana)*"
+
+[node name="Spirit_GuardianBear" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(1050, 312)
+animal_id = "bear"
+display_name = "Guardian Bear"
+wander_min_x = 980.0
+wander_max_x = 1120.0
+unlock_tier = 3
+is_spirit = true
+spirit_color = Color(0.9, 0.75, 0.4, 1)
+pet_message = "*The Ancient Guardian Bear rumbles with steadfast fortitude (+2 Focus Mana)*"
+
+[node name="Spirit_VoidDrake" parent="Animals" instance=ExtResource("69_animal")]
+position = Vector2(5220, 220)
+animal_id = "baby_dragon"
+display_name = "Celestial Drake"
+wander_min_x = 5140.0
+wander_max_x = 5300.0
+unlock_tier = 5
+is_spirit = true
+spirit_color = Color(0.85, 0.45, 1, 1)
+pet_message = "*The Celestial Drake coils gently around you, honoring your mastery (+2 Focus Mana)*"
 
 [node name="AtmosphericSpores" type="CPUParticles2D" parent="."]
 position = Vector2(640, 180)

@@ -34,6 +34,17 @@
   * **The Corrupted Cache Chest (`x = 3580, y = 235`):** Interactive 4-frame animated chest awarding +35 Focus Mana with gold/violet particle explosion (`[E]`).
   * **Spirit Coins (6 Perches):** 4-frame spinning coins granting +5 Focus Mana on touch.
   * **The Abyssal Relic Altar (`x = 5250, y = 312`):** Ancient void altar for deep meditation (`[E]`), triggering parry stance, cleansing 5% blight, and granting +25 Focus Mana.
+* **Interactive Wildlife Ecosystem:**
+  * 19 fauna instances inhabiting all 9 screen-widths of the 5,760px world.
+  * **Hybrid Visual Rig:** Multi-frame animated characters (Cute Pack: Bees, Dragonflies, Bats, White Bats, Guardian Bear, Celestial Drake) paired with crisp 32×32 fauna (Tiny Animals: Deer, Doe, Rabbits, Foxes, Hedgehogs, Frogs, Snails, Owls, Ravens).
+  * **Locomotion State Machine:** Parabolic ground hopping physics, smooth walking cycles, perched branch idling with head-turns/wing stretches, and sinusoidal flying/hovering.
+  * **Reactive Behaviors:** Running near shy creatures (rabbits, songbirds) prompts reactive fleeing or taking flight into the canopy.
+  * **Gentle Petting Mechanics:** Approaching peacefully activates `[E] Pet [Creature]`, triggering pixel heart/sparkle particles (`CPUParticles2D`), joyful bounce tweens, narrative reflection text, and a +2.0 Focus Mana reward.
+  * **Habit Milestone Spirit Unlocks:**
+    * *Tier 1 (1 hr+ / First Sprout):* Golden Spirit Doe awakens near the Sacred Altar with celestial light.
+    * *Tier 3 (24 hrs+ / Ancient Hearth):* Ancient Guardian Bear emerges at the forest edge ($x=1050$).
+    * *Tier 5 (7 days+ / Eternal Citadel):* Mythical Celestial Drake awakens beside the Abyssal Relic ($x=5220$).
+
 * **Atmospheric Particles:**
   * Forest Celestial Spores (`x = 640`, 45 continuous drifting particles).
   * Swamp Blight Mist (`x = 3700`, 120 drifting violet mist particles spanning 4,300px).

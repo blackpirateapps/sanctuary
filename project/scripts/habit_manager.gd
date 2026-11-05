@@ -98,6 +98,16 @@ func get_current_coin_tier_name() -> String:
 			break
 	return tier_name
 
+func get_current_tier_index() -> int:
+	var hours: float = get_clean_hours()
+	var idx: int = 0
+	for i in range(COIN_TIERS.size()):
+		if hours >= COIN_TIERS[i]["hours"]:
+			idx = i
+		else:
+			break
+	return idx
+
 func get_current_coin_rate_per_sec() -> float:
 	var hours: float = get_clean_hours()
 	return (BASE_MANA_PER_HOUR * get_coin_multiplier(hours)) / SECONDS_PER_HOUR

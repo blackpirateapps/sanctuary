@@ -1,6 +1,6 @@
 # Latest Logs & Deployment Status
 
-> **Timestamp:** 2026-11-05 23:00 UTC+05:30  
+> **Timestamp:** 2026-11-05 23:25 UTC+05:30  
 > **Branch:** `main`  
 > **Latest Deployment:** `SUCCESS`
 
@@ -13,6 +13,78 @@ $ godot --headless --path project --quit
 Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
 
 Exit Code: 0 (Zero errors, zero warnings)
+```
+
+```
+$ godot --headless --path project scratch/test_wildlife.tscn
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+========================================================
+🐾 RUNNING SANCTUARY & SWAMP WILDLIFE UNIT TESTS 🐾
+========================================================
+✔ Animals container node verified in main scene
+
+--- Test 1: Wildlife Population & Node Registration ---
+✔ Total fauna instances registered: 19
+
+--- Test 2: Asset Integrity & Visual Rig Verification ---
+  ✔ [Static 32x32] Fauna_Rabbit1 (Forest Hare): valid texture 'rabbit.png'
+  ✔ [Static 32x32] Fauna_Rabbit2 (Meadow Bunny): valid texture 'rabbit.png'
+  ✔ [Static 32x32] Fauna_Sparrow (Forest Songbird): valid texture 'sparrow.png'
+  ✔ [Static 32x32] Fauna_Deer (Sanctuary Stag): valid texture 'deer.png'
+  ✔ [Static 32x32] Fauna_Doe (Gentle Doe): valid texture 'doe.png'
+  ✔ [Animated] Fauna_Bee (Amber Honeybee): 3 frames verified
+  ✔ [Static 32x32] Fauna_Owl (Watcher Owl): valid texture 'owl.png'
+  ✔ [Static 32x32] Fauna_Fox (Amber Fox): valid texture 'fox.png'
+  ✔ [Static 32x32] Fauna_Hedgehog (Thorny Hedgehog): valid texture 'hedgehog.png'
+  ✔ [Static 32x32] Fauna_Frog (Mire Frog): valid texture 'frog.png'
+  ✔ [Animated] Fauna_Dragonfly (Emerald Dragonfly): 4 frames verified
+  ✔ [Static 32x32] Fauna_Snail (Moss Snail): valid texture 'snail.png'
+  ✔ [Static 32x32] Fauna_RavenMonolith (Void Raven): valid texture 'raven.png'
+  ✔ [Animated] Fauna_Bat1 (Shadow Bat): 3 frames verified
+  ✔ [Animated] Fauna_WhiteBat (Spectral Bat): 3 frames verified
+  ✔ [Static 32x32] Fauna_RavenRelic (Void Raven): valid texture 'raven.png'
+  ✔ [Static 32x32] Spirit_GoldenDoe (Golden Spirit Doe): valid texture 'doe.png'
+  ✔ [Animated] Spirit_GuardianBear (Guardian Bear): 3 frames verified
+  ✔ [Animated] Spirit_VoidDrake (Celestial Drake): 3 frames verified
+
+--- Test 3: Ground Surface Alignment Check ---
+  ✔ Fauna_Rabbit1 cleanly grounded at Y = 312.0
+  ✔ Fauna_Rabbit2 cleanly grounded at Y = 312.0
+  ✔ Fauna_Deer cleanly grounded at Y = 312.0
+  ✔ Fauna_Doe cleanly grounded at Y = 312.0
+  ✔ Fauna_Fox cleanly grounded at Y = 312.0
+  ✔ Fauna_Hedgehog cleanly grounded at Y = 312.0
+  ✔ Fauna_Frog cleanly grounded at Y = 312.0
+  ✔ Fauna_Snail cleanly grounded at Y = 312.0
+  ✔ Spirit_GoldenDoe cleanly grounded at Y = 312.0
+  ✔ Spirit_GuardianBear cleanly grounded at Y = 312.0
+
+--- Test 4: Wander Boundaries Sanity ---
+✔ All wander patrol intervals strictly within valid world coordinates [0..5760]
+
+--- Test 5: Petting Interaction Mechanics ---
+✔ Petting triggered successfully: awarded +2.0 Focus Mana (260.29 -> 262.29)
+✔ Pet cooldown verified: 15.0s
+✔ Feedback label displayed: '*The stag bows gracefully (+2 Focus Mana)*'
+
+--- Test 6: Reactive Fleeing ---
+✔ Reactive flee mechanism verified (timer: 2.5s)
+
+--- Test 7: Clean Streak Milestone Spirit Unlocks ---
+✔ Milestone unlock tiers verified (Golden Doe: T1, Guardian Bear: T3, Void Drake: T5)
+  Current player tier index: 1
+  ✔ Golden Spirit Doe unlocked (Tier 1 >= 1)
+  ✔ Guardian Spirit Bear locked (requires Tier 3, current is 1)
+  ✔ Celestial Void Drake locked (requires Tier 5, current is 1)
+
+--- Test 8: 2D Lighting & Canvas Filter ---
+✔ 100% of animal visual nodes enforce nearest-neighbor pixel texture filtering
+
+========================================================
+🎉 ALL WILDLIFE VERIFICATION TESTS PASSED SUCCESSFULLY! 🎉
+========================================================
+Exit Code: 0
 ```
 
 ```
@@ -56,40 +128,33 @@ Exit Code: 0
 
 | Commit | Scope / Description | Author |
 | :--- | :--- | :--- |
-| `HEAD` | **feat(biome):** expand corrupted swamp to 5760px with multi-tier platforms, chest, coins, and abyssal relic | blackpirateapps |
+| `HEAD` | **feat(wildlife):** integrate interactive wildlife ecosystem with hybrid animated & 32x32 fauna, reactive fleeing, petting, and streak milestone unlocks | blackpirateapps |
+| `85799da` | **feat(biome):** expand corrupted swamp to 5760px with multi-tier platforms, chest, coins, and abyssal relic | blackpirateapps |
 | `a88457c` | **feat(economy):** implement tiered milestone coin generation and live decimal HUD | blackpirateapps |
 | `1cf4ef7` | **fix(scene):** align swamp ridges 3.png and 5.png to ground floor surface | blackpirateapps |
 | `45e6b2a` | **feat(biome):** add corrupted swamp scenery with dynamic parallax crossfade, elevated platforming, and void monolith landmark | blackpirateapps |
-| `2cc8a38` | **fix(scene):** ground altar and braziers to floor surface by eliminating tileset transparent offset | blackpirateapps |
-| `9cbb07e` | **feat(shrine):** replace placeholder decore with ancient pedestal altar, add proximity trigger and cooldown | blackpirateapps |
-| `f91f4c6` | **fix(trial):** eliminate lambda capture error by binding node tweens instead of scene timer | blackpirateapps |
-| `56ba38b` | **style(ui):** switch to high-DPI canvas_items stretch mode and NotoSans typography for crystal-clear readability | blackpirateapps |
-| `61ec8eb` | **docs:** create handoff folder, agent protocols, and technical documentation | blackpirateapps |
-| `0ab22d8` | **style:** apply custom retro pixel font (Golden Apple), integrate crisp pixel art HUD icons, and fix multi-frame brazier animation | blackpirateapps |
-| `75fbc82` | **fix(ui):** rebind jump to space, move urge beacon to B, replace missing glyph emojis with clean typography, and polish void runes | blackpirateapps |
-| `2bdd02f` | **fix(ci):** create export dir and import resources before export | blackpirateapps |
 
 ---
 
-## 3. Corrupted Swamp Biome Expansion (Phase 8 Architecture)
+## 3. Wildlife & Animal Ecosystem (Phase 9 Architecture)
 
-* **World Boundary & Camera Traversal:**
-  * Extended `player.Camera2D.limit_right` from `2880` to **`5760 px`** (9 screen-widths, ~4,100 px of continuous swamp).
-  * Traversal time across the sanctuary is ~41 seconds at standard speed (140 px/s), providing an expansive exploratory feel.
-* **Three Structured Sub-Zones:**
-  1. **Murky Outskirts (`x = 1650..2700`):** Entrance threshold, modular ridges (Ridges 3, 1, 5), violet braziers, and the Corrupted Monolith landmark (`[B] Urge Defend Trial`).
-  2. **Sunken Canopy & Stilt Walkways (`x = 2700..4200`):** Multi-tier elevated platforms (Plat7–Plat10), tall Ridges 4 & 6, ladders (`Ladders/1..4`), waving tattered flags (`Flag.png`), collectible Spirit Coins, and the interactive Corrupted Cache chest (`[E]`, +35 Focus Mana).
-  3. **Abyssal Heart & Void Sanctum (`x = 4200..5760`):** High canopy walkway (Plat11 at $y=215$), tall crags, ancient megalith ruin (Plat14), dense thickets of thorns (`Bushes/1..9`) and reeds (`Grass/1..10`), drifting mist particles, and the Abyssal Relic Altar (`x=5250, y=312`).
-* **Elevated Platforming Rig:**
-  * 14 distinct platform collision surfaces with `one_way_collision = true` for natural vertical jumping.
-  * Rigorously calculated half-pixel centers ensuring 100% surface alignment ($y = 312.0 \pm 0.5\text{px}$) across 64 ground-resting props.
-* **Lighting Rig:**
-  * Expanded to 13 lit braziers (4 warm amber sanctuary braziers + 9 violet/spectral swamp braziers with `#b859f2` tint and normal map flicker).
-  * Pulsing PointLight2D emitters on the Sacred Altar, Corrupted Monolith, Abyssal Relic, and floating Spirit Coins.
-* **Interactive Mechanics:**
-  * **Corrupted Cache Chest:** 4-frame opening sequence with gold & purple starburst explosion and +35 Focus Mana.
-  * **Spirit Coins (6 Perches):** 4-frame rotating 10×10 coins providing +5 Focus Mana and floating feedback label.
-  * **Abyssal Relic Altar:** Proximity interaction `[E]` triggers meditation/defend stance, light flare, purifies 5% blight, and awards +25 Focus Mana.
+* **Hybrid Visual Rig:**
+  * Curated assets from both `Cute_Pixel_Animal_Character_Pack` and `FREE 64 Tiny Animals – 32x32 Pixel Art Pack`.
+  * Total asset footprint: ~264KB, maintaining instant WebAssembly load performance.
+  * 19 fauna instances distributed across 9 screens (5,760 px):
+    * **Sanctuary Forest ($x=0..1200$):** Rabbits (2), Forest Sparrow, Sanctuary Stag, Gentle Doe, Amber Honeybee, Watcher Owl, Amber Fox.
+    * **Transition Mire ($x=1200..1800$):** Thorny Hedgehog, Mire Frog, Emerald Dragonfly.
+    * **Corrupted Swamp ($x=1800..5760$):** Moss Snail, Monolith Void Raven, Shadow Bat, Spectral White Bat, Abyssal Relic Raven.
+    * **Milestone Spirit Guardians:** Golden Spirit Doe (Tier 1 / 1 hr+), Ancient Guardian Bear (Tier 3 / 24 hrs+), Mythic Celestial Drake (Tier 5 / 7 days+).
+* **Locomotion & Micro-Animations:**
+  * `GROUND_HOP`: Realistic parabolic hops (`y = base_y - abs(sin(t * freq)) * hop_h`) with subtle idle breathing squash/stretch and random head turns.
+  * `GROUND_WALK`: Full multi-frame walking cycles for larger fauna like the Guardian Bear.
+  * `PERCHED`: Clamped to rafters and platforms, random look-arounds, blinks, and wing flexes.
+  * `FLY_HOVER`: 2D sinusoidal hovering and glides for bees, dragonflies, bats, and the celestial drake.
+* **Interactive & Reactive Systems:**
+  * **Reactive Flee:** Rapid running past shy creatures triggers quick scurrying or taking flight into the canopy.
+  * **Petting Interaction (`[E]`):** Approaching calmly displays clean `[E] Pet [Creature]` prompt. Interacting emits heart/sparkle particles (`CPUParticles2D`), plays a joyful hop, prints narrative reflection, awards +2.0 Focus Mana, and enters a 15s cooldown.
+  * **Habit Progression Integration:** Milestone spirits automatically appear as the player's clean streak advances through milestone tiers in `HabitManager.gd`.
 
 ---
 
@@ -103,7 +168,7 @@ Exit Code: 0
 * [x] **Phase 6: Multi-Biome World Expansion:** Added Corrupted Swamp biome (2880px world), dynamic position-based parallax crossfade, elevated platforming, weeping willows, violet braziers, and Corrupted Monolith.
 * [x] **Phase 7: Swamp Floor & Ridge Alignment:** All swamp ridges (`3.png`, `5.png`, `1.png`) and props grounded cleanly to $y = 312.0$.
 * [x] **Phase 8: Massive Corrupted Swamp Expansion:** Extended world to 5760px (9 screens), added 8 new platforms, Corrupted Chest (+35 Mana), 6 Spirit Coins (+5 Mana each), Abyssal Relic landmark (+25 Mana, -5% Blight), 6 new violet braziers (13 total), and dense foliage dressing.
+* [x] **Phase 9: Wildlife & Interactive Animal Ecosystem:** Integrated 19 fauna across the world with hybrid animated & 32x32 sprites, reactive fleeing, petting mechanics (+2 Focus Mana), and habit milestone spirit unlocks.
 * [ ] **Next Roadmap Items for Incoming Agents:**
-  * Implement sound effects & atmospheric audio (forest breeze, flame crackle, swamp ambience, rune pop, shield impact, coin chimes).
-  * Add returning animal spirits (deer, owl) that wander the sanctuary as clean streaks grow.
+  * Implement sound effects & atmospheric audio (forest breeze, flame crackle, swamp ambience, rune pop, shield impact, coin chimes, gentle animal chirps).
   * Add water physics or swamp puddles with interactive ripple effects.
